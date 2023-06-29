@@ -7,6 +7,7 @@ import com.banalytics.box.api.integration.webrtc.channel.events.StatusEvent;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.events.EventHistoryThingConfig;
 import com.banalytics.box.module.standard.EventConsumer;
+import com.banalytics.box.module.webrtc.PortalWebRTCIntegrationConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,8 +27,11 @@ public class ForwardEventToConsumerAction extends AbstractAction<ForwardEventToC
     private EventConsumer.Recipient recipient;
 
     @Override
-    protected boolean isFireAction() {
-        return !EventHistoryThingConfig.THING_UUID.equals(eventConsumer.getUuid());
+    protected boolean isFireActionEvent() {
+        return !(
+                EventHistoryThingConfig.THING_UUID.equals(eventConsumer.getUuid())
+                        || PortalWebRTCIntegrationConfiguration.WEB_RTC_UUID.equals(eventConsumer.getUuid())
+        );
     }
 
     @Override

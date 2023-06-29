@@ -11,7 +11,7 @@ import java.util.UUID;
 @Slf4j
 public class PlayAudioAction extends AbstractAction<PlayAudioActionConfiguration> {
     @Override
-    protected boolean isFireAction() {
+    protected boolean isFireActionEvent() {
         return true;
     }
 

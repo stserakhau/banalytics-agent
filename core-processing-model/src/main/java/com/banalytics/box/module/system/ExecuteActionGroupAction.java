@@ -20,7 +20,7 @@ public class ExecuteActionGroupAction extends AbstractAction<ExecuteActionGroupA
     private final List<IAction> actionsGroup = new ArrayList<>();
 
     @Override
-    protected boolean isFireAction() {
+    protected boolean isFireActionEvent() {
         return true;
     }
 

@@ -16,7 +16,7 @@ public class SetTaskStateAction extends AbstractAction<SetTaskStateActionConfigu
     }
 
     @Override
-    protected boolean isFireAction() {
+    protected boolean isFireActionEvent() {
         return true;
     }
 

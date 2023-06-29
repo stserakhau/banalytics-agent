@@ -11,11 +11,11 @@ public abstract class AbstractAction<CONFIGURATION extends IConfiguration> exten
 
     public abstract void doAction(ExecutionContext ctx) throws Exception;
 
-    protected abstract boolean isFireAction();
+    protected abstract boolean isFireActionEvent();
 
     @Override
     public void action(ExecutionContext ctx) throws Exception {
-        if(isFireAction()) {
+        if(isFireActionEvent()) {
             engine.fireEvent(new ActionEvent(
                     nodeType(this.getClass()),
                     this.getUuid(),
@@ -25,7 +25,7 @@ public abstract class AbstractAction<CONFIGURATION extends IConfiguration> exten
             ));
         }
         doAction(ctx);
-        if(isFireAction()) {
+        if(isFireActionEvent()) {
             engine.fireEvent(new ActionEvent(
                     nodeType(this.getClass()),
                     this.getUuid(),

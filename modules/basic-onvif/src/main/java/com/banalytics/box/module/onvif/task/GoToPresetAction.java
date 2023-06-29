@@ -18,7 +18,7 @@ public class GoToPresetAction extends AbstractAction<GoToPresetActionConfigurati
     IAction returnAction;
 
     @Override
-    protected boolean isFireAction() {
+    protected boolean isFireActionEvent() {
         return true;
     }
 

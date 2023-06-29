@@ -18,7 +18,7 @@ public class TaskActionAction extends AbstractAction<TaskActionActionConfigurati
     ITask<?> targetTask;
 
     @Override
-    protected boolean isFireAction() {
+    protected boolean isFireActionEvent() {
         return true;
     }
 
