@@ -191,12 +191,11 @@ public class OnvifGrabberTask extends AbstractStreamingMediaTask<OnvifGrabberTas
         String format = "rtsp";//todo <<<< depends on configuration need to implement cases
         grabber.setFormat(format);
         grabber.setOption("rtbufsize", configuration.rtBufferSizeMb + "M");
-        grabber.setOption("flags", "flush_packets");
-        grabber.setOption("flags", "discardcorrupt");
+//        grabber.setOption("flags", "flush_packets");
+//        grabber.setOption("flags", "discardcorrupt");
         grabber.setImageWidth(mediaParams.width());
         grabber.setImageHeight(mediaParams.height());
-        grabber.setVideoOption("tune", "zerolatency");
-        grabber.setVideoOption("preset", "ultrafast");
+        grabber.setVideoOption("preset", "fast");
         MediaFormat.rtsp.grabberOptions.forEach(grabber::setOption);
 
         if (configuration.fpsControl > 0) {
