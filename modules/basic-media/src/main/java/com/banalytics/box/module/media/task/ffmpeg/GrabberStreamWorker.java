@@ -125,7 +125,7 @@ public class GrabberStreamWorker implements Runnable {
             if (frameFilter != null) {
                 frameFilter.start();
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             task.onProcessingException(e);
             return;
         }
@@ -212,7 +212,7 @@ public class GrabberStreamWorker implements Runnable {
                 task.process(context);
             }
             log.info("{}: Capture stopped.", task.getTitle());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("{}: Capture stopped with error: {}", task.getTitle(), e.getMessage());
             task.onProcessingException(e);
         } finally {
@@ -225,7 +225,7 @@ public class GrabberStreamWorker implements Runnable {
                 frameFilter.close();
             }
             log.info("{}: Grabber stopped.", task.getTitle());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("{}: Grabber stopped with error: {}", task.getTitle(), e.getMessage());
             throw new RuntimeException(e);
         }

@@ -74,7 +74,7 @@ public class SystemOptionsService {
             } else if (SystemUtils.IS_OS_MAC) {
                 return "macos";
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
             return null;
         }
@@ -93,7 +93,7 @@ public class SystemOptionsService {
             } else if (SystemUtils.IS_OS_MAC) {
                 return "macos";
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
             return null;
         }

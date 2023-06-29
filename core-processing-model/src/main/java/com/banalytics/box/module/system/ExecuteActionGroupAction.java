@@ -31,7 +31,7 @@ public class ExecuteActionGroupAction extends AbstractAction<ExecuteActionGroupA
                 SystemThreadsService.execute(this, () -> {
                     try {
                         action.action(executionContext);
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         onWarnException(e);
                     }
                 });
@@ -39,8 +39,17 @@ public class ExecuteActionGroupAction extends AbstractAction<ExecuteActionGroupA
         } else {
             for (IAction action : actionsGroup) {
                 try {
-                    action.action(executionContext);
-                } catch (Exception e) {
+                    SystemThreadsService.execute(this, () -> {
+                        try {
+                            action.action(executionContext);
+                        } catch (Throwable e) {
+                            onWarnException(e);
+                        }
+                    });
+                    if (configuration.executionDelayMillis > 0) {
+                        Thread.sleep(configuration.executionDelayMillis);
+                    }
+                } catch (Throwable e) {
                     onWarnException(e);
                 }
             }
@@ -62,7 +71,7 @@ public class ExecuteActionGroupAction extends AbstractAction<ExecuteActionGroupA
     public void doStart(boolean ignoreAutostartProperty, boolean startChildren) throws Exception {
         actionsGroup.clear();
         if (StringUtils.isNotEmpty(configuration.fireActionsUuids)) {
-            Set<String> uuids = CommonUtils.DEFAULT_OBJECT_MAPPER.readValue(configuration.fireActionsUuids, ConverterTypes.TYPE_SET_STRING);
+            List<String> uuids = CommonUtils.DEFAULT_OBJECT_MAPPER.readValue(configuration.fireActionsUuids, ConverterTypes.TYPE_LIST_STRING);
             for (String uuid : uuids) {
                 actionsGroup.add(
                         engine.findTask(UUID.fromString(uuid))

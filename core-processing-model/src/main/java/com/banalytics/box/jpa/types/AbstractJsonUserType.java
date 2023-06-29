@@ -72,7 +72,7 @@ public abstract class AbstractJsonUserType implements UserType {
             }
 
             return createObject(content);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new HibernateException(e);
         }
     }

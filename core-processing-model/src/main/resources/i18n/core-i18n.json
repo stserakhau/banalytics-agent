@@ -369,6 +369,7 @@
     "com.banalytics.box.module.system.ExecuteActionGroupAction": "Action group",
     "com.banalytics.box.module.system.ExecuteActionGroupAction.title": "Action group: {0}",
     "parallelExecution": "Parallel execution",
+    "executionDelayMillis": "Execution delay (ms)",
     "fireActionsUuids": "Actions",
 
     "com.banalytics.box.module.system.ForwardEventToConsumerAction": "Forward event to consumer",
@@ -740,6 +741,7 @@
     "com.banalytics.box.module.system.ExecuteActionGroupAction": "Група дзеянняў",
     "com.banalytics.box.module.system.ExecuteActionGroupAction.title": "Група дзеянняў: {0}",
     "parallelExecution": "Паралельнае выкананне",
+    "executionDelayMillis": "Затрымка выканання (мс)",
     "fireActionsUuids": "Дзеянні",
 
     "com.banalytics.box.module.system.ForwardEventToConsumerAction": "Перасылка падзеі",
@@ -1112,6 +1114,7 @@
     "com.banalytics.box.module.system.ExecuteActionGroupAction": "Група дій",
     "com.banalytics.box.module.system.ExecuteActionGroupAction.title": "Група дій: {0}",
     "parallelExecution": "Паралельне виконання",
+    "executionDelayMillis": "Затримка виконання (мс)",
     "fireActionsUuids": "Дії",
 
     "com.banalytics.box.module.system.ForwardEventToConsumerAction": "Переслати подію",
@@ -1481,6 +1484,7 @@
     "com.banalytics.box.module.system.ExecuteActionGroupAction": "Aktionsgruppe",
     "com.banalytics.box.module.system.ExecuteActionGroupAction.title": "Aktionsgruppe: {0}",
     "parallelExecution": "Parallele Ausführung",
+    "executionDelayMillis": "Ausführungsverzögerung (ms)",
     "fireActionsUuids": "Aktionen",
 
     "com.banalytics.box.module.system.ForwardEventToConsumerAction": "Ereignis weiterleiten",
@@ -1849,7 +1853,8 @@
 
     "com.banalytics.box.module.system.ExecuteActionGroupAction": "Grupo de acción",
     "com.banalytics.box.module.system.ExecuteActionGroupAction.title": "Grupo de acciones: {0}",
-    "parallelExecution": "ejecución en paralelo",
+    "parallelExecution": "Ejecución en paralelo",
+    "executionDelayMillis": "Retraso de ejecución (ms)",
     "fireActionsUuids": "Comportamiento",
 
     "com.banalytics.box.module.system.ForwardEventToConsumerAction": "Reenviar evento",
@@ -2219,6 +2224,7 @@
     "com.banalytics.box.module.system.ExecuteActionGroupAction": "Groupe d'actions",
     "com.banalytics.box.module.system.ExecuteActionGroupAction.title": "Groupe d'actions : {0}",
     "parallelExecution": "Exécution parallèle",
+    "executionDelayMillis": "Délai d'exécution (ms)",
     "fireActionsUuids": "Actions",
 
     "com.banalytics.box.module.system.ForwardEventToConsumerAction": "Transférer l'événement",
@@ -2588,6 +2594,7 @@
     "com.banalytics.box.module.system.ExecuteActionGroupAction": "Grupa akcji",
     "com.banalytics.box.module.system.ExecuteActionGroupAction.title": "Grupa akcji: {0}",
     "parallelExecution": "Wykonanie równoległe",
+    "executionDelayMillis": "Opóźnienie wykonania (ms)",
     "fireActionsUuids": "działania",
 
     "com.banalytics.box.module.system.ForwardEventToConsumerAction": "Wydarzenie do przodu",
@@ -2960,6 +2967,7 @@
     "com.banalytics.box.module.system.ExecuteActionGroupAction": "Группа действий",
     "com.banalytics.box.module.system.ExecuteActionGroupAction.title": "Группа действий: {0}",
     "parallelExecution": "Параллельное исполнение",
+    "executionDelayMillis": "Задержка выполнения (мс)",
     "fireActionsUuids": "Действия",
 
     "com.banalytics.box.module.system.ForwardEventToConsumerAction": "Переслать событие",

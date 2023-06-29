@@ -52,7 +52,7 @@ public class SingleUserDetailsService implements UserDetailsService, Initializin
                 if (!this.passwordFile.getParentFile().mkdirs() && !this.passwordFile.createNewFile()) {
                     throw new Exception("Can't create password storage");
                 }
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 throw new Exception(passwordFile.getAbsolutePath(), e);
             }
             flushCurrentPasswordToFile();
@@ -99,7 +99,7 @@ public class SingleUserDetailsService implements UserDetailsService, Initializin
     private void flushCurrentPasswordToFile() {
         try (FileWriter fr = new FileWriter(this.passwordFile)) {
             IOUtils.write(this.currentEncodedPassword, fr);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }

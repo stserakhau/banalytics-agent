@@ -48,13 +48,13 @@ public class GoToPresetActionConfiguration extends AbstractConfiguration {
     )
     public String presetToken;
 
-    @UIComponent(index = 40, type = ComponentType.int_input, required = true)
+    @UIComponent(index = 40, type = ComponentType.int_input, required = true, restartOnChange = true)
     public int stunTimeoutSec = 10;
 
-    @UIComponent(index = 50, type = checkbox, required = true)
+    @UIComponent(index = 50, type = checkbox, required = true, restartOnChange = true)
     public boolean returnActionEnabled = false;
 
-    @UIComponent(index = 60, type = ComponentType.int_input, required = true,
+    @UIComponent(index = 60, type = ComponentType.int_input, required = true, restartOnChange = true,
             dependsOn = {"returnActionEnabled"},
             uiConfig = {
                     @UIComponent.UIConfig(name = "enableCondition", value = "''+form.returnActionEnabled === 'true'"),

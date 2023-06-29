@@ -42,7 +42,7 @@ public class OnvifAPIDiscovery implements APIDiscovery {
                     deviceUrl + DEVICE_SERVICE
             ).create(org.onvif.ver10.device.wsdl.Device.class);
             capabilities = d.getCapabilities(List.of(CapabilityCategory.ALL));
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.info("Device '"+deviceUrl+"' doesn't support Onvif.", e);
             return;
 //        } finally {

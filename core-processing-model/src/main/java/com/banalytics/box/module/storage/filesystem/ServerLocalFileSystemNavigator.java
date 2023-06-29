@@ -266,7 +266,7 @@ public class ServerLocalFileSystemNavigator extends AbstractThing<ServerLocalFil
         for (File f : children) {
             try {
                 result.add(FileVO.of(f));
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.warn(e.getMessage(), e);
             }
         }
@@ -284,7 +284,7 @@ public class ServerLocalFileSystemNavigator extends AbstractThing<ServerLocalFil
             recursiveSearch(root, accumulator);
 
             return accumulator;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw e;
         }
     }

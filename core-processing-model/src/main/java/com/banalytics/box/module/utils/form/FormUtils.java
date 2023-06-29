@@ -172,7 +172,7 @@ public class FormUtils {
                         }
                     }
                 }
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
         }

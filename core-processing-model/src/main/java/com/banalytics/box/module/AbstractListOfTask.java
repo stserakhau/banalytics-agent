@@ -80,7 +80,7 @@ public abstract class AbstractListOfTask<CONFIGURATION extends AbstractConfigura
                 t.copyTo(copyTask);
                 _copy.subTasks.add(copyTask);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }

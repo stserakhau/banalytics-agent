@@ -59,7 +59,7 @@ public class SetTaskStateAction extends AbstractAction<SetTaskStateActionConfigu
                     Map<String, Object> conf = DEFAULT_OBJECT_MAPPER.readValue(config, TYPE_NODE_CONFIGURATION);
                     PropertyValuesProvider pvp = (PropertyValuesProvider) engine.buildTask(targetTask.getSelfClassName(), conf, targetTask.parent());
                     return pvp.provideValues(propertyName);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                     return Set.of();
                 }

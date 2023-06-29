@@ -178,7 +178,7 @@ public class SoftwareUpgradeCenterThing extends AbstractThing<SoftwareUpgradeCen
 
         try {
             portalIntegrationThing.sendMessage(message);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("Can't send message to portal.", e);
         }
     }
@@ -294,7 +294,7 @@ public class SoftwareUpgradeCenterThing extends AbstractThing<SoftwareUpgradeCen
                                 receivedModule.getValue()
                         );
                         sendDownloadStatusMessage(ModuleUpdateStatus.downloaded, module, null);
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         allModulesDownloadedSuccessfuly = false;
                         log.error("Module download error: " + module, e);
                         String errorContent = CommonUtils.DEFAULT_OBJECT_MAPPER.writeValueAsString(e.getStackTrace());
@@ -312,7 +312,7 @@ public class SoftwareUpgradeCenterThing extends AbstractThing<SoftwareUpgradeCen
                     softwareUpgradeInProgress = false;
                 }
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("Failure to handle message: " + message, e);
             softwareUpgradeInProgress = false;
         }

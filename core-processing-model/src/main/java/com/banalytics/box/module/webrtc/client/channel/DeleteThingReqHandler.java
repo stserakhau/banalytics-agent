@@ -23,7 +23,7 @@ public class DeleteThingReqHandler implements ChannelRequestHandler {
                 UUID thingUuid = req.getNodeUuid();
                 engine.deleteThing(thingUuid);
                 return res;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 ExceptionMessage error = new ExceptionMessage();
                 error.setRequestId(request.getRequestId());
                 if (e instanceof LocalizedException le) {

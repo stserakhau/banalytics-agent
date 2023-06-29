@@ -74,7 +74,7 @@ public class PlayAudioAction extends AbstractAction<PlayAudioActionConfiguration
             executionTimeout = currentTime + configuration.waitBeforeNextExecution.intervalMillis;
             File audioFile = fileSystem.getLocalFile(configuration.playAudioFile);
             audioPlayer.play(audioFile);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             onProcessingException(e);
         }
         return true;

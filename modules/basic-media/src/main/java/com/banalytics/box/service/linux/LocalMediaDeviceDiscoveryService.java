@@ -42,7 +42,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
                 }
                 fillResolutionFps(entry.getValue());
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.info(e.getMessage());
         }
     }

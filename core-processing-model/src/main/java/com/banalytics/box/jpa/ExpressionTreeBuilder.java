@@ -310,7 +310,7 @@ public class ExpressionTreeBuilder {
     static {
         try {
             ConvertUtils.register(new InetAddressConverter(), InetAddress.class);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }

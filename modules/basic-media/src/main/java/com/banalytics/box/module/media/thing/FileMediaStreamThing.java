@@ -30,7 +30,7 @@ public class FileMediaStreamThing extends AbstractThing<FileMediaStreamThingConf
         try {
             URI uri = new URI(configuration.getSourceUri());
             return uri.toURL().toString();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }

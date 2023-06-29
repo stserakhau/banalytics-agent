@@ -177,7 +177,7 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
                     frame.timestamp = rts + 10;
                 }
                 this.recorder.record(frame);
-            } catch (FrameRecorder.Exception e) {
+            } catch (Throwable e) {
                 onProcessingException(e);
                 long motionTime = this.lastMotionTimestamp - this.motionDetectedTimestamp;
                 long totalTime = now - this.motionDetectedTimestamp;
@@ -258,13 +258,13 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
                                         log.debug("Recording committed: {}", new Date());
                                     });
                                 }
-                            } catch (Exception e) {
+                            } catch (Throwable e) {
                                 log.error("Thumbnail commit failed.", e);
                                 onProcessingException(e);
                             }
                         });
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error("Recording commit failed.", e);
                     onProcessingException(e);
                 }

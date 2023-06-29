@@ -32,7 +32,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
         try {
             avdevice_register_all();
             avutil.av_log_set_level(avutil.AV_LOG_FATAL);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }
@@ -65,7 +65,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
                             result.add(line.toString().trim());
                             line = new StringBuilder();
                         }
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         log.error(e.getMessage(), e);
                     }
                 }
@@ -101,7 +101,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
                 }
                 removedVideoDevices.forEach(key -> videoDevices.remove(key));
 
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.info(e.getMessage());
             }
             for (VideoDevice videoDevice : videoDevices.values()) {
@@ -113,7 +113,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
                     result.clear();
                     execute("dshow", "list_options", "video=" + videoDevice.alternativeName);
                     vda.process(result);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.info(e.getMessage());
                 } finally {
                     videoDevice.videoProperties = vda.videoProperties;
@@ -128,7 +128,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
                     result.clear();
                     execute("dshow", "list_options", "audio=" + audioDevice.alternativeName);
                     ada.process(result);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.info(e.getMessage());
                 } finally {
                     audioDevice.audioProperties = ada.audioProperties;

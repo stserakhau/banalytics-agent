@@ -73,21 +73,22 @@ public class GoToPresetAction extends AbstractAction<GoToPresetActionConfigurati
     public synchronized void doAction(ExecutionContext ctx) throws Exception {
         long now = System.currentTimeMillis();
         if (now > blindTimeout) {
-            blindTimeout = now + configuration.stunTimeoutSec;
+            blindTimeout = now + configuration.stunTimeoutSec * 1000L;
             this.process(ctx);
-        }
-        if (returnAction != null) {
-            SYSTEM_TIMER.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    try {
 
-                        returnAction.action(ctx);
-                    } catch (Exception e) {
-                        onException(e);
+            if (returnAction != null) {
+                SYSTEM_TIMER.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        try {
+
+                            returnAction.action(ctx);
+                        } catch (Throwable e) {
+                            onException(e);
+                        }
                     }
-                }
-            }, configuration.returnDelaySec * 1000L);
+                }, configuration.returnDelaySec * 1000L);
+            }
         }
     }
 

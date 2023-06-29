@@ -221,7 +221,7 @@ public class EngineService implements BoxEngine, InitializingBean {
                     beanFactory,
                     config
             );
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
@@ -353,7 +353,7 @@ public class EngineService implements BoxEngine, InitializingBean {
             for (Consumer<AbstractEvent> consumer : this.eventConsumers) {
                 consumer.accept(event);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }

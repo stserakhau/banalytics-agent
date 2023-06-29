@@ -152,7 +152,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 //            configuration.connectionId = connectionId;
 //            try {
 //                engine.persistPrimaryInstance();
-//            } catch (Exception e) {
+//            } catch (Throwable e) {
 //                log.error(e.getMessage(), e);
 //            }
 //        }
@@ -343,7 +343,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
                 for (String chatId : botConfig.allowedChats.keySet()) {
                     sendMessage(chatId, message);
                 }
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error(e.getMessage(), e);
             }
         } else if (event instanceof StatusEvent se) {
@@ -471,7 +471,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
             try {
                 botConfig = DEFAULT_OBJECT_MAPPER.readValue(botConfigFile, TYPE_BOT_CONFIG);
                 botConfig.telegramBotThing(this);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error(e.getMessage(), e);
             }
         }

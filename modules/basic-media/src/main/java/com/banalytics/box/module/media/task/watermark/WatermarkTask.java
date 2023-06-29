@@ -203,7 +203,7 @@ public class WatermarkTask extends AbstractTask<WatermarkConfig> implements PreP
                     } else {
                         opencv_core.bitwise_or(wmArea, waterMarkMask, wmArea);
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     onException(new Exception("error.decreaseFontSize"));
                     break;
                 }

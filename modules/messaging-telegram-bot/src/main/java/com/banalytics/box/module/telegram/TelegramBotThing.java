@@ -180,7 +180,7 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
                         videoMsg.thumb(thumbnailFile);
                     }
                     bot.execute(videoMsg);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             });
@@ -238,7 +238,7 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
         /*try {
             SendMessage invalidCmdMsg = new SendMessage(null, message.toJson());
             bot.execute(invalidCmdMsg);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             SendMessage invalidCmdMsg = new SendMessage(null, "Error:" + e.getMessage());
             bot.execute(invalidCmdMsg);
         }*/
@@ -328,7 +328,7 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
             try {
                 botConfig = DEFAULT_OBJECT_MAPPER.readValue(botConfigFile, TYPE_BOT_CONFIG);
                 botConfig.telegramBotThing(this);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error(e.getMessage(), e);
             }
         }

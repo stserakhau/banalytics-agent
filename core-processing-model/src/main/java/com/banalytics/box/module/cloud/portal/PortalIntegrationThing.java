@@ -157,7 +157,7 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
                         log.info("\tConnection expired.");
                         connect();
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             }
@@ -237,7 +237,7 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
                 try {
                     portalWsSession.close(CloseStatus.NORMAL);           // close current connection
                     Thread.sleep(2000);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             }
@@ -323,7 +323,7 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
                 AbstractMessage portalMessage;
                 try {// if message not supported with current version of API, then skip this message
                     portalMessage = AbstractMessage.from(payload);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                     return;
                 }
@@ -389,7 +389,7 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
             }
             log.info("Request product registration: environmentUuid='{}'", productUuid);
             this.sendMessage(req);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("Can't send device registration message", e);
         }
     }

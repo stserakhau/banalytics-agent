@@ -296,7 +296,7 @@ public class FilterTreeBuilder {
         try {
             ConvertUtils.register(new InetAddressConverter(), InetAddress.class);
             ConvertUtils.register(new UUIDConverter(), UUID.class);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }

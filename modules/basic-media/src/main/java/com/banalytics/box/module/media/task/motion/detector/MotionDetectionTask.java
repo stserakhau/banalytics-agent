@@ -282,7 +282,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                                     try {
                                         results = imageClassifier.predict(this.getUuid(), Collections.singletonList(clonedColorMat), (float) configuration.confidenceThreshold, (float) configuration.nmsThreshold);
                                         classificationExpirationTimeout = System.currentTimeMillis() + configuration.classificationDelay;
-                                    } catch (Exception e) {
+                                    } catch (Throwable e) {
                                         log.error(e.getMessage(), e);
                                         sendTaskState(e.getMessage());
                                         return;

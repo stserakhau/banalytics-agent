@@ -21,7 +21,7 @@ public class DeleteTaskReqHandler implements ChannelRequestHandler {
             try {
                 UUID taskUuid = req.getNodeUuid();
                 engine.deleteTask(taskUuid);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 res.setResult(e.getMessage());
             }
             return res;

@@ -519,7 +519,7 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
                             ctx.setVar(AbstractEvent.class, event);
                         }
                         a.action(ctx);
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         //todo error event ???
                         log.error(e.getMessage(), e);
                     }

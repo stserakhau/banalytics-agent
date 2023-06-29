@@ -103,7 +103,7 @@ public class DataCleanerJob extends TimerTask {
             }*/
 
             log.debug("Cleanup done.");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }

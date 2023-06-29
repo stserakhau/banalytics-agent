@@ -182,7 +182,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
         } else {
             try {
                 loadSecurityModel();
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error(e.getMessage(), e);
             }
         }
@@ -196,7 +196,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
         clientMap.forEach((txId, rtc) -> {
             try {
                 rtc.stop();
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error(e.getMessage(), e);
             }
         });
@@ -431,7 +431,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                     log.warn("Unknown RTC command: {}", rtcMsg.toJson());
                 }
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("Failure to handle message: " + message, e);
         }
         return null;
@@ -443,7 +443,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
         public void accept(IceCandidate iceCandidate) {
             try {
                 portalIntegrationThing.sendMessage(iceCandidate);
-            } catch (Exception ex) {
+            } catch (Throwable ex) {
                 log.error("can send ice candidate message.", ex);
             }
         }
@@ -469,7 +469,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
             if (client.isMyProfileConnection()) {
                 try {
                     client.sendEvent(event);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             }
@@ -519,7 +519,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
             if (deliveryGranted) {
                 try {
                     client.sendEvent(event);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             }
@@ -793,7 +793,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                     if (rtc.getIdentity().equals(callerAccountEmail)) {
                         try {
                             rtc.stop();
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                             log.error(e.getMessage(), e);
                         }
                     }

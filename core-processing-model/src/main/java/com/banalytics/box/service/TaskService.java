@@ -289,7 +289,7 @@ public class TaskService implements InitializingBean {
                 instancesList.add(instance);
                 log.info(">> Instance loaded: " + instance.getUuid());
                 break;//support only one instance
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error(">> Instance initialization failed: " + (instance == null ? "null" : instance.getUuid()), e);
                 break;
             }
@@ -392,7 +392,7 @@ public class TaskService implements InitializingBean {
         }
         try {
             task.configuration.validate();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             if (clonedConfig != null) {
                 PropertyUtils.copyProperties(task.configuration, clonedConfig);
             }
@@ -497,7 +497,7 @@ public class TaskService implements InitializingBean {
                     } else {
                         throw new RuntimeException("Can't create file: " + newInstanceFile.getAbsolutePath());
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             }
@@ -614,7 +614,7 @@ public class TaskService implements InitializingBean {
         }
         try {
             thing.getConfiguration().validate();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             if (clonedConfig != null) {
                 PropertyUtils.copyProperties(thing.getConfiguration(), clonedConfig);
             }
@@ -648,7 +648,7 @@ public class TaskService implements InitializingBean {
 
                 try {
                     persistPrimaryInstance();
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             });

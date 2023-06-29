@@ -41,7 +41,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
             if (!(this instanceof Singleton)) {
                 configuration.setUuid(uuid);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }
@@ -113,7 +113,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
         } else {
             try {
                 doStop();
-            } catch (Exception ex) {
+            } catch (Throwable ex) {
                 log.error(getSelfClassName() + "(" + getTitle() + "): " + ex.getMessage(), ex);
             }
         }
@@ -129,7 +129,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
         this.stateDescription = null;
         try {
             doInit();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             onException(e);
         }
     }
@@ -162,7 +162,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
                 Thread.sleep(taskInitializationDelay);//delay for system initialization before stop stand available
             }
             sendTaskState();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(getSelfClassName() + "(" + getTitle() + "): " + " initialization error.", e);
             onProcessingException(e);
         }
@@ -186,7 +186,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
             Thread.sleep(500);//delay to free system resources process before immediate start
             state = State.STOPPED;
             sendTaskState();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             onException(e);
             log.error("Shutdown error:" + getSelfClassName() + "(" + getTitle() + ")", e);
         }
@@ -201,7 +201,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
         stop();
         try {// general wait to free resources
             Thread.sleep(500);
-        } catch (InterruptedException e) {
+        } catch (Throwable e) {
             onException(e);
         }
         start(false, true);
@@ -212,7 +212,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
         try {
             PropertyUtils.copyProperties(copy.getConfiguration(), this.configuration);
             ((AbstractTask<CONFIGURATION>) copy).engine = this.engine;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }
@@ -295,7 +295,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
 //                        }
 //                    }
                     return continueProcessing;
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     onException(e);
                 }
             case STARTING:

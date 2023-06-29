@@ -72,7 +72,7 @@ public class CheckPortService {
             // remote port can be opened, this is a listening port on remote machine
             // this port is in use on the remote machine !
             return true;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             // remote port is closed, nothing is running on
             log.error("Open sock error: {}", e.getMessage());
             return false;

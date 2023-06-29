@@ -238,7 +238,7 @@ public class YoloDetectionTask extends AbstractStreamingMediaTask<YoloDetectionC
                                     }
                                 }
                             }
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                             log.error(e.getMessage(), e);
                         } finally {
                             inside = false;
@@ -246,7 +246,7 @@ public class YoloDetectionTask extends AbstractStreamingMediaTask<YoloDetectionC
                     });
                 }
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("Error", e);
         }
 

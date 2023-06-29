@@ -86,7 +86,7 @@ public class Trigger {
                         valid = true;
                         break;
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             }

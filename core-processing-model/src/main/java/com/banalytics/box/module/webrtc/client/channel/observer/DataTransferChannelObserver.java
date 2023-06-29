@@ -130,7 +130,7 @@ public class DataTransferChannelObserver implements RTCDataChannelObserver {
                         getExecutorService(this).submit(() -> {// start sender thread
                             try {
                                 _send(transmissionId);
-                            } catch (Exception e) {
+                            } catch (Throwable e) {
                                 log.error(e.getMessage(), e);
                             } finally {
                                 downloadTransmissionsMap.remove(transmissionId);
@@ -191,7 +191,7 @@ public class DataTransferChannelObserver implements RTCDataChannelObserver {
             long transmissionId = transmissionInfo.transmissionId;
             TrafficControl.INSTANCE.acquireFileTransmissionResource(data.length);
             ChannelsUtils.sendStreamBatch(dataTransferChannel, data, transmissionId, batchIndex);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new Exception("Transmission cancelled " + e.getMessage() + ": " + transmissionInfo.transmissionId);
         }
     }

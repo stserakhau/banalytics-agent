@@ -36,7 +36,7 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
     static {
         try {
             avutil.av_log_set_level(avutil.AV_LOG_ERROR);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }
@@ -237,7 +237,7 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
                 SystemThreadsService.execute(this, () -> {
                     try (frame) {
                         recordFrame(frame, frameRate);
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         onException(e);
                     } finally {
                         sendingFrame = false;

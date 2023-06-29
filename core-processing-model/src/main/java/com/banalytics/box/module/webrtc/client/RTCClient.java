@@ -75,7 +75,7 @@ public class RTCClient implements PeerConnectionObserver {
                 renewMsg.setRequestId(-1);
                 renewMsg.setNewToken(newToken);
                 sendEnvironmentMessage(renewMsg);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error(e.getMessage(), e);
             }
         }
@@ -199,13 +199,13 @@ public class RTCClient implements PeerConnectionObserver {
 
                             try {
                                 sendEnvironmentMessage(authRes);
-                            } catch (Exception e) {
+                            } catch (Throwable e) {
                                 log.error(e.getMessage(), e);
                             }
                         } else {
                             try {
                                 sendAuthenticationRequired(false);
-                            } catch (Exception e) {
+                            } catch (Throwable e) {
                                 log.error(e.getMessage(), e);
                             }
                         }
@@ -240,7 +240,7 @@ public class RTCClient implements PeerConnectionObserver {
                             log.debug("Start to process message async:\n{}", message);
                             try {
                                 executeCommand(request);
-                            } catch (Exception e) {
+                            } catch (Throwable e) {
                                 log.error(e.getMessage(), e);
                             }
                         });
@@ -445,14 +445,14 @@ public class RTCClient implements PeerConnectionObserver {
                     if (response != null) {
                         sendEnvironmentMessage(response);
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     processException(request.getRequestId(), e);
                     log.info(e.getMessage(), e);
                 } finally {
                     UserThreadContext.clear();
                 }
             });
-        } catch (Exception e) {
+        } catch (Throwable e) {
             processException(request.getRequestId(), e);
         }
     }
@@ -480,7 +480,7 @@ public class RTCClient implements PeerConnectionObserver {
         }
         try {
             sendEnvironmentMessage(error);
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             log.error(ex.getMessage(), ex);
         }
     }
@@ -551,7 +551,7 @@ public class RTCClient implements PeerConnectionObserver {
                         "transmission-start;" + consumerUuid + ";" + downloadStream.getMimeType() + ";" + contentSize + ";" + fileResourceId + ";" + transmissionId + ";" + downloadStream.getCacheTtlMillis()
                 );
                 log.info("Transmission of {} started.", file.getName());
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error("Error on file transmission via web rtc", e);
 //                            closeFileChannel();
             }

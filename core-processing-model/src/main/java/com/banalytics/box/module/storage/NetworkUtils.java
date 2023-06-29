@@ -50,7 +50,7 @@ public final class NetworkUtils {
                 log.error("Process returned error code: {}", exitValue);
             }
             return exitValue == 0;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }

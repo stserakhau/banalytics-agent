@@ -74,7 +74,7 @@ public class LocalAudioPlayerThing extends AbstractThing<LocalAudioPlayerThingCo
             t.play(new File("e:\\out\\SysAlert.wav"));
             Thread.sleep(5000);
             t.stop();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }
@@ -93,7 +93,7 @@ public class LocalAudioPlayerThing extends AbstractThing<LocalAudioPlayerThingCo
                 Clip c = (Clip) mixer.getLine(info);
                 c.open(audio);
                 return c;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
         });

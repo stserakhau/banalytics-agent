@@ -146,7 +146,7 @@ public class OnvifGrabberTask extends AbstractStreamingMediaTask<OnvifGrabberTas
                     if (state == State.RUN) {
                         try {
                             ptzState = onvif.ptzState();
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                             log.error(e.getMessage(), e); //if method not supported cancel task
                             cancel();
                         }

@@ -180,7 +180,7 @@ public class SoundDetectionTask extends AbstractTask<SoundDetectionConfig> {
 //                if (soundBuffer.position() >= 2 * 1024) {
 //                    soundBuffer.rewind();
 //                }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             onProcessingException(e);
         }
 

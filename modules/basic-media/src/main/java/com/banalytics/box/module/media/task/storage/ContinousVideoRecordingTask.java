@@ -173,7 +173,7 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
                         engine.fireEvent(evt);
                     });
                     log.info("Recording committed: {}", new Date());
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error("Recording commit failed.", e);
                 }
             });

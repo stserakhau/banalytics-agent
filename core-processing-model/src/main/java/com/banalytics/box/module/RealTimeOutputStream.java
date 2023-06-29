@@ -105,7 +105,7 @@ public class RealTimeOutputStream extends OutputStream {
                 sendTimestamp = now;
                 TrafficControl.INSTANCE.acquireGeneralResource(dataAmount, false);
                 prevDataAmount = dataAmount;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 throw new IOException(e);
             }
             for (MediaConsumer consumer : packetConsumers) {

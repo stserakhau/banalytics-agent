@@ -52,7 +52,7 @@ public abstract class AbstractThing<CONFIGURATION extends IConfiguration> implem
                     configuration.setUuid(uuid);
                 }
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }
@@ -136,7 +136,7 @@ public abstract class AbstractThing<CONFIGURATION extends IConfiguration> implem
         this.stateDescription = null;
         try {
             doInit();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             onProcessingException(e);
         }
     }
@@ -166,7 +166,7 @@ public abstract class AbstractThing<CONFIGURATION extends IConfiguration> implem
                 }
             }
             log.info("Things initialized: {} : {}", getClass(), getUuid());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             onProcessingException(e);
         }
     }
@@ -189,7 +189,7 @@ public abstract class AbstractThing<CONFIGURATION extends IConfiguration> implem
             doStop();
             state = STOPPED;
             sendThingState();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             onProcessingException(e);
         }
     }

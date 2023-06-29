@@ -62,7 +62,7 @@ public class DeviceDiscoveryService {
                         } else {
                             deviceStorage.remove(hostIP);
                         }
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         log.info("Failed check of address", e);
                     }
                 });

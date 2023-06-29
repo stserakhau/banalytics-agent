@@ -165,7 +165,7 @@ public class BrowseFileStorageCommandHandler extends AbstractCommandHandler {
                         .disableWebPagePreview(false)
                         .replyMarkup(keyb));
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             bot.execute(new SendMessage(chatId, "Can't read storage content. Cause: " + e.getMessage()));
         }
     }

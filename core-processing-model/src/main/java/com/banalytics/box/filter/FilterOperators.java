@@ -26,7 +26,7 @@ public enum FilterOperators {
             } else {
                 return false;
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }),
@@ -60,7 +60,7 @@ public enum FilterOperators {
             } else {
                 return false;
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }),
@@ -88,7 +88,7 @@ public enum FilterOperators {
             } else {
                 return values.contains(propertyValue);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }),

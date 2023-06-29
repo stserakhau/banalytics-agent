@@ -86,14 +86,14 @@ public class MediaChannelObserver implements RTCDataChannelObserver, MediaConsum
         try {
             sd.mediaCaptureCallbackSupport.releaseRealTimeVideoStream(sd.streamId, this);
             log.info("Stream stopped: {}", sd.streamId);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
         if (sd.requestedAudio) {
             try {
                 sd.mediaCaptureCallbackSupport.releaseRealTimeAudioStream(sd.streamId, this);
                 log.info("Audio stream {} stopped", sd.streamId);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error(e.getMessage(), e);
             }
         }
@@ -130,7 +130,7 @@ public class MediaChannelObserver implements RTCDataChannelObserver, MediaConsum
             buffer.put(mediaData.data);
             RTCDataChannelBuffer channelBuffer = new RTCDataChannelBuffer(buffer, true);
             ChannelsUtils.send(mediaChannel, channelBuffer);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error(e.getMessage(), e);
         }
     }

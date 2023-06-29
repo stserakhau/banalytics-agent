@@ -171,7 +171,7 @@ public class TrackIpChangingThing extends AbstractThing<TrackIpChangingConfigura
                     for (Thing<?> thing : thingsToRestart) {
                         SystemThreadsService.execute(this, thing::restart);
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     log.error(e.getMessage(), e);
                 }
             }

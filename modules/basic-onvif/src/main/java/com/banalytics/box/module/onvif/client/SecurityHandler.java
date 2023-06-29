@@ -117,7 +117,7 @@ public class SecurityHandler implements SOAPHandler<SOAPMessageContext> {
                     timestamp,
                     Base64.encodeBase64String(SHA1.digest())
             );
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }
