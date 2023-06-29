@@ -23,12 +23,15 @@ public class VideoDevicePropertyAccumulator {
 //                String currentPixelFormat = null;
                 double minFps = 5.0;
                 double maxFps = 15.0;
+                boolean isPixelFormat = false;
                 for (String part : parts) {
                     if (part.startsWith("pixel_format=")) {
 //                        currentPixelFormat = part.substring(13);
+                        isPixelFormat = true;
                     } else if (part.startsWith("vcodec=")) {
 //                        String codec = part.substring(7);
 //                        currentPixelFormat = codec;
+                        isPixelFormat = false;
                     } else if (part.startsWith("s=")) {
                         String resolution = part.substring(2);
                         String[] resParts = resolution.split("x");
@@ -45,8 +48,13 @@ public class VideoDevicePropertyAccumulator {
                         isMaxPart = true;
                     }
                 }
-                configCase.setMinFps(minFps);
-                configCase.setMaxFps(maxFps);
+                if(isPixelFormat) {
+                    configCase.setMinRecommendedFps(minFps);
+                    configCase.setMaxRecommendedFps(maxFps);
+                } else {
+                    configCase.setMinFps(minFps);
+                    configCase.setMaxFps(maxFps);
+                }
                 videoProperties.addPixelFormatResFpsCase(configCase);
             }
         }

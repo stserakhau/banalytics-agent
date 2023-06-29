@@ -17,6 +17,8 @@ public class VideoProperties {
             if(fpsCase.width == resolutionFpsCase.width && fpsCase.height == resolutionFpsCase.height) {
                 fpsCase.setMinFps(Math.min(fpsCase.getMinFps(), resolutionFpsCase.getMinFps()));
                 fpsCase.setMaxFps(Math.max(fpsCase.getMaxFps(), resolutionFpsCase.getMaxFps()));
+                fpsCase.setMinRecommendedFps(Math.min(fpsCase.getMinRecommendedFps(), resolutionFpsCase.getMinRecommendedFps()));
+                fpsCase.setMaxRecommendedFps(Math.max(fpsCase.getMaxRecommendedFps(), resolutionFpsCase.getMaxRecommendedFps()));
                 return;
             }
         }
@@ -28,6 +30,8 @@ public class VideoProperties {
     public static class ResolutionFpsCase {
         int width;
         int height;
+        double minRecommendedFps = 5.0;
+        double maxRecommendedFps = 5.0;
         double minFps = 5.0;
         double maxFps = 5.0;
 

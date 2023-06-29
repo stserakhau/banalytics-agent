@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 import static org.bytedeco.ffmpeg.global.avcodec.*;
 import static org.bytedeco.ffmpeg.global.avutil.AVMEDIA_TYPE_VIDEO;
-import static org.bytedeco.ffmpeg.global.avutil.AV_HWDEVICE_TYPE_DXVA2;
 
 public abstract class AbstractLocalMediaDeviceDiscovery {
     protected Map<String, AudioDevice> audioDevices = new HashMap<>();
@@ -46,7 +45,12 @@ public abstract class AbstractLocalMediaDeviceDiscovery {
                 TreeSet<VideoProperties.ResolutionFpsCase> cases = vd.videoProperties.resolutionFpsCases;
                 List<String> result = new ArrayList<>();
                 for (VideoProperties.ResolutionFpsCase rfc : cases) {
-                    result.add(rfc.getWidth() + "x" + rfc.getHeight() + "/" + rfc.getMinFps() + "-" + rfc.getMaxFps());
+                    String key = rfc.getWidth() + "x" + rfc.getHeight() + "/" + rfc.getMinFps() + "-" + rfc.getMaxFps();
+                    String value = key;
+                    if (rfc.getMinFps() != rfc.getMinRecommendedFps() || rfc.getMaxFps() != rfc.getMaxRecommendedFps()) {
+                        value += " (" + rfc.getMinRecommendedFps() + "-" + rfc.getMaxRecommendedFps() + ")";
+                    }
+                    result.add(key + "~" + value);
                 }
                 return result;
             }
@@ -111,9 +115,10 @@ public abstract class AbstractLocalMediaDeviceDiscovery {
 
     public Set<String> accelerators() {
         return Set.of(
-                "cuvid", "d3d11va","dxva2","libmfx","qsv","vaapi","vdpau"
+                "cuvid", "d3d11va", "dxva2", "libmfx", "qsv", "vaapi", "vdpau"
         );
     }
+
     public Map<String, String> accelerationDecoders() {
         if (videoEncoders.isEmpty()) {
             loadCodecs();

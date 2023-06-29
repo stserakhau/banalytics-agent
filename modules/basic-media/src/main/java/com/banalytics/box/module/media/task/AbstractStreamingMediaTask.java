@@ -455,7 +455,12 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         PortalWebRTCIntegrationConfiguration.QualityProfile qp = config.rtMediaQualityProfile;
         final FFmpegFrameRecorder recorder;
 
-        recorder = new FFmpegFrameRecorder(outputStream, imageWidth, imageHeight);
+        double k = (double)imageHeight / imageWidth;
+
+        int targetWidth = Math.min(imageWidth, 1024);
+        int targetHeight = (int) (targetWidth * k);
+
+        recorder = new FFmpegFrameRecorder(outputStream, targetWidth, targetHeight);
 
         recorder.setFormat(MediaFormat.h264.name());
         recorder.setInterleaved(false);
