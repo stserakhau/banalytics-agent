@@ -1,0 +1,10 @@
+[Unit]
+Description=BanalyticsBox
+
+[Service]
+ExecStart=/opt/banalytics/banalytics-box-start.sh
+User=banalytics-service
+Group=banalytics-service
+
+[Install]
+WantedBy=multi-user.target

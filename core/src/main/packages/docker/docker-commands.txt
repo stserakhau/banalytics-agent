@@ -1,0 +1,12 @@
+TODO
+ need package: apt-get install pulseaudio
+
+TODO
+
+docker start banalytics-box
+
+docker stop banalytics-box
+
+docker logs banalytics-box --follow
+
+docker exec -it banalytics-box /bin/bash

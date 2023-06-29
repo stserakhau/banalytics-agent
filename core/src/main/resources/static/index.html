@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banalytics - Agent</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif
+        }
+
+        body, html {
+            height: 100%;
+            line-height: 1.8;
+        }
+
+        .w3-bar .w3-button {
+            padding: 16px;
+        }
+
+        #resetPinForm {
+            display: none;
+            position: absolute;
+            top: 100px;
+            left: 300px;
+            border: white solid 1px;
+            padding: 10px;
+        }
+
+        #reset-pin {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+    <script src="js/common.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body>
+<div class="w3-container w3-asphalt w3-text-white" style="padding-top: 5%;height: calc(100vh - 105px);overflow:auto;">
+    <form id="loginForm" action="/api/public/authentication/login" method='POST'
+          class="w3-container w3-content" style="max-width:500px">
+        <h3 class="w3-center">
+            <a href="https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox" target="register-agent">
+                <img src="logo.png" width="186" height="59">
+            </a>
+        </h3>
+        <div class="w3-section">
+            <input type="password" name="pin" size="30" class="w3-input w3-border" style="width:100%;"
+                   placeholder="Enter password" required autofocus/><br/>
+        </div>
+        <button class="w3-button w3-block w3-white" type="submit">Log in</button>
+        <div class="w3-section w3-right-align">
+            <span id="reset-pin">Change password &gt;</span>
+        </div>
+    </form>
+</div>
+
+<form id="resetPinForm" action="/api/public/authentication/set-pin" method="post">
+    <input name="oldPin" type="password" placeholder="Old password" required><br/>
+    <br/>
+    <input name="newPin" type="password" placeholder="New password" required><br/>
+    <br/>
+    <input name="newPinConfirm" type="password" placeholder="Confirm new password" required><br/>
+    <br/>
+    <button class="w3-button w3-block w3-white" type="submit">Set new password</button>
+</form>
+
+<footer class="w3-center w3-white w3-padding-32" style="position: absolute; width:100%; bottom:0;height:105px">
+    <a href="https://banalytics.live" class="w3-button w3-white" i18n="powered.by">Powered by Banalytics.live</a>
+    <div class="w3-right-align"
+         style="display: flex;flex-direction: column;width: 200px;position: absolute;right: 10px;top: 13px;">
+        <a href="https://banalytics.live/index.html?layout=knowledge-base.html&anchor=PrivacyPolicy"
+           rel="noopener noreferrer" target="privacy-policy" i18n="privacy.statement">Privacy statement</a>
+        <a href="https://banalytics.live/index.html?layout=knowledge-base.html&anchor=TermsOfUse"
+           rel="noopener noreferrer" target="terms-of-use" i18n="terms.of.use">Terms of use</a>
+        <a href="https://banalytics.live/index.html?layout=knowledge-base.html&anchor=CompanyInformation"
+           rel="noopener noreferrer" target="company-information" i18n="company.information">Company information</a>
+    </div>
+</footer>
+</body>
+</html>

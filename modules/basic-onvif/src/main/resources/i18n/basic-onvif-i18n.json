@@ -1,0 +1,123 @@
+{
+  "en": {
+    "com.banalytics.box.module.onvif.thing.OnvifThing": "Onvif camera",
+    "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Onvif camera ({0})",
+    "streamType": "Stream type",
+    "transportProtocol": "Transport protocol",
+    "overrideRtspPort": "Override RTSP port",
+
+
+    "com.banalytics.box.module.onvif.task.GoToPresetAction": "Go to viewpoint",
+    "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Go to viewpoint: {0}",
+    "presetToken": "Preset",
+    "stunTimeoutSec": "Stun timeout (sec)",
+    "returnActionEnabled": "Return enabled",
+    "returnDelaySec": "Return delay (sec)",
+    "returnActionUuid": "Return action"
+  },
+  "by" : {
+    "com.banalytics.box.module.onvif.thing.OnvifThing": "Камера Onvif",
+    "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Камера Onvif ({0})",
+    "streamType": "Тып плыні",
+    "transportProtocol": "Транспартны пратакол",
+    "overrideRtspPort": "Перавызначыць порт RTSP",
+
+    "com.banalytics.box.module.onvif.task.GoToPresetAction": "Перайсці да пункту гледжання",
+    "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Перайсці да пункту агляду: {0}",
+    "presetToken": "Папярэдняя ўстаноўка",
+    "stunTimeoutSec": "Час чакання аглушэння (с)",
+    "returnActionEnabled": "Вяртанне ўключана",
+    "returnDelaySec": "Затрымка вяртання (с)",
+    "returnActionUuid": "Дзеянне вяртання"
+  },
+  "ua" : {
+    "com.banalytics.box.module.onvif.thing.OnvifThing": "Камера Onvif",
+    "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Камера Onvif ({0})",
+    "streamType": "Тип потоку",
+    "transportProtocol": "Транспортний протокол",
+    "overrideRtspPort": "Перевизначити порт RTSP",
+
+    "com.banalytics.box.module.onvif.task.GoToPresetAction": "Перейти до точки огляду",
+    "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Перейти до точки огляду: {0}",
+    "presetToken": "Попереднє налаштування",
+    "stunTimeoutSec": "Час очікування оглушення (сек)",
+    "returnActionEnabled": "Повернення ввімкнено",
+    "returnDelaySec": "Затримка повернення (сек)",
+    "returnActionUuid": "Дія повернення"
+  },
+  "de" : {
+    "com.banalytics.box.module.onvif.thing.OnvifThing": "Onvif-Kamera",
+    "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Onvif-Kamera ({0})",
+    "streamType": "Stream-Typ",
+    "transportProtocol": "Transportprotokoll",
+    "overrideRtspPort": "RTSP-Port überschreiben",
+
+    "com.banalytics.box.module.onvif.task.GoToPresetAction": "Gehe zum Aussichtspunkt",
+    "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Gehe zum Aussichtspunkt: {0}",
+    "presetToken": "Voreinstellung",
+    "stunTimeoutSec": "Stun-Timeout (Sek.)",
+    "returnActionEnabled": "Rückgabe aktiviert",
+    "returnDelaySec": "Rückgabeverzögerung (Sek.)",
+    "returnActionUuid": "Rückgabeaktion"
+  },
+  "es" : {
+    "com.banalytics.box.module.onvif.thing.OnvifThing": "camara onvif",
+    "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Cámara Onvif ({0})",
+    "streamType": "tipo de transmisión",
+    "transportProtocol": "protocolo de transporte",
+    "overrideRtspPort": "Anular puerto RTSP",
+
+    "com.banalytics.box.module.onvif.task.GoToPresetAction": "ir al mirador",
+    "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Ir al punto de vista: {0}",
+    "presetToken": "Preestablecido",
+    "stunTimeoutSec": "Tiempo de espera de aturdimiento (seg)",
+    "returnActionEnabled": "Retorno habilitado",
+    "returnDelaySec": "Retraso de regreso (seg)",
+    "returnActionUuid": "Acción de devolución"
+  },
+  "fr" : {
+    "com.banalytics.box.module.onvif.thing.OnvifThing": "Caméra onvif",
+    "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Caméra Onvif ({0})",
+    "streamType": "Type de flux",
+    "transportProtocol": "Protocole de transport",
+    "overrideRtspPort": "Remplacer le port RTSP",
+
+    "com.banalytics.box.module.onvif.task.GoToPresetAction": "Aller au point de vue",
+    "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Aller au point de vue : {0}",
+    "presetToken": "Préréglé",
+    "stunTimeoutSec": "Délai d'étourdissement (sec)",
+    "returnActionEnabled": "Retour activé",
+    "returnDelaySec": "Délai de retour (sec)",
+    "returnActionUuid": "Action de retour"
+  },
+  "pl" : {
+    "com.banalytics.box.module.onvif.thing.OnvifThing": "Kamera Onvif",
+    "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Kamera Onvif ({0})",
+    "streamType": "Typ strumienia",
+    "transportProtocol": "Protokół transportowy",
+    "overrideRtspPort": "Zastąp port RTSP",
+
+    "com.banalytics.box.module.onvif.task.GoToPresetAction": "Przejdź do punktu widokowego",
+    "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Przejdź do punktu widokowego: {0}",
+    "presetToken": "Ustawienie wstępne",
+    "stunTimeoutSec": "Limit czasu ogłuszenia (s)",
+    "returnActionEnabled": "Zwrot włączony",
+    "returnDelaySec": "Opóźnienie powrotu (s)",
+    "returnActionUuid": "Zwrot akcji"
+  },
+  "ru" : {
+    "com.banalytics.box.module.onvif.thing.OnvifThing": "Onvif камера",
+    "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Onvif-камера ({0})",
+    "streamType": "Тип потока",
+    "transportProtocol": "Транспортный протокол",
+    "overrideRtspPort": "Переопределить порт RTSP",
+
+    "com.banalytics.box.module.onvif.task.GoToPresetAction": "Перейти к точке обзора",
+    "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Перейти к точке обзора: {0}",
+    "presetToken": "Предустановка",
+    "stunTimeoutSec": "Тайм-аут оглушения (сек)",
+    "returnActionEnabled": "Возврат включен",
+    "returnDelaySec": "Задержка возврата (сек)",
+    "returnActionUuid": "Действие возврата"
+  }
+}

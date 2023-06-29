@@ -1,0 +1,21 @@
+[Unit]
+Description=Banalytics Box
+#Requires=docker.service
+After=syslog.target network.target, pulseaudio.target
+
+[Service]
+SuccessExitStatus=143
+
+Type=simple
+
+Restart=always
+RestartSec=5
+
+ExecStart=$BANALYTICS_HOME/start.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User=$me
+Group=$me
+
+[Install]
+WantedBy=default.target

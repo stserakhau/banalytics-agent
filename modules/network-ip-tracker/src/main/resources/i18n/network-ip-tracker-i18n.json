@@ -1,0 +1,66 @@
+{
+  "en": {
+    "com.banalytics.box.module.network.TrackIpChangingThing": "Device IP tracker",
+    "com.banalytics.box.module.network.TrackIpChangingThing.title": "Device IP tracker ({0})",
+    "networkInterface": "Network interface",
+    "scanTimeSec": "Track ip interval (sec)",
+    "hostReachableTimeoutSec": "Host reachable timeout (sec)",
+    "pingThreadPoolSize": "Ping pool size"
+  },
+  "by" : {
+    "com.banalytics.box.module.network.TrackIpChangingThing": "ІР-адсочвальнік прылады",
+    "com.banalytics.box.module.network.TrackIpChangingThing.title": "ІР-адсочвальнік прылады ({0})",
+    "networkInterface": "Сеткавы інтэрфейс",
+    "scanTimeSec": "Інтэрвал IP-адсочвання (с)",
+    "hostReachableTimeoutSec": "Тайм-аўт даступнасці хоста (с)",
+    "pingThreadPoolSize": "Памер пінг-пулу"
+  },
+  "ua" : {
+    "com.banalytics.box.module.network.TrackIpChangingThing": "ІР-трекер пристрою",
+    "com.banalytics.box.module.network.TrackIpChangingThing.title": "ІР-трекер пристрою ({0})",
+    "networkInterface": "Мережевий інтерфейс",
+    "scanTimeSec": "Інтервал відстеження ip (сек)",
+    "hostReachableTimeoutSec": "Час очікування доступу до хосту (сек)",
+    "pingThreadPoolSize": "Розмір пулу пінгів"
+  },
+  "de" : {
+    "com.banalytics.box.module.network.TrackIpChangingThing": "Geräte-IP-Tracker",
+    "com.banalytics.box.module.network.TrackIpChangingThing.title": "Geräte-IP-Tracker ({0})",
+    "networkInterface": "Netzwerkschnittstelle",
+    "scanTimeSec": "Track-IP-Intervall (Sek.)",
+    "hostReachableTimeoutSec": "Zeitlimit für Erreichbarkeit des Hosts (Sek.)",
+    "pingThreadPoolSize": "Ping-Pool-Größe"
+  },
+  "es" : {
+    "com.banalytics.box.module.network.TrackIpChangingThing": "Rastreador de IP del dispositivo",
+    "com.banalytics.box.module.network.TrackIpChangingThing.title": "Rastreador de IP del dispositivo ({0})",
+    "networkInterface": "Interfaz de red",
+    "scanTimeSec": "Seguimiento de intervalo de ip (seg)",
+    "hostReachableTimeoutSec": "Tiempo de espera accesible del host (seg)",
+    "pingThreadPoolSize": "Tamaño del grupo de ping"
+  },
+  "fr" : {
+    "com.banalytics.box.module.network.TrackIpChangingThing": "Suivi IP de l'appareil",
+    "com.banalytics.box.module.network.TrackIpChangingThing.title": "Suivi IP de l'appareil ({0})",
+    "networkInterface": "Interface réseau",
+    "scanTimeSec": "Intervalle IP de suivi (sec)",
+    "hostReachableTimeoutSec": "Délai d'attente de l'hôte accessible (sec)",
+    "pingThreadPoolSize": "Taille du pool de ping"
+  },
+  "pl" : {
+    "com.banalytics.box.module.network.TrackIpChangingThing": "Śledzenie adresu IP urządzenia",
+    "com.banalytics.box.module.network.TrackIpChangingThing.title": "Śledzenie adresu IP urządzenia ({0})",
+    "networkInterface": "Interfejs sieciowy",
+    "scanTimeSec": "Interwał śledzenia ip (s)",
+    "hostReachableTimeoutSec": "Limit czasu osiągalności hosta (s)",
+    "pingThreadPoolSize": "Wielkość puli pingów"
+  },
+  "ru" : {
+    "com.banalytics.box.module.network.TrackIpChangingThing": "IP-трекер устройства",
+    "com.banalytics.box.module.network.TrackIpChangingThing.title": "IP-трекер устройства ({0})",
+    "networkInterface": "Сетевой интерфейс",
+    "scanTimeSec": "Интервал сканирования ip (сек)",
+    "hostReachableTimeoutSec": "Тайм-аут достижимости хоста (сек)",
+    "pingThreadPoolSize": "Размер пинг-пула"
+  }
+}

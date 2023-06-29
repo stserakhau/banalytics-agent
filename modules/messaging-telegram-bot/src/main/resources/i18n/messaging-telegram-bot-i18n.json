@@ -1,0 +1,50 @@
+{
+  "en": {
+    "com.banalytics.box.module.telegram.TelegramBotThing": "Telegram bot integration",
+    "com.banalytics.box.module.telegram.TelegramBotThing.title": "Telegram bot integration ({0})",
+    "botToken": "Bot token",
+    "pinCode": "Authorization code"
+  },
+  "by" : {
+    "com.banalytics.box.module.telegram.TelegramBotThing": "Інтэграцыя бота Telegram",
+    "com.banalytics.box.module.telegram.TelegramBotThing.title": "Інтэграцыя бота Telegram ({0})",
+    "botToken": "Маркер бота",
+    "pinCode": "Код аўтарызацыі"
+  },
+  "ua" : {
+    "com.banalytics.box.module.telegram.TelegramBotThing": "Інтеграція бота Telegram",
+    "com.banalytics.box.module.telegram.TelegramBotThing.title": "Інтеграція бота Telegram ({0})",
+    "botToken": "Маркер бота",
+    "pinCode": "Код авторизації"
+  },
+  "de" : {
+    "com.banalytics.box.module.telegram.TelegramBotThing": "Telegram-Bot-Integration",
+    "com.banalytics.box.module.telegram.TelegramBotThing.title": "Telegram-Bot-Integration ({0})",
+    "botToken": "Bot-Token",
+    "pinCode": "Autorisierungscode"
+  },
+  "es" : {
+    "com.banalytics.box.module.telegram.TelegramBotThing": "Integración de bots de Telegram",
+    "com.banalytics.box.module.telegram.TelegramBotThing.title": "Integración de bots de Telegram ({0})",
+    "botToken": "ficha de bot",
+    "pinCode": "Código de Autorización"
+  },
+  "fr" : {
+    "com.banalytics.box.module.telegram.TelegramBotThing": "Intégration du bot Telegram",
+    "com.banalytics.box.module.telegram.TelegramBotThing.title": "Intégration du bot Telegram ({0})",
+    "botToken": "Jeton de robot",
+    "pinCode": "Code d'autorisation"
+  },
+  "pl" : {
+    "com.banalytics.box.module.telegram.TelegramBotThing": "Integracja bota telegramu",
+    "com.banalytics.box.module.telegram.TelegramBotThing.title": "Integracja bota telegramu ({0})",
+    "botToken": "Token bota",
+    "pinCode": "Kod autoryzacji"
+  },
+  "ru" : {
+    "com.banalytics.box.module.telegram.TelegramBotThing": "Интеграция с ботом Telegram",
+    "com.banalytics.box.module.telegram.TelegramBotThing.title": "Интеграция с ботом Telegram ({0})",
+    "botToken": "Токен бота",
+    "pinCode": "Код авторизации"
+  }
+}

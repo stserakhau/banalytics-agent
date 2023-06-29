@@ -1,0 +1,6 @@
+keytool -genkeypair -alias banalytics -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore banalytics.p12 -validity 3650
+
+keytool -genkeypair -alias banalytics -keyalg RSA -keysize 2048 -keystore banalytics.jks -validity 3650
+
+keytool -importkeystore -srckeystore banalytics.jks -destkeystore banalytics.p12 -deststoretype pkcs12
+

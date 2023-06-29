@@ -1,0 +1,22 @@
+# https://www.freedesktop.org/software/systemd/man/systemd.service.html
+[Unit]
+Description=Banalytics Box
+#Requires=docker.service
+After=syslog.target network.target pulseaudio.service
+
+[Service]
+SuccessExitStatus=143
+
+Type=simple
+
+Restart=on-failure
+
+ExecStart=/home/banalytics/banalytics-box/start.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+#todo replace User with placeholder
+User=banalytics
+Group=root
+
+[Install]
+WantedBy=default.target

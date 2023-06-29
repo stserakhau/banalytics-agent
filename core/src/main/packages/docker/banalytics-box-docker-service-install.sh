@@ -1,0 +1,1 @@
+sudo cp ./banalytics-box.service /etc/systemd/

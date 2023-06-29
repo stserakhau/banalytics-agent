@@ -1,0 +1,122 @@
+{
+  "en": {
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Image classifier",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Image classifier ({0})",
+    "workers": "Workers",
+    "subModelName": "Model",
+    "computationConfig": "Computation configuration",
+    "yolo.worker.processedCount": "Processed: {0}",
+    "yolo.worker.totalProcessingTime": "Total processing time: {0} ms",
+    "yolo.worker.waitTime": "Wait time (min / avg / max) ms = {0} / {1} / {2}",
+    "yolo.worker.processingTime": "Processing time (min / avg / max) ms = {0} / {1} / {2}",
+
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask": "Media stream object classifier",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask.title": "Media stream object classifier",
+    "detectionDelay": "Classification delay"
+  },
+  "by" : {
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Класіфікатар відарысаў",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Класіфікатар відарысаў ({0})",
+    "workers": "Workers",
+    "subModelName": "Мадэль",
+    "computationConfig": "Канфігурацыя вылічэньня",
+    "yolo.worker.processedCount": "Апрацавана: {0}",
+    "yolo.worker.totalProcessingTime": "Агульны час апрацоўкі: {0} мс",
+    "yolo.worker.waitTime": "Час чакання (мін / сярэдні / макс) мс = {0} / {1} / {2}",
+    "yolo.worker.processingTime": "Час апрацоўкі (мін / сярэдні / макс) мс = {0} / {1} / {2}",
+
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask": "Класіфікатар аб'ектаў медыяпатоку",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask.title": "Класіфікатар аб'ектаў медыяпатоку",
+    "detectionDelay": "Classification delay"
+  },
+  "ua" : {
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Класифікатор зображень",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Класифікатор зображень ({0})",
+    "workers": "Workers",
+    "subModelName": "Модель",
+    "computationConfig": "Конфігурація обчислення",
+    "yolo.worker.processedCount": "Оброблено: {0}",
+    "yolo.worker.totalProcessingTime": "Загальний час обробки: {0} мс",
+    "yolo.worker.waitTime": "Час очікування (мін / середній / макс) мс = {0} / {1} / {2}",
+    "yolo.worker.processingTime": "Час обробки (хв. / середнє / макс.) мс = {0} / {1} / {2}",
+
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask": "Класифікатор об'єктів медіапотоку",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask.title": "Класифікатор об'єктів медіапотоку",
+    "detectionDelay": "Classification delay"
+  },
+  "de" : {
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Bildklassifizierer",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Bildklassifizierer ({0})",
+    "workers": "Workers",
+    "subModelName": "Modell",
+    "detectionDelay": "Klassifikationsverzögerung",
+    "yolo.worker.processedCount": "Verarbeitet: {0}",
+    "yolo.worker.totalProcessingTime": "Gesamtverarbeitungszeit: {0} ms",
+    "yolo.worker.waitTime": "Wartezeit (Min / Durchschnitt / Max) ms = {0} / {1} / {2}",
+    "yolo.worker.processingTime": "Verarbeitungszeit (Min / Durchschnitt / Max) ms = {0} / {1} / {2}",
+
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask": "Media-Stream-Objektklassifizierer",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask.title": "Media-Stream-Objektklassifizierer",
+    "detectionDelay": "Classification delay"
+  },
+  "es" : {
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "clasificador de imagen",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Clasificador de imágenes ({0})",
+    "workers": "Workers",
+    "subModelName": "Modelo",
+    "computationConfig": "Configuración de cómputo",
+    "yolo.worker.processedCount": "Procesado: {0}",
+    "yolo.worker.totalProcessingTime": "Tiempo total de procesamiento: {0} ms",
+    "yolo.worker.waitTime": "Tiempo de espera (mín./promedio/máx.) ms = {0}/{1}/{2}",
+    "yolo.worker.processingTime": "Tiempo de procesamiento (mín./promedio/máx.) ms = {0}/{1}/{2}",
+
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask": "Clasificador de objetos de flujo de medios",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask.title": "Clasificador de objetos de flujo de medios",
+    "detectionDelay": "Retraso de clasificación"
+  },
+  "fr" : {
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Classificateur d'images",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Classificateur d'images ({0})",
+    "workers": "Workers",
+    "subModelName": "Modèle",
+    "computationConfig": "Configuration de calcul",
+    "yolo.worker.processedCount": "Traité : {0}",
+    "yolo.worker.totalProcessingTime": "Temps de traitement total : {0} ms",
+    "yolo.worker.waitTime": "Temps d'attente (min / moy / max) ms = {0} / {1} / {2}",
+    "yolo.worker.processingTime": "Temps de traitement (min / moy / max) ms = {0} / {1} / {2}",
+
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask": "Classificateur d'objets de flux multimédia",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask.title": "Classificateur d'objets de flux multimédia",
+    "detectionDelay": "Délai de classement"
+  },
+  "pl" : {
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Klasyfikator obrazu",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Klasyfikator obrazu ({0})",
+    "workers": "Workers",
+    "subModelName": "Model",
+    "detectionDelay": "Opóźnienie klasyfikacji",
+    "yolo.worker.processedCount": "Przetworzone: {0}",
+    "yolo.worker.totalProcessingTime": "Całkowity czas przetwarzania: {0} ms",
+    "yolo.worker.waitTime": "Czas oczekiwania (min / śr / maks) ms = {0} / {1} / {2}",
+    "yolo.worker.processingTime": "Czas przetwarzania (min / śr / maks) ms = {0} / {1} / {2}",
+
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask": "Klasyfikator obiektów strumienia multimediów",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask.title": "Klasyfikator obiektów strumienia multimediów",
+    "detectionDelay": "Classification delay"
+  },
+  "ru" : {
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Классификатор изображений",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Классификатор изображений ({0})",
+    "workers": "Workers",
+    "subModelName": "Модель",
+    "computationConfig": "Конфигурация вычислений",
+    "yolo.worker.processedCount": "Обработано: {0}",
+    "yolo.worker.totalProcessingTime": "Общее время обработки: {0} мс",
+    "yolo.worker.waitTime": "Время ожидания (мин./сред./макс.) мс = {0}/{1}/{2}",
+    "yolo.worker.processingTime": "Время обработки (мин./сред./макс.) мс = {0}/{1}/{2}",
+
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask": "Классификатор объектов медиапотока",
+    "com.banalytics.box.module.media.task.classification.yolo.YoloDetectionTask.title": "Классификатор объектов медиапотока",
+    "detectionDelay": "Classification delay"
+  }
+}
