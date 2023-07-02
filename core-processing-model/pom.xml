@@ -21,7 +21,7 @@
     -->
     <dependencies>
         <dependency>
-            <groupId>com.banalytics</groupId>
+            <groupId>com.banalytics.box</groupId>
             <artifactId>banalytics-integration</artifactId>
             <version>${banalytics.integration.version}</version>
         </dependency>
