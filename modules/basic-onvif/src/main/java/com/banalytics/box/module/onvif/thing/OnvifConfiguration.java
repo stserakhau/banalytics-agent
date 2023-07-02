@@ -62,9 +62,6 @@ public class OnvifConfiguration extends AbstractConfiguration implements IUuid {
     )
     public Integer overrideRtspPort;
 
-    @UIComponent(index = 90, type = ComponentType.text_input, required = false)
-    public String position = "";
-
 //    @UIComponent(index = 90, type = ComponentType.drop_down, required = true, restartOnChange = true)
 //    public TimeType timeType = TimeType.LOCAL_UTC;
 //
