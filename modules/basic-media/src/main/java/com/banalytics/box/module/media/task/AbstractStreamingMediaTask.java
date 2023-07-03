@@ -224,7 +224,8 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
                 FrameGrabber grabber = getGrabber();
                 aspectRatio = grabber.getAspectRatio();
             }
-            boolean isSyncWrite = isAudio || sourceFrame.keyFrame && (!isAllKeyFrames() || frameNum % 30 == 0);
+            boolean synchronouseMediaWrite = portalWebRTCIntegrationThing.getConfiguration().synchronousMediaStream;
+            boolean isSyncWrite = synchronouseMediaWrite || isAudio || sourceFrame.keyFrame && (!isAllKeyFrames() || frameNum % 30 == 0);
             if (isSyncWrite) {
                 recordFrame(sourceFrame, frameRate);
             } else {

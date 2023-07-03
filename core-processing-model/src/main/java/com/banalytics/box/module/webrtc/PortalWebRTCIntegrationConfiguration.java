@@ -58,6 +58,12 @@ public class PortalWebRTCIntegrationConfiguration extends AbstractConfiguration 
             })
     public QualityProfile rtMediaQualityProfile = QualityProfile.HIGH;
 
+    @UIComponent(index = 90, type = checkbox, required = true,
+            uiConfig = {
+                    @UIComponent.UIConfig(name = "show-empty", value = "false")
+            })
+    public boolean synchronousMediaStream = false;
+
     public enum QualityStrategy {
         STATIC, DYNAMIC
     }
