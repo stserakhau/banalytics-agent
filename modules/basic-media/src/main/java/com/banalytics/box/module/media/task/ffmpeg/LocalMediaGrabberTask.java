@@ -187,6 +187,7 @@ public class LocalMediaGrabberTask extends AbstractStreamingMediaTask<LocalMedia
             grabber.setFrameRate(fps);
             grabber.setVideoOption("preset", "ultrafast");
             grabber.setVideoOption("tune", "zerolatency");
+            grabber.setOption("threads", "1");
         }
 
         if (StringUtils.isNotEmpty(audioDevice)) {

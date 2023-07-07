@@ -170,7 +170,9 @@ public class SimpleRTSPGrabberTask extends AbstractStreamingMediaTask<SimpleRTSP
         grabber.setOption("rtbufsize", configuration.rtBufferSizeMb + "M");
 //        grabber.setOption("flags", "flush_packets");
 //        grabber.setOption("flags", "discardcorrupt");
-        grabber.setVideoOption("preset", "fast");
+        grabber.setVideoOption("preset", "ultrafast");
+        grabber.setVideoOption("tune", "zerolatency");
+        grabber.setOption("threads", "1");
         mediaFormat.grabberOptions.forEach(grabber::setOption);
 
         if (configuration.fpsControl > 0) {

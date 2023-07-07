@@ -195,7 +195,9 @@ public class OnvifGrabberTask extends AbstractStreamingMediaTask<OnvifGrabberTas
 //        grabber.setOption("flags", "discardcorrupt");
         grabber.setImageWidth(mediaParams.width());
         grabber.setImageHeight(mediaParams.height());
-        grabber.setVideoOption("preset", "fast");
+        grabber.setVideoOption("preset", "ultrafast");
+        grabber.setVideoOption("tune", "zerolatency");
+        grabber.setOption("threads", "1");
         MediaFormat.rtsp.grabberOptions.forEach(grabber::setOption);
 
         if (configuration.fpsControl > 0) {
