@@ -19,6 +19,8 @@ public abstract class AbstractWebRTCMessage extends AbstractMessage {
     public Long fromAccountId;
     public String fromAccountEmail;
 
+    public boolean webConnection;
+
     public AbstractWebRTCMessage(MessageType type) {
         super(type);
     }
