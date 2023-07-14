@@ -42,4 +42,4 @@ However, Banalytics is not only a media server. [It is more](https://banalytics.
 
 
 
-We are ready to play with your team over different interesting features for integration to your infrastructure ;)
+We are ready to collaborate with your team over different interesting features for integration to your infrastructure ;)
