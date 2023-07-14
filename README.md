@@ -31,11 +31,14 @@ However, Banalytics is not only a media server. [It is more](https://banalytics.
 - WhatsApp integration (available for agents marked as Dev environment - draft implementation)
 https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box_core
 
-# What's inside banalytics console ?
+# What's inside banalytics ?
 - Audit log
 - User/Group based security with external management of the access to the functions
+- Event manager & actions
+- Integration with embedded audio system
 - Flex & Open map dashboards
 - Simple Web RTC dialer
+- etc
 
 
 
