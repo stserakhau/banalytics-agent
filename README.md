@@ -1,6 +1,6 @@
 # What is Banalytics box agent
 
-Agent of the distributed scada platform.
+Agent of the distributed open source scada platform.
 
 Is Banalytics a media server? Well, for specific usage - yes. Like a media server, Banalytics software installed on a computer or network device allows storing, managing, and streaming multimedia content to various client devices. As a media server, Banalytis software allows organizing storage for multimedia files. Banalytics software provides user management and sharing capabilities.
 
