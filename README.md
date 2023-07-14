@@ -1,4 +1,4 @@
-# What is Banalytics box agent
+# [What is Banalytics box agent](https://banalytics.live)
 
 Agent of the distributed open source scada platform.
 
@@ -8,7 +8,7 @@ However, Banalytics is not only a media server. [It is more](https://banalytics.
 
 
 
-# How to use
+# [How to use](https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox)
 
 **Five steps before play starts:**
 1. Sign in https://console.banalytics.live
@@ -17,25 +17,25 @@ However, Banalytics is not only a media server. [It is more](https://banalytics.
 4. Register the UUID of the installer agent in Banalytics console.
 5. Wait some time while the agent downloads the default set of the plugins and restart.
 6. Try to configure your free toy.
-   
-[More details here](https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox)
+
 
 # Modules 
 
-- Banalytics core
-- Image classification
-- Media server
-- Network IP tracker
-- Onvif integration
-- Telegram integration
-- WhatsApp integration (available for agents marked as Dev environment - draft implementation)
-https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box_core
+- [Banalytics core](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box_core)
+- [Image classification](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_image-classification-yolo)
+- [Media server](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_basic-media)
+- [Network IP tracker](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_network-ip-tracker)
+- [Onvif integration](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_basic-onvif)
+- [Telegram integration](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_telegram-bot)
+- [WhatsApp integration (available for agents marked as Dev environment - draft implementation)](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_whatsapp-bot)
+
 
 # What's inside banalytics ?
 - Audit log
-- User/Group based security with external management of the access to the functions
-- Event manager & actions
-- Integration with embedded audio system
+- [User/Group based security with external management of the access to the functions](https://banalytics.live/?layout=knowledge-base.html&anchor=PortalWebRTCIntegrationThing)
+- [Event manager & actions](https://banalytics.live/?layout=knowledge-base.html&anchor=EventManagerThing)
+- [Integration with embedded audio system](https://banalytics.live/?layout=knowledge-base.html&anchor=LocalAudioPlayerThing)
+- [Publishing cameras to public access](https://banalytics.live/?layout=knowledge-base.html&anchor=integrate-camera-to-site)
 - Flex & Open map dashboards
 - Simple Web RTC dialer
 - etc
