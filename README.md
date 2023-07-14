@@ -42,4 +42,8 @@ However, Banalytics is not only a media server. [It is more](https://banalytics.
 
 
 
-We are ready to collaborate with your team over different interesting features for integration to your infrastructure ;)
+We are ready to collaborate with your team over different interesting features for integration to your infrastructure.
+
+Contacts:
+- https://www.linkedin.com/in/sergei-terehov-1563b8198/
+- https://www.linkedin.com/in/irina-terekhova-b96a0511/
