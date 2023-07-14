@@ -28,7 +28,7 @@ However, Banalytics is not only a media server. [It is more](https://banalytics.
 - Network IP tracker
 - Onvif integration
 - Telegram integration
--  WhatsApp integration (available for agents marked as Dev environment)
+- WhatsApp integration (available for agents marked as Dev environment - draft implementation)
 https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box_core
 
 # What's inside banalytics console ?
