@@ -47,3 +47,9 @@ We are ready to collaborate with your team over different interesting features f
 Contacts:
 - https://www.linkedin.com/in/sergei-terehov-1563b8198/
 - https://www.linkedin.com/in/irina-terekhova-b96a0511/
+
+Related greate projects:
+- [devopvoid](https://github.com/devopvoid/webrtc-java)
+- [Bytedeco](http://bytedeco.org/)
+- [YoloV7](https://github.com/WongKinYiu/yolov7)
+- [Apache Software Foundation](https://www.apache.org/)
