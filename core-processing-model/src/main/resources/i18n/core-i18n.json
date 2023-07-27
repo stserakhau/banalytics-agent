@@ -170,7 +170,6 @@
     "comp.portal-wrtc-integration.share.account": "Account share",
     "comp.portal-wrtc-integration.share.account.new": "New account share",
     "comp.portal-wrtc-integration.share.account.placeholder": "Enter email address for sharing",
-    "comp.portal-wrtc-integration.share.account.notes": "<i>* See purchasing details in pricing and features</i>",
 
     "comp.portal-wrtc-integration.share.userGroup": "User group",
     "comp.portal-wrtc-integration.share.userGroup.new": "New user group",
@@ -179,8 +178,8 @@
 
     "comp.portal-wrtc-integration.share.public": "Public share",
     "comp.portal-wrtc-integration.share.public.new": "New public share",
-    "comp.portal-wrtc-integration.share.public.placeholder": "Domain pattern",
-    "comp.portal-wrtc-integration.share.public.notes": "<i>Examples:</i><ul><li>mysite.abc - for domain</li><li>localhost</li><li>null - when html content opened as file in browser</li></ul><br><i>See purchasing details in pricing and features</i>",
+    "comp.portal-wrtc-integration.share.public.placeholder": "Domain name",
+    "comp.portal-wrtc-integration.share.public.notes": "<i>Examples:</i><ul><li>mysite.abc - for domain</li><li>localhost</li><li>null - when html content opened as file in browser</li></ul>",
     "comp.portal-wrtc-integration.share.public.token": "Token of {0}",
     "comp.portal-wrtc-integration.share.public.title": "Connection details: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Token:</b> <span style='user-select: all;'>{0}</span><br><b>Server Uuid:</b> <span style='user-select: all;'>{1}</span><br><b>Device Uuid:</b> <span style='user-select: all;'>{2}</span>",
@@ -551,7 +550,6 @@
     "comp.portal-wrtc-integration.share.account": "Доля ўліковага запісу",
     "comp.portal-wrtc-integration.share.account.new": "Новая доля ўліковага запісу",
     "comp.portal-wrtc-integration.share.account.placeholder": "Увядзіце адрас электроннай пошты для абагульвання",
-    "comp.portal-wrtc-integration.share.account.notes": "<i>* Глядзіце дэталі пакупкі ў цэнах і характарыстыках</i>",
 
     "comp.portal-wrtc-integration.share.userGroup": "Група карыстальнікаў",
     "comp.portal-wrtc-integration.share.userGroup.new": "Новая група карыстальнікаў",
@@ -560,8 +558,8 @@
 
     "comp.portal-wrtc-integration.share.public": "Агульны доступ",
     "comp.portal-wrtc-integration.share.public.new": "Новы публічны доступ",
-    "comp.portal-wrtc-integration.share.public.placeholder": "Шаблон дамена",
-    "comp.portal-wrtc-integration.share.public.notes": "<i>Прыклады: mysite.abc </i><br><i>Падрабязныя звесткі аб пакупцы глядзіце ў цэнах і характарыстыках</i>",
+    "comp.portal-wrtc-integration.share.public.placeholder": "Даменнае імя",
+    "comp.portal-wrtc-integration.share.public.notes": "<i>Прыклады: mysite.abc </i>",
     "comp.portal-wrtc-integration.share.public.token": "Маркер {0}",
     "comp.portal-wrtc-integration.share.public.title": "Падрабязнасці злучэння: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Маркер:</b> <span style='user-select: all;'>{0}</span><br><b>Uuid сервера:</b> <span style='user-select: all;'>{1}</span><br><b>Uuid прылады:</b> <span style='user-select : all;'>{2}</span>",
@@ -924,7 +922,6 @@
     "comp.portal-wrtc-integration.share.account": "Спільний доступ до облікового запису",
     "comp.portal-wrtc-integration.share.account.new": "Новий спільний доступ до облікового запису",
     "comp.portal-wrtc-integration.share.account.placeholder": "Введіть електронну адресу для спільного використання",
-    "comp.portal-wrtc-integration.share.account.notes": "<i>* Перегляньте деталі придбання в цінах і функціях</i>",
 
     "comp.portal-wrtc-integration.share.userGroup": "Група користувачів",
     "comp.portal-wrtc-integration.share.userGroup.new": "Нова група користувачів",
@@ -933,8 +930,8 @@
 
     "comp.portal-wrtc-integration.share.public": "Загальний доступ",
     "comp.portal-wrtc-integration.share.public.new": "Новий публічний спільний доступ",
-    "comp.portal-wrtc-integration.share.public.placeholder": "Шаблон домену",
-    "comp.portal-wrtc-integration.share.public.notes": "<i>Приклади: mysite.abc </i><br><i>Детальні відомості про придбання див. у цінах і функціях</i>",
+    "comp.portal-wrtc-integration.share.public.placeholder": "Доменне ім'я",
+    "comp.portal-wrtc-integration.share.public.notes": "<i>Приклади: mysite.abc </i>",
     "comp.portal-wrtc-integration.share.public.token": "Маркер {0}",
     "comp.portal-wrtc-integration.share.public.title": "Деталі підключення: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Маркер:</b> <span style='user-select: all;'>{0}</span><br><b>Uuid сервера:</b> <span style='user-select: all;'>{1}</span><br><b>Uuid пристрою:</b> <span style='user-select : all;'>{2}</span>",
@@ -1298,7 +1295,6 @@
     "comp.portal-wrtc-integration.share.account": "Kontofreigabe",
     "comp.portal-wrtc-integration.share.account.new": "Neue Kontofreigabe",
     "comp.portal-wrtc-integration.share.account.placeholder": "E-Mail-Adresse zum Teilen eingeben",
-    "comp.portal-wrtc-integration.share.account.notes": "<i>* Siehe Kaufdetails in Preisen und Funktionen</i>",
 
     "comp.portal-wrtc-integration.share.userGroup": "Benutzergruppe",
     "comp.portal-wrtc-integration.share.userGroup.new": "Neue Benutzergruppe",
@@ -1307,8 +1303,8 @@
 
     "comp.portal-wrtc-integration.share.public": "Öffentliche Freigabe",
     "comp.portal-wrtc-integration.share.public.new": "Neue öffentliche Freigabe",
-    "comp.portal-wrtc-integration.share.public.placeholder": "Domänenmuster",
-    "comp.portal-wrtc-integration.share.public.notes": "<i>Beispiele: mysite.abc </i><br><i>Kaufdetails finden Sie in den Preisen und Funktionen</i>",
+    "comp.portal-wrtc-integration.share.public.placeholder": "Domainname",
+    "comp.portal-wrtc-integration.share.public.notes": "<i>Beispiele: mysite.abc </i>",
     "comp.portal-wrtc-integration.share.public.token": "Token von {0}",
     "comp.portal-wrtc-integration.share.public.title": "Verbindungsdetails: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Token:</b> <span style='user-select: all;'>{0}</span><br>< b>Server-Uuid:</b> <span style='user-select: all;'>{1}</span><br><b>Geräte-Uuid:</b> <span style='user-select : all;'>{2}</span>",
@@ -1669,7 +1665,6 @@
     "comp.portal-wrtc-integration.share.account": "Cuenta compartida",
     "comp.portal-wrtc-integration.share.account.new": "Nueva cuenta compartida",
     "comp.portal-wrtc-integration.share.account.placeholder": "Ingrese la dirección de correo electrónico para compartir",
-    "comp.portal-wrtc-integration.share.account.notes": "<i>* Ver detalles de compra en precios y funciones</i>",
 
     "comp.portal-wrtc-integration.share.userGroup": "Grupo de usuarios",
     "comp.portal-wrtc-integration.share.userGroup.new": "Nuevo grupo de usuarios",
@@ -1678,8 +1673,8 @@
 
     "comp.portal-wrtc-integration.share.public": "Compartir público",
     "comp.portal-wrtc-integration.share.public.new": "Nuevo recurso compartido público",
-    "comp.portal-wrtc-integration.share.public.placeholder": "Patrón de dominio",
-    "comp.portal-wrtc-integration.share.public.notes": "<i>Ejemplos: mysite.abc </i><br><i>Ver detalles de compra en precios y características</i>",
+    "comp.portal-wrtc-integration.share.public.placeholder": "Nombre de dominio",
+    "comp.portal-wrtc-integration.share.public.notes": "<i>Ejemplos: mysite.abc </i>",
     "comp.portal-wrtc-integration.share.public.token": "Token de {0}",
     "comp.portal-wrtc-integration.share.public.title": "Detalles de la conexión: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Token:</b> <span style='user-select: all;'>{0}</span><br>< b>Uuid del servidor:</b> <span style='user-select: all;'>{1}</span><br><b>Dispositivo Uuid:</b> <span style='user-select : all;'>{2}</span>",
@@ -2040,7 +2035,6 @@
     "comp.portal-wrtc-integration.share.account": "Partage de compte",
     "comp.portal-wrtc-integration.share.account.new": "Nouveau partage de compte",
     "comp.portal-wrtc-integration.share.account.placeholder": "Entrez l'adresse e-mail pour le partage",
-    "comp.portal-wrtc-integration.share.account.notes": "<i>* Voir les détails d'achat dans les prix et les fonctionnalités</i>",
 
     "comp.portal-wrtc-integration.share.userGroup": "Groupe d'utilisateurs",
     "comp.portal-wrtc-integration.share.userGroup.new": "Nouveau groupe d'utilisateurs",
@@ -2049,8 +2043,8 @@
 
     "comp.portal-wrtc-integration.share.public": "Partage public",
     "comp.portal-wrtc-integration.share.public.new": "Nouveau partage public",
-    "comp.portal-wrtc-integration.share.public.placeholder": "Modèle de domaine",
-    "comp.portal-wrtc-integration.share.public.notes": "<i>Exemples: monsite.abc </i><br><i>Voir les détails d'achat dans les prix et les fonctionnalités</i>",
+    "comp.portal-wrtc-integration.share.public.placeholder": "Nom de domaine",
+    "comp.portal-wrtc-integration.share.public.notes": "<i>Exemples: monsite.abc </i>",
     "comp.portal-wrtc-integration.share.public.token": "Jeton de {0}",
     "comp.portal-wrtc-integration.share.public.title": "Détails de connexion: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Jeton:</b> <span style='user-select: all;'>{0}</span><br>< b>Uuid du serveur:</b> <span style='user-select: all;'>{1}</span><br><b>Uuid de l'appareil:</b> <span style='user-select: all;'>{2}</span>",
@@ -2411,7 +2405,6 @@
     "comp.portal-wrtc-integration.share.account": "Udział konta",
     "comp.portal-wrtc-integration.share.account.new": "Nowy udział w koncie",
     "comp.portal-wrtc-integration.share.account.placeholder": "Wprowadź adres e-mail do udostępniania",
-    "comp.portal-wrtc-integration.share.account.notes": "<i>* Zobacz szczegóły zakupu w cenach i funkcjach</i>",
 
     "comp.portal-wrtc-integration.share.userGroup": "Grupa użytkowników",
     "comp.portal-wrtc-integration.share.userGroup.new": "Nowa grupa użytkowników",
@@ -2420,8 +2413,8 @@
 
     "comp.portal-wrtc-integration.share.public": "Udział publiczny",
     "comp.portal-wrtc-integration.share.public.new": "Nowy udział publiczny",
-    "comp.portal-wrtc-integration.share.public.placeholder": "Wzorzec domeny",
-    "comp.portal-wrtc-integration.share.public.notes": "<i>Przykłady: mysite.abc </i><br><i>Zobacz szczegóły zakupu w cenach i funkcjach</i>",
+    "comp.portal-wrtc-integration.share.public.placeholder": "Nazwa domeny",
+    "comp.portal-wrtc-integration.share.public.notes": "<i>Przykłady: mysite.abc </i>",
     "comp.portal-wrtc-integration.share.public.token": "Token {0}",
     "comp.portal-wrtc-integration.share.public.title": "Szczegóły połączenia: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Token:</b> <span style='user-select: all;'>{0}</span><br>< b>UID serwera:</b> <span style='user-select: all;'>{1}</span><br><b>UID urządzenia:</b> <span style='user-select : all;'>{2}</span>",
@@ -2782,7 +2775,6 @@
     "comp.portal-wrtc-integration.share.account": "Общий доступ к учетной записи",
     "comp.portal-wrtc-integration.share.account.new": "Новый общий доступ к учетной записи",
     "comp.portal-wrtc-integration.share.account.placeholder": "Введите адрес электронной почты для обмена",
-    "comp.portal-wrtc-integration.share.account.notes": "<i>* Подробнее о покупке см. в ценах и функциях</i>",
 
     "comp.portal-wrtc-integration.share.userGroup": "Группа пользователей",
     "comp.portal-wrtc-integration.share.userGroup.new": "Новая группа пользователей",
@@ -2791,8 +2783,8 @@
 
     "comp.portal-wrtc-integration.share.public": "Общий ресурс",
     "comp.portal-wrtc-integration.share.public.new": "Новый общий ресурс",
-    "comp.portal-wrtc-integration.share.public.placeholder": "Шаблон домена",
-    "comp.portal-wrtc-integration.share.public.notes": "<i>Примеры: mysite.abc </i><br><i>Подробности о покупке см. в ценах и функциях</i>",
+    "comp.portal-wrtc-integration.share.public.placeholder": "Имя домена",
+    "comp.portal-wrtc-integration.share.public.notes": "<i>Примеры: mysite.abc </i>",
     "comp.portal-wrtc-integration.share.public.token": "Токен {0}",
     "comp.portal-wrtc-integration.share.public.title": "Сведения о соединении: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Токен:</b> <span style='user-select: all;'>{0}</span><br>< b>Uuid сервера:</b> <span style='user-select: all;'>{1}</span><br><b>Uuid устройства:</b> <span style='user-select : all;'>{2}</span>",
