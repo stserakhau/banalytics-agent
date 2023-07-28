@@ -271,9 +271,6 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                             }
                         }
                         if (now > classificationExpirationTimeout) {
-//                            synchronized (this.classificationResults) {
-//                                this.classificationResults.clear();
-//                            }
                             if (configuration.motionTriggerMode == MOTION_AND_CLASSIFIER && imageClassifier != null && targetMotionDetected && !insideClassificator) {
                                 insideClassificator = true;
                                 UMat clonedColorMat = colorFrame.clone();
@@ -303,6 +300,12 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                                         }
                                     }
                                 });
+                            } else {
+                                if (now > classificationExpirationTimeout + 1000) {
+                                    synchronized (this.classificationResults) {
+                                        this.classificationResults.clear();
+                                    }
+                                }
                             }
                         }
                         if (configuration.drawDetections) {

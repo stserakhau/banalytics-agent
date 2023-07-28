@@ -137,9 +137,9 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
                 double skf = skfCnt / (double) ttlfCnt;
                 double load = TrafficControl.INSTANCE.bandwidthLoad();
                 log.info("Bandwidth load: {} Skipped frames: {}/{} ({})", load, skfCnt, ttlfCnt, skf);
-                if (skf > 0.2 && load > 1) {
+                if (skf > 0.3 && load > 1) {
                     increaseQuality = -2;
-                } else if (skf > 0.15 || load > 0.8) {
+                } else if (skf > 0.2 || load > 0.8) {
                     increaseQuality = -1;
                 } else if (load < 0.7) {
                     increaseQuality = 1;

@@ -181,7 +181,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
         sendTaskState();
 
         try {
-            Thread.sleep(200);//delay to stop process
+            Thread.sleep(50);
             doStop();
             Thread.sleep(500);//delay to free system resources process before immediate start
             state = State.STOPPED;

@@ -135,83 +135,93 @@ public class GrabberStreamWorker implements Runnable {
         try {
             SYSTEM_TIMER.schedule(streamControlJob, 10000, 5000);
             log.info("{}: Capture started. Task state: {}", task.getTitle(), task.state);
-            while (task.state == RUN) {
-                if (fpsMeasurementCounter > 3) {
-                    long measurementEndTime = System.currentTimeMillis();
-                    double realFrameRate = fpsMeasurementCounter / ((measurementEndTime - measurementStartTime) / 1000.0);
-                    pushRTFpsVal(realFrameRate);
-                    fpsMeasurementCounter = 0;
-                    measurementStartTime = measurementEndTime;
-                }
-                context.clear();
-                if(task instanceof OnvifGrabberTask onvifGrabber){
-                    if(onvifGrabber.ptzState!=null) {
-                        context.setVar(Onvif.PTZ.class, onvifGrabber.ptzState);
+            Frame frame = null;
+            try {
+                while (task.state == RUN) {
+                    if (fpsMeasurementCounter > 3) {
+                        long measurementEndTime = System.currentTimeMillis();
+                        double realFrameRate = fpsMeasurementCounter / ((measurementEndTime - measurementStartTime) / 1000.0);
+                        pushRTFpsVal(realFrameRate);
+                        fpsMeasurementCounter = 0;
+                        measurementStartTime = measurementEndTime;
                     }
-                }
-                if (frameRateControlTime > 0) {//only for file play case
-                    Thread.sleep(frameRateControlTime);
-                }
-                Frame frame;
-
-                frame = grabber.grabFrame();
-                if (frame == null) {
-                    throw new Exception("Null frame received. Media stream stopped. Restarting task '" + task.getTitle() + "' via " + task.configuration.restartOnFailure);
-                }
-                frame.timestamp = grabber.getTimestamp();
-
-                if (previousFrameTimestamp == frame.timestamp) {
-                    task.sendTaskState("Frozen frame detected");
-                }
-                previousFrameTimestamp = frame.timestamp;
-
-                if (this.useFpsDelay > 0) {
-                    Thread.sleep(this.useFpsDelay);
-                }
-
-                int imageWidth = grabber.getImageWidth();
-                if (imageWidth == 0) {
-                    continue;
-                }
-                if (previousFrameWidth != -1) {
-                    if (imageWidth != previousFrameWidth) {
-                        throw new Exception("Frame size changed " + previousFrameWidth + "-> " + imageWidth + " pix. Restarting job: " + task.getTitle());
+                    context.clear();
+                    if (task instanceof OnvifGrabberTask onvifGrabber) {
+                        if (onvifGrabber.ptzState != null) {
+                            context.setVar(Onvif.PTZ.class, onvifGrabber.ptzState);
+                        }
                     }
-                }
-
-                if (getInstance().isShowBanalyticsWatermark()) {
-                    banalyticsWatermarkPreprocessor.preProcess(frame);
-                }
-
-                previousFrameWidth = imageWidth;
-                lastFrameReceivedTime = System.currentTimeMillis();
-
-                boolean videoFrame = frame.getTypes().contains(Frame.Type.VIDEO);
-                boolean videoKeyFrame = frame.keyFrame && videoFrame;
-
-                if (videoFrame) {
-                    videoFrameCounter++;
-                    fpsMeasurementCounter++;
-
-                    if (frameFilter != null) {
-                        frameFilter.push(frame);
-                        frame = frameFilter.pull();
+                    if (frameRateControlTime > 0) {//only for file play case
+                        Thread.sleep(frameRateControlTime);
                     }
-                } else {
-                    audioFrameCounter++;
+
+                    frame = grabber.grabFrame();
+                    if (frame == null) {
+                        throw new Exception("Null frame received. Media stream stopped. Restarting task '" + task.getTitle() + "' via " + task.configuration.restartOnFailure);
+                    }
+                    frame.timestamp = grabber.getTimestamp();
+
+                    if (previousFrameTimestamp == frame.timestamp) {
+                        task.sendTaskState("Frozen frame detected");
+                    }
+                    previousFrameTimestamp = frame.timestamp;
+
+                    if (this.useFpsDelay > 0) {
+                        Thread.sleep(this.useFpsDelay);
+                    }
+
+                    int imageWidth = grabber.getImageWidth();
+                    if (imageWidth == 0) {
+                        continue;
+                    }
+                    if (previousFrameWidth != -1) {
+                        if (imageWidth != previousFrameWidth) {
+                            throw new Exception("Frame size changed " + previousFrameWidth + "-> " + imageWidth + " pix. Restarting job: " + task.getTitle());
+                        }
+                    }
+
+                    if (getInstance().isShowBanalyticsWatermark()) {
+                        banalyticsWatermarkPreprocessor.preProcess(frame);
+                    }
+
+                    previousFrameWidth = imageWidth;
+                    lastFrameReceivedTime = System.currentTimeMillis();
+
+                    boolean videoFrame = frame.getTypes().contains(Frame.Type.VIDEO);
+                    boolean videoKeyFrame = frame.keyFrame && videoFrame;
+
+                    final Frame grabbedFrame;
+                    if (videoFrame) {
+                        videoFrameCounter++;
+                        fpsMeasurementCounter++;
+
+                        if (frameFilter != null) {
+                            frameFilter.push(frame);
+                            grabbedFrame = frameFilter.pull();
+                        } else {
+                            grabbedFrame = frame;
+                        }
+                    } else {
+                        grabbedFrame = frame;
+                        audioFrameCounter++;
+                    }
+
+                    context.setVar(Frame.class, grabbedFrame);
+                    context.setVar(FrameGrabber.class, grabber);
+                    context.setVar(VIDEO_KEY_FRAME, videoKeyFrame);
+                    context.setVar(SOURCE_TASK_UUID, task.getUuid());
+                    context.setVar(CALCULATED_FRAME_RATE, avgFps());
+
+                    task.onFrameReceived(frame, videoKeyFrame, avgFps());
+
+                    task.process(context);
                 }
-
-                context.setVar(Frame.class, frame);
-                context.setVar(FrameGrabber.class, grabber);
-                context.setVar(VIDEO_KEY_FRAME, videoKeyFrame);
-                context.setVar(SOURCE_TASK_UUID, task.getUuid());
-                context.setVar(CALCULATED_FRAME_RATE, avgFps());
-
-                task.onFrameReceived(frame, videoKeyFrame, avgFps());
-
-                task.process(context);
+                log.info("{}: Capture stopped.", task.getTitle());
+            } finally {
+                if (frame != null) {
+                    frame.close();
+                }
             }
-            log.info("{}: Capture stopped.", task.getTitle());
         } catch (Throwable e) {
             log.error("{}: Capture stopped with error: {}", task.getTitle(), e.getMessage());
             task.onProcessingException(e);
