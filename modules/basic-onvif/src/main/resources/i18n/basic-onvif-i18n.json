@@ -13,7 +13,10 @@
     "stunTimeoutSec": "Stun timeout (sec)",
     "returnActionEnabled": "Return enabled",
     "returnDelaySec": "Return delay (sec)",
-    "returnActionUuid": "Return action"
+    "returnActionUuid": "Return action",
+
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction": "Reboot Onvif device",
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Reboot Onvif device: {0}"
   },
   "by" : {
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Камера Onvif",
@@ -28,7 +31,10 @@
     "stunTimeoutSec": "Час чакання аглушэння (с)",
     "returnActionEnabled": "Вяртанне ўключана",
     "returnDelaySec": "Затрымка вяртання (с)",
-    "returnActionUuid": "Дзеянне вяртання"
+    "returnActionUuid": "Дзеянне вяртання",
+
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction": "Перазагрузіць прыладу Onvif",
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Перазагрузіць прыладу Onvif: {0}"
   },
   "ua" : {
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Камера Onvif",
@@ -43,7 +49,10 @@
     "stunTimeoutSec": "Час очікування оглушення (сек)",
     "returnActionEnabled": "Повернення ввімкнено",
     "returnDelaySec": "Затримка повернення (сек)",
-    "returnActionUuid": "Дія повернення"
+    "returnActionUuid": "Дія повернення",
+
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction": "Перезавантажити пристрій Onvif",
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Перезавантажити пристрій Onvif: {0}"
   },
   "de" : {
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Onvif-Kamera",
@@ -58,7 +67,10 @@
     "stunTimeoutSec": "Stun-Timeout (Sek.)",
     "returnActionEnabled": "Rückgabe aktiviert",
     "returnDelaySec": "Rückgabeverzögerung (Sek.)",
-    "returnActionUuid": "Rückgabeaktion"
+    "returnActionUuid": "Rückgabeaktion",
+
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction": "Onvif-Gerät neu starten",
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Onvif-Gerät neu starten: {0}"
   },
   "es" : {
     "com.banalytics.box.module.onvif.thing.OnvifThing": "camara onvif",
@@ -73,7 +85,10 @@
     "stunTimeoutSec": "Tiempo de espera de aturdimiento (seg)",
     "returnActionEnabled": "Retorno habilitado",
     "returnDelaySec": "Retraso de regreso (seg)",
-    "returnActionUuid": "Acción de devolución"
+    "returnActionUuid": "Acción de devolución",
+
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction": "Reiniciar dispositivo Onvif",
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Reiniciar dispositivo Onvif: {0}"
   },
   "fr" : {
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Caméra onvif",
@@ -88,7 +103,10 @@
     "stunTimeoutSec": "Délai d'étourdissement (sec)",
     "returnActionEnabled": "Retour activé",
     "returnDelaySec": "Délai de retour (sec)",
-    "returnActionUuid": "Action de retour"
+    "returnActionUuid": "Action de retour",
+
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction": "Redémarrer l'appareil Onvif",
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Redémarrer l'appareil Onvif: {0}"
   },
   "pl" : {
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Kamera Onvif",
@@ -103,7 +121,10 @@
     "stunTimeoutSec": "Limit czasu ogłuszenia (s)",
     "returnActionEnabled": "Zwrot włączony",
     "returnDelaySec": "Opóźnienie powrotu (s)",
-    "returnActionUuid": "Zwrot akcji"
+    "returnActionUuid": "Zwrot akcji",
+
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction": "Uruchom ponownie urządzenie Onvif",
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Uruchom ponownie urządzenie Onvif: {0}"
   },
   "ru" : {
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Onvif камера",
@@ -118,6 +139,9 @@
     "stunTimeoutSec": "Тайм-аут оглушения (сек)",
     "returnActionEnabled": "Возврат включен",
     "returnDelaySec": "Задержка возврата (сек)",
-    "returnActionUuid": "Действие возврата"
+    "returnActionUuid": "Действие возврата",
+
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction": "Перезагрузить устройство Onvif",
+    "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Перезагрузить устройство Onvif: {0}"
   }
 }

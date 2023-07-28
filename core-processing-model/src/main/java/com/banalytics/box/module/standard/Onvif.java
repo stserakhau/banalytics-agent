@@ -19,6 +19,8 @@ public interface Onvif {
 
     PTZ ptzState() throws Exception ;
 
+    String reboot();
+
     public record MediaParams(int width, int height) {
     }
 

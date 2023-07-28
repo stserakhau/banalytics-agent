@@ -409,6 +409,11 @@ public class OnvifThing extends AbstractThing<OnvifConfiguration> implements Onv
         );
     }
 
+    @Override
+    public String reboot() {
+        return onvif.device().systemReboot();
+    }
+
     public void gotoHome() {
         log.info("Goto home");
         onvif.ptz().gotoHomePosition(
