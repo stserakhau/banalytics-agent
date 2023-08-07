@@ -8,7 +8,9 @@ import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.text.StringSubstitutor;
 
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -36,6 +38,22 @@ public class ConnectionStateEvent extends AbstractEvent {
             }
     )
     public String email;
+
+    @Override
+    public String textView() {
+        return StringSubstitutor.replace(
+                """
+                *${ct} / ${state}:* ${email}
+                tx: ${txId}
+                """,
+                Map.of(
+                        "ct", this.connectionType,
+                        "email", this.getEmail(),
+                        "state", this.getState(),
+                        "txId", this.getTransactionId()
+                )
+        );
+    }
 
     public ConnectionStateEvent() {
         super(MessageType.EVT_CONNECTION_STATE);

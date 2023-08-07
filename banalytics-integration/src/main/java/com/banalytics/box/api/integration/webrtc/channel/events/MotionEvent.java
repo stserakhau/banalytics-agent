@@ -7,10 +7,9 @@ import com.banalytics.box.api.integration.webrtc.channel.NodeDescriptor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.text.StringSubstitutor;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -54,7 +53,21 @@ public class MotionEvent extends AbstractEvent {
     )
     public String[] classes;
 
-
+    @Override
+    public String textView() {
+        return StringSubstitutor.replace(
+                """
+                        Motion detected: ${source}
+                        *Areas:* ${area}
+                        *Classes:* ${classes}
+                        """,
+                Map.of(
+                        "source", this.getNodeTitle(),
+                        "area", Arrays.toString(this.zones),
+                        "classes", Arrays.toString(classes)
+                )
+        );
+    }
 
     public MotionEvent() {
         super(MessageType.EVT_MOTION);

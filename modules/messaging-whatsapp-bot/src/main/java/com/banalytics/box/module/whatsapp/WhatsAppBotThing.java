@@ -15,10 +15,7 @@ import com.banalytics.box.service.AppForkJoinWorkerThreadFactory;
 import com.banalytics.box.service.SystemThreadsService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import it.auties.whatsapp.api.DisconnectReason;
-import it.auties.whatsapp.api.QrHandler;
-import it.auties.whatsapp.api.SocketEvent;
-import it.auties.whatsapp.api.Whatsapp;
+import it.auties.whatsapp.api.*;
 import it.auties.whatsapp.controller.Store;
 import it.auties.whatsapp.listener.Listener;
 import it.auties.whatsapp.model.contact.Contact;
@@ -28,8 +25,10 @@ import it.auties.whatsapp.model.message.button.ButtonsResponseMessage;
 import it.auties.whatsapp.model.message.model.Message;
 import it.auties.whatsapp.model.message.model.MessageContainer;
 import it.auties.whatsapp.model.message.model.MessageKey;
+import it.auties.whatsapp.model.message.standard.DocumentMessage;
 import it.auties.whatsapp.model.message.standard.TextMessage;
 import it.auties.whatsapp.model.message.standard.VideoMessage;
+import it.auties.whatsapp.model.signal.auth.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,8 +44,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
 
 import static com.banalytics.box.api.integration.utils.CommonUtils.DEFAULT_OBJECT_MAPPER;
 import static com.banalytics.box.module.State.RUN;
@@ -58,7 +59,7 @@ import static com.banalytics.box.module.whatsapp.handlers.AuthorizeCommandHandle
  */
 @Slf4j
 @Order(DATA_EXCHANGE)
-public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> implements EventConsumer, Listener, Singleton {
+public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> implements EventConsumer, Listener {
     private Whatsapp whatsapp;
     private File botConfigFile;
     private File botQrCodeFile;
@@ -67,6 +68,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
     private final Map<String, String> lastCommandMap = new HashMap<>();
     private final AuthorizeCommandHandler authorizeCommandHandler;
 
+
     private void registerHandler(CommandHandler commandHandler) {
         commandHandlerMap.put(commandHandler.getCommand(), commandHandler);
     }
@@ -74,14 +76,15 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
     public WhatsAppBotThing(BoxEngine engine) {
         super(engine);
         registerHandler(this.authorizeCommandHandler = new AuthorizeCommandHandler(this));
-        registerHandler(new HomeCommandHandler(this));
-        registerHandler(new QuickActionCommandHandler(this));
+        registerHandler(new LogoutActionCommandHandler(this));
+//        registerHandler(new HomeCommandHandler(this));
+//        registerHandler(new QuickActionCommandHandler(this));
         registerHandler(new VideoShotAllCommandHandler(this, engine));
     }
 
     @Override
     public Object uniqueness() {
-        return configuration.getUuid();
+        return configuration.alias;
     }
 
     @Override
@@ -101,20 +104,30 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 
             AppForkJoinWorkerThreadFactory factory = new AppForkJoinWorkerThreadFactory(Whatsapp.class.getClassLoader());
             ForkJoinPool myCommonPool = new ForkJoinPool(3, factory, null, false);
-//            CompletableFuture.runAsync(()->{}, myCommonPool);
-            var whatsapp = Whatsapp
-                    .webBuilder()
-                    .newConnection()
-                    .socketExecutor(myCommonPool)
-                    .build();
-            whatsapp.store().qrHandler(QrHandler.toFile(path -> {
-                        botQrCodeFile = path.toFile();
-                    }))
-                    .addListener(this)
-                    .name("Banalytics WhatsApp Integration with " + engine.getEnvironmentUUID());
-
+            CompletableFuture.runAsync(()->{}, myCommonPool);
             log.info("Starting");
-            whatsapp.connect().join();
+            var connection = Whatsapp
+                    .webBuilder()
+                    .newConnection(configuration.alias);
+
+            Optional<Whatsapp> opt = connection.registered();
+            if (opt.isPresent()) {
+                opt.get()
+                        .addListener(this)
+                        .connect()
+                        .join();
+            } else {
+                connection
+                        .name("Banalytics WhatsApp Integration with " + engine.getEnvironmentUUID())
+//                    .socketExecutor(myCommonPool)
+                        .unregistered(QrHandler.toFile(path -> {
+                            botQrCodeFile = path.toFile();
+                        }))
+                        .addListener(this)
+                        .connect()
+                        .join();
+            }
+
             log.info("Stopped");
         });
     }
@@ -180,7 +193,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
             return;
         }
 
-        String senderId = info.senderJid().user();
+        String senderId = receiver.user();
         cache.putIfAbsent(senderId, sender);
         boolean authorized = isFromMe || StringUtils.isEmpty(configuration.pinCode) || botConfig.isAuthorized(senderId);
         String message = null;
@@ -188,7 +201,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
         if (msg instanceof ButtonsResponseMessage br) {
             message = br.buttonId();
         } else if (msg instanceof TextMessage tm) {
-            message = tm.text();
+            message = tm.text().trim();
         }
         if (message == null) {
             return;
@@ -276,15 +289,8 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 
     @Override
     public String getTitle() {
-        return getSelfClassName();
+        return configuration.alias;
     }
-
-    private static final String DEFAULT_EVENT_TEMPLATE = """
-            <b>${type}</b>-<i>${nodeTitle}</i>
-            """;
-    private static final String STATUS_EVENT_TEMPLATE = """
-            <b>${type}</b>: <b>${state}: ${nodeTitle}</b> ${nodeClass} <code>${message}</code>
-            """;
 
     @Override
     public Set<String> accountNames(Set<String> accountIds) {
@@ -292,7 +298,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
         for (String accountId : accountIds) {
             BotConfig.Chat chat = botConfig.allowedChats.get(accountId);
             if (chat == null) {
-                result.add("???" + accountId + "???");
+// todo dont show self unauthenticated records            result.add("???" + accountId + "???");
             } else {
                 result.add((chat.title));
             }
@@ -306,19 +312,24 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
         if (state != State.RUN) {
             return;
         }
+
         if (event instanceof FileCreatedEvent fce) {
-            try {
-                FileStorageThing fileStorageThing = engine.getThing(fce.getStorageUuid());
-                String contextPath = fce.getContextPath();
-                File file = fileStorageThing.file(contextPath);
-                File parentFile = file.getParentFile();
-
-
-                File thumbnailFile = new File(parentFile, "thumbnails/" + file.getName() + ".jpg");
-                byte[] thumbnail = null;
-                if (thumbnailFile.exists()) {
-                    thumbnail = FileUtils.readFileToByteArray(thumbnailFile);
+            botConfig.getAllowedChats().forEach((id, chat) -> {
+                if (!recipient.isAllowed(chat.id)) {
+                    return;
                 }
+                try {
+                    FileStorageThing fileStorageThing = engine.getThing(fce.getStorageUuid());
+                    String contextPath = fce.getContextPath();
+                    File file = fileStorageThing.file(contextPath);
+                    File parentFile = file.getParentFile();
+
+
+                    File thumbnailFile = new File(parentFile, "thumbnails/" + file.getName() + ".jpg");
+                    byte[] thumbnail = null;
+                    if (thumbnailFile.exists()) {
+                        thumbnail = FileUtils.readFileToByteArray(thumbnailFile);
+                    }
 //                DocumentMessage message = DocumentMessage.simpleBuilder()
 //                        .media(FileUtils.readFileToByteArray(file))
 //                        .title(fce.getContextPath())
@@ -326,52 +337,33 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 //                        .thumbnail(thumbnail)
 //                        .build();
 
-                int duration = fce.option("duration");
-                VideoMessage.VideoMessageBuilder<?, ?> messageBuilder = VideoMessage.builder()
-                        .decodedMedia(FileUtils.readFileToByteArray(file))
-                        .caption(fce.getContextPath())
-                        .width(fce.option("width"))
-                        .height(fce.option("height"))
-                        .duration(duration / 1000)
-                        .mimetype("video/mp4");
-                if (thumbnail != null) {
-                    messageBuilder.thumbnail(thumbnail);
-                }
+                    int duration = fce.option("duration");
+                    VideoMessage.VideoMessageBuilder<?, ?> messageBuilder = VideoMessage.builder()
+                            .decodedMedia(FileUtils.readFileToByteArray(file))
+                            .caption(fce.getContextPath())
+                            .width(fce.option("width"))
+                            .height(fce.option("height"))
+                            .duration(duration / 1000)
+                            .mimetype("video/mp4");
+                    if (thumbnail != null) {
+                        messageBuilder.thumbnail(thumbnail);
+                    }
 
-                VideoMessage message = messageBuilder.build();
+                    VideoMessage message = messageBuilder.build();
 
-                for (String chatId : botConfig.allowedChats.keySet()) {
-                    sendMessage(chatId, message);
+                    sendMessage(chat.id, message);
+                } catch (Throwable e) {
+                    log.error(e.getMessage(), e);
                 }
-            } catch (Throwable e) {
-                log.error(e.getMessage(), e);
-            }
-        } else if (event instanceof StatusEvent se) {
-            String msg = StringSubstitutor.replace(
-                    STATUS_EVENT_TEMPLATE,
-                    Map.of(
-                            "type", se.getType(),
-                            "nodeType", se.getNodeType(),
-                            "nodeTitle", se.getNodeTitle(),
-                            "nodeClass", se.getNodeClassName(),
-                            "state", se.getState(),
-                            "message", se.getMessage()
-                    )
-            );
-            for (String chatId : botConfig.allowedChats.keySet()) {
-                sendMessage(chatId, msg);
-            }
+            });
         } else {
-            String msg = StringSubstitutor.replace(
-                    DEFAULT_EVENT_TEMPLATE,
-                    Map.of(
-                            "type", event.getType(),
-                            "nodeTitle", event.getNodeTitle()
-                    )
-            );
-            for (String chatId : botConfig.allowedChats.keySet()) {
-                sendMessage(chatId, msg);
-            }
+            botConfig.getAllowedChats().forEach((id, chat) -> {
+                if (!recipient.isAllowed(chat.id)) {
+                    return;
+                }
+                String textView = event.textView();
+                sendMessage(chat.id, textView);
+            });
         }
     }
 
@@ -399,6 +391,10 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
                         return "linked:" + store.name() + " " + store.locale();
                     }
                 }
+            }
+            case "readAccounts" -> {
+                List<String> accounts = botConfig.allowedChats.values().stream().map(chat -> chat.id + "~" + chat.title).collect(Collectors.toList());
+                return accounts;
             }
             default -> {
                 throw new Exception("Method not supported: " + method);

@@ -16,12 +16,12 @@ public interface Constants {
     Set<UUID> ALWAYS_REQUIRED_THINGS_UUID_SET = Set.of(
             JVMConfiguration.THING_UUID,
             DeviceDiscoveryConfiguration.THING_UUID,
-            EventHistoryThingConfig.THING_UUID,
+//            EventHistoryThingConfig.THING_UUID,
             PortalIntegrationConfiguration.THING_UUID,
             PortalWebRTCIntegrationConfiguration.WEB_RTC_UUID,
             SoftwareUpgradeCenterConfiguration.THING_UUID,
-            ServerLocalFileSystemNavigatorConfig.SERVER_LOCAL_FS_NAVIGATOR_UUID,
-            SystemMonitorConfiguration.THING_UUID
+            ServerLocalFileSystemNavigatorConfig.SERVER_LOCAL_FS_NAVIGATOR_UUID
+//            SystemMonitorConfiguration.THING_UUID
     );
     Set<UUID> MODIFICATION_DISABLED_THINGS_UUID_SET = Set.of(
             PortalIntegrationConfiguration.THING_UUID,

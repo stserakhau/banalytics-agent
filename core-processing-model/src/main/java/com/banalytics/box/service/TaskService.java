@@ -525,9 +525,9 @@ public class TaskService implements InitializingBean {
         if (thing == null) {
             throw new Exception("thing.error.removed");
         }
-        if (thing instanceof Singleton) {
-            throw new Exception("thing.error.actionUnavailable");
-        }
+//        if (thing instanceof Singleton) {
+//            throw new Exception("thing.error.actionUnavailable");
+//        }
         if (!thing.getSubscribers().isEmpty()) {
             throw new LocalizedException("thing.error.linkedTasksExists");
         }

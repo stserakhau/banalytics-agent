@@ -53,7 +53,7 @@ public class ForwardEventToConsumerAction extends AbstractAction<ForwardEventToC
                     getSelfClassName(),
                     getTitle(),
                     NodeState.valueOf(getState().name()),
-                    "Test"
+                    "Manual"
             ));
         }
         this.process(ctx);

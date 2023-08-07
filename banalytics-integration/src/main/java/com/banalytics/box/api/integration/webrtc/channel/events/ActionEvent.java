@@ -4,7 +4,9 @@ import com.banalytics.box.api.integration.MessageType;
 import com.banalytics.box.api.integration.form.ComponentType;
 import com.banalytics.box.api.integration.form.annotation.UIComponent;
 import com.banalytics.box.api.integration.webrtc.channel.NodeDescriptor;
+import org.apache.commons.text.StringSubstitutor;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class ActionEvent extends AbstractEvent {
@@ -15,6 +17,20 @@ public class ActionEvent extends AbstractEvent {
             }
     )
     public ActionState state;
+
+    @Override
+    public String textView() {
+        return StringSubstitutor.replace(
+                """
+                        *Action:* ${act}
+                        *State:* ${state}
+                        """,
+                Map.of(
+                        "act", this.getNodeTitle(),
+                        "state", this.state
+                )
+        );
+    }
 
     public ActionEvent() {
         super(MessageType.EVT_ACTION);

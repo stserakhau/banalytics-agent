@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.github.auties00</groupId>
             <artifactId>whatsappweb4j</artifactId>
-            <version>3.4.8</version>
+            <version>3.5.1</version>
         </dependency>
 
         <dependency>
@@ -41,13 +41,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>${java.source}</source>
-                    <target>${java.target}</target>
-                    <verbose>true</verbose>
-                    <compilerArgs>--enable-preview</compilerArgs>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.ragedunicorn.tools.maven</groupId>

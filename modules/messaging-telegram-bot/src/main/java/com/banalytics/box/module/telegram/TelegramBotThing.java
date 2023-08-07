@@ -153,7 +153,7 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
             for (String accountId : accountIds) {
                 BotConfig.Chat chat = botConfig.allowedChats.get(Long.parseLong(accountId));
                 if (chat == null) {
-                    result.add("???" + accountId + "???");
+// todo dont show self unauthenticated records                    result.add("???" + accountId + "???");
                 } else {
                     result.add((chat.title));
                 }

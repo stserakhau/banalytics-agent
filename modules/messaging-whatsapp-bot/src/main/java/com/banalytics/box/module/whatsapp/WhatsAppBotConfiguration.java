@@ -11,13 +11,9 @@ import java.util.UUID;
 @Getter
 @Setter
 public class WhatsAppBotConfiguration extends AbstractConfiguration {
-    public static UUID WHATS_APP_UUID = UUID.fromString("00000000-0000-0000-0000-000000000007");
+    @UIComponent(index = 20, type = ComponentType.text_input, required = true)
+    public String alias;
 
-    @Override
-    public UUID getUuid() {
-        return WHATS_APP_UUID;
-    }
-
-    @UIComponent(index = 20, type = ComponentType.password_input, required = true)
+    @UIComponent(index = 30, type = ComponentType.password_input, required = true)
     public String pinCode = "";
 }

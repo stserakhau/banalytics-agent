@@ -16,7 +16,7 @@ public interface EventConsumer {
 
     public static record Recipient(Set<String> accounts) {
         public boolean isAllowed(String account) {
-            return accounts == null || accounts.isEmpty() || accounts.contains(account);
+            return accounts != null || accounts.contains(account);
         }
 
         public boolean isEmpty() {

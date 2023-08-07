@@ -8,7 +8,9 @@ import com.banalytics.box.api.integration.webrtc.channel.NodeState;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.text.StringSubstitutor;
 
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -24,6 +26,21 @@ public class StatusEvent extends AbstractEvent {
     public NodeState state;
 
     String message;
+
+    @Override
+    public String textView() {
+        return StringSubstitutor.replace(
+                "*${type}*: *${state}: ${nodeTitle}* ${nodeClass} ```${message}```",
+                Map.of(
+                        "type", this.getType(),
+                        "nodeType", this.getNodeType(),
+                        "nodeTitle", this.getNodeTitle(),
+                        "nodeClass", this.getNodeClassName(),
+                        "state", this.getState(),
+                        "message", this.getMessage()
+                )
+        );
+    }
 
     public StatusEvent() {
         super(MessageType.EVT_STATUS);

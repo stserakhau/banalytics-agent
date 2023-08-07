@@ -4,7 +4,7 @@ import com.banalytics.box.module.whatsapp.WhatsAppBotThing;
 import org.apache.commons.lang3.StringUtils;
 
 public class AuthorizeCommandHandler extends AbstractCommandHandler {
-    public static final String COMMAND_AUTHORIZE = "/Login";
+    public static final String COMMAND_AUTHORIZE = "/login";
 
     public AuthorizeCommandHandler(WhatsAppBotThing bot) {
         super(bot);
@@ -24,7 +24,7 @@ public class AuthorizeCommandHandler extends AbstractCommandHandler {
         if (pinSuccess) {
             bot.botConfig.authorizeChat(chatId, chatId);
             bot.botConfig.fireUpdate();
-            bot.sendMessage(chatId, "Authorization success");
+            bot.sendMessage(chatId, "Chat authorization success");
         }
     }
 
