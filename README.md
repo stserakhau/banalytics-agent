@@ -27,7 +27,7 @@ However, Banalytics is not only a media server. [It is more](https://banalytics.
 - [Network IP tracker](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_network-ip-tracker)
 - [Onvif integration](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_basic-onvif)
 - [Telegram integration](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_telegram-bot)
-- [WhatsApp integration (available for agents marked as Dev environment - draft implementation)](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_whatsapp-bot)
+- [WhatsApp integration](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_whatsapp-bot)
 
 
 # What's inside banalytics ?
