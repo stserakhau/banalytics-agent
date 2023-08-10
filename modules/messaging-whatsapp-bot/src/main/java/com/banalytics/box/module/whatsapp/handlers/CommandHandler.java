@@ -6,4 +6,8 @@ public interface CommandHandler {
     void handleArgs(String chatId, String... args);
 
     String getCommand();
+
+    default boolean isAuthRequired() {
+        return true;
+    }
 }

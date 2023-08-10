@@ -20,6 +20,7 @@ import it.auties.whatsapp.controller.Store;
 import it.auties.whatsapp.listener.Listener;
 import it.auties.whatsapp.model.contact.Contact;
 import it.auties.whatsapp.model.contact.ContactJid;
+import it.auties.whatsapp.model.info.ContextInfo;
 import it.auties.whatsapp.model.info.MessageInfo;
 import it.auties.whatsapp.model.message.button.ButtonsResponseMessage;
 import it.auties.whatsapp.model.message.model.Message;
@@ -75,6 +76,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 
     public WhatsAppBotThing(BoxEngine engine) {
         super(engine);
+        registerHandler(new WhoIsHereHandler(this));
         registerHandler(this.authorizeCommandHandler = new AuthorizeCommandHandler(this));
         registerHandler(new LogoutActionCommandHandler(this));
 //        registerHandler(new HomeCommandHandler(this));
@@ -104,7 +106,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 
             AppForkJoinWorkerThreadFactory factory = new AppForkJoinWorkerThreadFactory(Whatsapp.class.getClassLoader());
             ForkJoinPool myCommonPool = new ForkJoinPool(3, factory, null, false);
-            CompletableFuture.runAsync(()->{}, myCommonPool);
+            CompletableFuture.runAsync(() -> {}, myCommonPool);
             log.info("Starting");
             var connection = Whatsapp
                     .webBuilder()
@@ -118,8 +120,8 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
                         .join();
             } else {
                 connection
-                        .name("Banalytics WhatsApp Integration with " + engine.getEnvironmentUUID())
-//                    .socketExecutor(myCommonPool)
+                        .name("Banalytics Bot '" + configuration.alias + "'")
+//                        .socketExecutor(myCommonPool)
                         .unregistered(QrHandler.toFile(path -> {
                             botQrCodeFile = path.toFile();
                         }))
@@ -144,6 +146,12 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 
     @Override
     public void destroy() {
+        if (this.whatsapp != null) {
+            Store store = this.whatsapp.store();
+            if (store.alias().contains(configuration.alias)) {
+                store.removeAlias(configuration.alias);
+            }
+        }
         if (this.botConfigFile.exists()) {
             this.botConfigFile.delete();
         }
@@ -174,6 +182,9 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
     @Override
     public void onDisconnected(Whatsapp whatsapp, DisconnectReason reason) {
         log.error("Disconnected: {}", reason);
+        if(DisconnectReason.LOGGED_OUT == reason) {
+            this.destroy();
+        }
     }
 
     @Override
@@ -189,6 +200,23 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
         ContactJid sender = key.senderJid().get();
         ContactJid receiver = key.chatJid();
         boolean doProcess = !isFromMe || sender.user().equals(receiver.user());
+
+        if (mc.textMessage().isPresent()) {//if text message
+            TextMessage tm = mc.textMessage().get();
+            ContextInfo ci = tm.contextInfo();
+            if (ci.quotedMessage().isPresent()) { // and it is the answer
+                Optional<String> targetMessage = ci.quotedMessage().get().textWithNoContextMessage();
+                if (targetMessage.isPresent()) {
+                    String alias = targetMessage.get();
+                    if (!this.configuration.alias.equals(alias)) {// check is it alias, and if alias of this bot, continue processing
+                        doProcess = false;
+                    }
+                }
+            } else {
+                //if it's not answer on bot message process message by all bots
+            }
+        }
+
         if (!doProcess) {
             return;
         }
@@ -207,20 +235,20 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
             return;
         }
         if (isCommand(message)) {                               // if bot command
-            if (authorized) {
-                CommandHandler handler = commandHandlerMap.get(message);
-                if (handler == null) {                      // if unknown command send response message
-                    log.info("Invalid command: {}", message);
-                    sendMessage(sender, "Invalid command");
-                } else {                                    // otherwise execute
+            CommandHandler handler = commandHandlerMap.get(message);
+            if (handler == null) {                      // if unknown command send response message
+                log.info("Invalid command: {}", message);
+                sendMessage(sender, "Invalid command");
+            } else {
+                if (!handler.isAuthRequired() || authorized) {
                     lastCommandMap.put(senderId, message);    // and store last chat command
                     handler.handle(senderId);
                     log.info("Command '{}' executed", message);
+                } else {
+                    log.info("Authorization requested: {}", senderId);
+                    lastCommandMap.put(senderId, COMMAND_AUTHORIZE);
+                    this.authorizeCommandHandler.handle(senderId);
                 }
-            } else {
-                log.info("Authorization requested: {}", senderId);
-                lastCommandMap.put(senderId, COMMAND_AUTHORIZE);
-                this.authorizeCommandHandler.handle(senderId);
             }
         } else {                                        // if simple message
             String lastCommand = lastCommandMap.get(senderId); // get last executed command
