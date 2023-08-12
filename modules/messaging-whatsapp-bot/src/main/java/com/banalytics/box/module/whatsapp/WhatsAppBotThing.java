@@ -3,10 +3,8 @@ package com.banalytics.box.module.whatsapp;
 import com.banalytics.box.api.integration.webrtc.channel.environment.ThingApiCallReq;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent;
-import com.banalytics.box.api.integration.webrtc.channel.events.StatusEvent;
 import com.banalytics.box.module.AbstractThing;
 import com.banalytics.box.module.BoxEngine;
-import com.banalytics.box.module.Singleton;
 import com.banalytics.box.module.State;
 import com.banalytics.box.module.standard.EventConsumer;
 import com.banalytics.box.module.storage.filestorage.FileStorageThing;
@@ -15,7 +13,11 @@ import com.banalytics.box.service.AppForkJoinWorkerThreadFactory;
 import com.banalytics.box.service.SystemThreadsService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import it.auties.whatsapp.api.*;
+import it.auties.whatsapp.api.DisconnectReason;
+import it.auties.whatsapp.api.QrHandler;
+import it.auties.whatsapp.api.SocketEvent;
+import it.auties.whatsapp.api.Whatsapp;
+import it.auties.whatsapp.controller.DefaultControllerSerializer;
 import it.auties.whatsapp.controller.Store;
 import it.auties.whatsapp.listener.Listener;
 import it.auties.whatsapp.model.contact.Contact;
@@ -26,10 +28,8 @@ import it.auties.whatsapp.model.message.button.ButtonsResponseMessage;
 import it.auties.whatsapp.model.message.model.Message;
 import it.auties.whatsapp.model.message.model.MessageContainer;
 import it.auties.whatsapp.model.message.model.MessageKey;
-import it.auties.whatsapp.model.message.standard.DocumentMessage;
 import it.auties.whatsapp.model.message.standard.TextMessage;
 import it.auties.whatsapp.model.message.standard.VideoMessage;
-import it.auties.whatsapp.model.signal.auth.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,7 +37,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.util.Base64;
-import org.apache.commons.text.StringSubstitutor;
 import org.springframework.core.annotation.Order;
 
 import java.io.File;
@@ -45,7 +44,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
@@ -106,11 +104,15 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 
             AppForkJoinWorkerThreadFactory factory = new AppForkJoinWorkerThreadFactory(Whatsapp.class.getClassLoader());
             ForkJoinPool myCommonPool = new ForkJoinPool(3, factory, null, false);
-            CompletableFuture.runAsync(() -> {}, myCommonPool);
             log.info("Starting");
+            File homeDir = engine.applicationHomeFolder();
+            File whatsappBaseDir = new File(homeDir, "/whatsapp4j/");
             var connection = Whatsapp
                     .webBuilder()
-                    .newConnection(configuration.alias);
+                    .serializer(new DefaultControllerSerializer(whatsappBaseDir.toPath()))
+                    .newConnection(configuration.alias)
+                    .name("Banalytics Bot '" + configuration.alias + "'")
+                    .socketExecutor(myCommonPool);
 
             Optional<Whatsapp> opt = connection.registered();
             if (opt.isPresent()) {
@@ -120,8 +122,6 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
                         .join();
             } else {
                 connection
-                        .name("Banalytics Bot '" + configuration.alias + "'")
-//                        .socketExecutor(myCommonPool)
                         .unregistered(QrHandler.toFile(path -> {
                             botQrCodeFile = path.toFile();
                         }))

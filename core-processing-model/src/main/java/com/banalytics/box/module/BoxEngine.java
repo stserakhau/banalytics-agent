@@ -39,6 +39,9 @@ public interface BoxEngine {
         return List.of();
     }
 
+    default File applicationHomeFolder() {
+        return new File(".");
+    }
     default File applicationConfigFolder() {
         return new File(".");
     }

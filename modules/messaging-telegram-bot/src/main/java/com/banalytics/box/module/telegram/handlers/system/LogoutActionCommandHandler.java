@@ -4,13 +4,13 @@ import com.banalytics.box.module.BoxEngine;
 import com.banalytics.box.module.telegram.TelegramBotThing;
 import com.banalytics.box.module.telegram.handlers.AbstractCommandHandler;
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.botcommandscope.BotCommandsScopeChat;
+import com.pengrad.telegrambot.model.request.KeyboardButton;
+import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.request.SetMyCommands;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.TimerTask;
-
-import static com.banalytics.box.module.telegram.handlers.HomeCommandHandler.homeMenu;
-import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
 
 @Slf4j
 public class LogoutActionCommandHandler extends AbstractCommandHandler {
@@ -39,6 +39,13 @@ public class LogoutActionCommandHandler extends AbstractCommandHandler {
         if (System.currentTimeMillis() < commandAvailableTime) {
             return;
         }
+        bot.execute(new SetMyCommands().scope(new BotCommandsScopeChat(chatId)));//clear menu
+
+        bot.execute(new SendMessage(chatId, "Bye")
+                .parseMode(ParseMode.Markdown)
+                .disableWebPagePreview(false)
+                .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton("/start"))));
+
         botConfig.logoutChat(chatId);
     }
 

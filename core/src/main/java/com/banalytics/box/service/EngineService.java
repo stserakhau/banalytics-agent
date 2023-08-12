@@ -38,6 +38,9 @@ import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
 @Slf4j
 @Component
 public class EngineService implements BoxEngine, InitializingBean {
+    @Value("${config.instance.root}")
+    private File homeDir;
+
     @Value("${config.instance.root}/config")
     private File configRoot;
 
@@ -137,6 +140,11 @@ public class EngineService implements BoxEngine, InitializingBean {
 //        });
 
         return result;
+    }
+
+    @Override
+    public File applicationHomeFolder() {
+        return homeDir;
     }
 
     @Override

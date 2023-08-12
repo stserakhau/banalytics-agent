@@ -133,6 +133,7 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
         if (this.bot != null) {
             this.bot.removeGetUpdatesListener();
             this.bot.shutdown();
+            this.bot = null;
         }
     }
 
