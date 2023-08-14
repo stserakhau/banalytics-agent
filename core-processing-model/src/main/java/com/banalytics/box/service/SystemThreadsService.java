@@ -32,18 +32,13 @@ public class SystemThreadsService {
     public static final Map<Class, TimeMetric> EXECUTION_METRICS = new HashMap<>();
 
     public static void reboot() {
-        SYSTEM_TIMER.schedule(new TimerTask() {// schedule halt via 5 sec if not exited
+        SYSTEM_TIMER.schedule(new TimerTask() {// schedule halt via 15 sec if not exited
             @Override
             public void run() {
                 Runtime.getRuntime().halt(0);
             }
-        }, 5000);
+        }, 15000);
         Runtime.getRuntime().exit(0);
-    }
-
-    public static void shutdown() {
-//        SYSTEM_EXECUTOR.shutdown();
-        SYSTEM_TIMER.cancel();
     }
 
     private static ThreadPoolExecutor createSystemTaskExecutor() {

@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.github.auties00</groupId>
             <artifactId>whatsappweb4j</artifactId>
-            <version>3.5.1</version>
+            <version>3.5.1-banalytics</version>
         </dependency>
 
         <dependency>

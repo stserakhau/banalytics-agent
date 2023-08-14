@@ -12,7 +12,7 @@ import com.banalytics.box.module.whatsapp.WhatsAppBotThing;
 import java.util.List;
 
 public class VideoShotAllCommandHandler extends AbstractCommandHandler {
-    public final static String COMMAND_VIDEO_SHOT_ALL = "/shot-all";
+    public final static String COMMAND_VIDEO_SHOT_ALL = "/sa";
 
     private final BoxEngine engine;
 

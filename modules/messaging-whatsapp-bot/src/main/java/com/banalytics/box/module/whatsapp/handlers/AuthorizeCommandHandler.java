@@ -12,7 +12,7 @@ public class AuthorizeCommandHandler extends AbstractCommandHandler {
 
     @Override
     public void handle(String chatId) {
-        bot.sendMessage(chatId, "Input authorization code");
+        bot.sendMessage(chatId, "Input authorization code [%s]".formatted(this.bot.getConfiguration().alias));
     }
 
     @Override
@@ -24,8 +24,13 @@ public class AuthorizeCommandHandler extends AbstractCommandHandler {
         if (pinSuccess) {
             bot.botConfig.authorizeChat(chatId, chatId);
             bot.botConfig.fireUpdate();
-            bot.sendMessage(chatId, "Chat authorization success");
+            bot.sendMessage(chatId, "Chat authorization success [%s]".formatted(this.bot.getConfiguration().getAlias()));
         }
+    }
+
+    @Override
+    public boolean isAuthRequired() {
+        return false;
     }
 
     @Override

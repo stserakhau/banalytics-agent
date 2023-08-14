@@ -52,6 +52,7 @@ import static com.banalytics.box.api.integration.utils.CommonUtils.DEFAULT_OBJEC
 import static com.banalytics.box.module.State.RUN;
 import static com.banalytics.box.module.Thing.StarUpOrder.DATA_EXCHANGE;
 import static com.banalytics.box.module.whatsapp.handlers.AuthorizeCommandHandler.COMMAND_AUTHORIZE;
+import static com.banalytics.box.module.whatsapp.handlers.WhoIsHereHandler.COMMAND_WHO_IS_HERE;
 
 /**
  * https://github.com/Auties00/Whatsapp4j
@@ -112,7 +113,8 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
                     .serializer(new DefaultControllerSerializer(whatsappBaseDir.toPath()))
                     .newConnection(configuration.alias)
                     .name("Banalytics Bot '" + configuration.alias + "'")
-                    .socketExecutor(myCommonPool);
+//                    .socketExecutor(myCommonPool)
+                    ;
 
             Optional<Whatsapp> opt = connection.registered();
             if (opt.isPresent()) {
@@ -146,18 +148,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 
     @Override
     public void destroy() {
-        if (this.whatsapp != null) {
-            Store store = this.whatsapp.store();
-            if (store.alias().contains(configuration.alias)) {
-                store.removeAlias(configuration.alias);
-            }
-        }
-        if (this.botConfigFile.exists()) {
-            this.botConfigFile.delete();
-        }
-        if (this.botQrCodeFile != null && this.botQrCodeFile.exists()) {
-            this.botQrCodeFile.delete();
-        }
+        this.logout();
     }
 
     @Override
@@ -179,11 +170,31 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 //        }
     }
 
+    private void logout() {
+        if (this.whatsapp != null) {
+            Store store = this.whatsapp.store();
+            if (store.alias().contains(configuration.alias)) {
+                store.removeAlias(configuration.alias);
+            }
+            this.whatsapp = null;
+        }
+
+        botConfig.logout();
+        this.persistBotConfig();
+
+        if (this.botConfigFile.exists()) {
+            this.botConfigFile.delete();
+        }
+        if (this.botQrCodeFile != null && this.botQrCodeFile.exists()) {
+            this.botQrCodeFile.delete();
+        }
+    }
+
     @Override
     public void onDisconnected(Whatsapp whatsapp, DisconnectReason reason) {
         log.error("Disconnected: {}", reason);
-        if(DisconnectReason.LOGGED_OUT == reason) {
-            this.destroy();
+        if (DisconnectReason.LOGGED_OUT == reason) {
+            this.logout();
         }
     }
 
@@ -201,19 +212,29 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
         ContactJid receiver = key.chatJid();
         boolean doProcess = !isFromMe || sender.user().equals(receiver.user());
 
+        boolean isAnswerToBot = false;
         if (mc.textMessage().isPresent()) {//if text message
             TextMessage tm = mc.textMessage().get();
             ContextInfo ci = tm.contextInfo();
             if (ci.quotedMessage().isPresent()) { // and it is the answer
-                Optional<String> targetMessage = ci.quotedMessage().get().textWithNoContextMessage();
+                MessageContainer answerContainer = ci.quotedMessage().get();
+                Optional<String> targetMessage = answerContainer.textWithNoContextMessage();
+                String alias = null;
                 if (targetMessage.isPresent()) {
-                    String alias = targetMessage.get();
-                    if (!this.configuration.alias.equals(alias)) {// check is it alias, and if alias of this bot, continue processing
-                        doProcess = false;
+                    alias = targetMessage.get();
+                } else {
+                    TextMessage ansMsg = answerContainer.textMessage().get();
+                    if (ansMsg != null) {
+                        alias = ansMsg.text();
                     }
                 }
-            } else {
-                //if it's not answer on bot message process message by all bots
+                if (alias != null) {
+                    if (!this.configuration.alias.equals(alias)) {// check is it alias, and if alias of this bot, continue processing
+                        doProcess = false;
+                    } else {
+                        isAnswerToBot = true;
+                    }
+                }
             }
         }
 
@@ -221,7 +242,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
             return;
         }
 
-        String senderId = receiver.user();
+        String senderId = sender.user();
         cache.putIfAbsent(senderId, sender);
         boolean authorized = isFromMe || StringUtils.isEmpty(configuration.pinCode) || botConfig.isAuthorized(senderId);
         String message = null;
@@ -234,7 +255,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
         if (message == null) {
             return;
         }
-        if (isCommand(message)) {                               // if bot command
+        if (isCommand(message) && (isAnswerToBot || COMMAND_WHO_IS_HERE.equals(message))) {// if bot command in answer or '/who is here'
             CommandHandler handler = commandHandlerMap.get(message);
             if (handler == null) {                      // if unknown command send response message
                 log.info("Invalid command: {}", message);
@@ -441,7 +462,7 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
             this.botThing = telegramBotThing;
         }
 
-        private Map<String, Chat> allowedChats = new HashMap<>();
+        private final Map<String, Chat> allowedChats = new HashMap<>();
 
         public void fireUpdate() {
             botThing.persistBotConfig();
@@ -459,6 +480,11 @@ public class WhatsAppBotThing extends AbstractThing<WhatsAppBotConfiguration> im
 
         public boolean isAuthorized(String chatId) {
             return allowedChats.containsKey(chatId);
+        }
+
+        public void logout() {
+            allowedChats.clear();
+            ;
         }
 
         @Getter

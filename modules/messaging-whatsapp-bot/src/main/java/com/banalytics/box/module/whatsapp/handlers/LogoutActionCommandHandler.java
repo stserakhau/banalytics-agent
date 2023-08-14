@@ -24,6 +24,7 @@ public class LogoutActionCommandHandler extends AbstractCommandHandler {
         if (System.currentTimeMillis() < commandAvailableTime) {
             return;
         }
+        bot.sendMessage(chatId, "Chat de-authorized [%s]".formatted(this.bot.getConfiguration().getAlias()));
         bot.botConfig.logoutChat(chatId);
     }
 }
