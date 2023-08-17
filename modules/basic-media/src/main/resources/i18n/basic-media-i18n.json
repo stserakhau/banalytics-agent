@@ -112,12 +112,12 @@
     "recordingOnMotionDisappearedTimoutMillis": "Post detection recording (ms)",
     "preBufferSeconds": "Recording time before motion detected",
 
-    "com.banalytics.box.module.media.task.sound.SoundDetectionTask": "Sound Detector",
-    "com.banalytics.box.module.media.task.sound.SoundDetectionTask.title": "Sound Detector of {0}",
+    "com.banalytics.box.module.media.task.sound.SoundDetectionTask": "Sound detector",
+    "com.banalytics.box.module.media.task.sound.SoundDetectionTask.title": "Sound detector of {0}",
     "threshold": "Threshold",
-    "specterSensitivity": "Specter sensitivity",
+    "specterSensitivity": "Spectral sensitivity",
     "historyLength": "History length",
-    "applyThresholdExceed": "Apply threshold exceed",
+    "applyThresholdExceed": "Apply upon threshold exceed",
     "speedOfAccustomSec": "Speed of accustom (sec)",
 
     "com.banalytics.box.module.media.task.watermark.WatermarkTask": "Watermark",
