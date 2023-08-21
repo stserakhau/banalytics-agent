@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.bytedeco.opencv.global.opencv_core.CV_32F;
+import static org.bytedeco.opencv.global.opencv_core.minMaxLoc;
 import static org.bytedeco.opencv.global.opencv_dnn.*;
 
 @Slf4j
@@ -58,6 +59,8 @@ public class YOLONet {
 
     private final Path configPath;
     private final Path weightsPath;
+
+    private final Path configOnnxPath;
     private final Path namesPath;
     private final int width;
     private final int height;
@@ -85,6 +88,21 @@ public class YOLONet {
                    int width, int height) {
         this.configPath = configPath;
         this.weightsPath = weightsPath;
+        this.configOnnxPath = null;
+        this.namesPath = namesPath;
+        this.preferableBackend = preferableBackend;
+        this.preferableTarget = preferableTarget;
+        this.width = width;
+        this.height = height;
+    }
+
+    public YOLONet(Path configOnnxPath, Path namesPath,
+                   PreferableBackend preferableBackend,
+                   PreferableTarget preferableTarget,
+                   int width, int height) {
+        this.configPath = null;
+        this.weightsPath = null;
+        this.configOnnxPath = configOnnxPath;
         this.namesPath = namesPath;
         this.preferableBackend = preferableBackend;
         this.preferableTarget = preferableTarget;
@@ -98,9 +116,13 @@ public class YOLONet {
      * @return True if the network initialisation was successful.
      */
     public synchronized boolean setup() throws Exception {
-        net = readNetFromDarknet(
-                configPath.toAbsolutePath().toString(),
-                weightsPath.toAbsolutePath().toString());
+        if (configOnnxPath != null) {
+            net = readNetFromONNX(configOnnxPath.toAbsolutePath().toString());
+        } else {
+            net = readNetFromDarknet(
+                    configPath.toAbsolutePath().toString(),
+                    weightsPath.toAbsolutePath().toString());
+        }
         // setup output layers
         outNames = net.getUnconnectedOutLayersNames();
 

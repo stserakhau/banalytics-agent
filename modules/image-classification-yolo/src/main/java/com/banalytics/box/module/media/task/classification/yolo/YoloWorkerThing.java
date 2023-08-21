@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.*;
 
-import static com.banalytics.box.module.Thing.StarUpOrder.CORE;
 import static com.banalytics.box.module.Thing.StarUpOrder.INTEGRATION;
 
 @Slf4j
@@ -67,15 +66,30 @@ public class YoloWorkerThing extends AbstractThing<YoloWorkerThingConfig> implem
         //https://pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/
         //https://pyimagesearch.com/2017/11/06/deep-learning-opencvs-blobfromimage-works/
         this.startedPoolSize = configuration.workers;
+
+        File modelFile = new File(modelPath, "config.cfg");
+        File weightFile = new File(modelPath, "config.weights");
+        File onnxModelFile = new File(modelPath, "model.onnx");
         for (int i = 0; i < configuration.workers; i++) {
-            YOLONet yolo = new YOLONet(
-                    new File(modelPath, "config.cfg").toPath(),
-                    new File(modelPath, "config.weights").toPath(),
-                    nameClassesFile.toPath(),
-                    preferableBackend,
-                    preferableTarget,
-                    416, 416
-            );
+            YOLONet yolo;
+            if (onnxModelFile.exists()) {
+                yolo = new YOLONet(
+                        onnxModelFile.toPath(),
+                        nameClassesFile.toPath(),
+                        preferableBackend,
+                        preferableTarget,
+                        416, 416
+                );
+            } else {
+                yolo = new YOLONet(
+                        modelFile.toPath(),
+                        weightFile.toPath(),
+                        nameClassesFile.toPath(),
+                        preferableBackend,
+                        preferableTarget,
+                        416, 416
+                );
+            }
             yolo.setup();
             yoloPool.add(yolo);
             log.info("Yolo {} added to poll", i);
