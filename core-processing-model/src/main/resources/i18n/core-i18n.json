@@ -14,6 +14,11 @@
     "zones": "Zones",
     "classes": "Classes",
 
+    "folder.new": "New folder",
+    "folder.create-in": "Create folder in '{0}'",
+    "folder.create": "Create folder",
+    "folder.create.placeholder": "Enter folder name",
+
     "k32": "32 k",
     "k64": "64 k",
     "k128": "128 k",
@@ -126,6 +131,7 @@
     "reservedBandwidthForFileTransmissionPercent": "Reserved for file transmission (%)",
     "rtMediaQualityProfile": "Media quality",
     "rtMediaQualityStrategy": "Media quality strategy",
+    "adaptiveBitrate": "Adaptive bitrate",
     "synchronousMediaStream": "Synchronous media stream",
     "STATIC": "Static",
     "DYNAMIC": "Dynamic",
@@ -395,6 +401,11 @@
     "zones": "Зоны",
     "classes": "Класы",
 
+    "folder.new": "Новая папка",
+    "folder.create-in": "Стварыць тэчку ў '{0}'",
+    "folder.create": "Стварыць тэчку",
+    "folder.create.placeholder": "Увядзіце імя папкі",
+
     "k32": "32 k",
     "k64": "64 k",
     "k128": "128 k",
@@ -506,6 +517,7 @@
     "reservedBandwidthForFileTransmissionPercent": "File transmission reserve(%)",
     "rtMediaQualityProfile": "Якасць мультымедыя",
     "rtMediaQualityStrategy": "Стратэгія якасці медыя",
+    "adaptiveBitrate": "Адаптыўны бітрэйт",
     "synchronousMediaStream": "Сінхронная медыяплынь",
     "STATIC": "Статычны",
     "DYNAMIC": "Дынамічны",
@@ -767,6 +779,11 @@
     "zones": "Зони",
     "classes": "Класи",
 
+    "folder.new": "Нова папка",
+    "folder.create-in": "Створити папку в '{0}'",
+    "folder.create": "Створити папку",
+    "folder.create.placeholder": "Введіть назву папки",
+
     "k32": "32 k",
     "k64": "64 k",
     "k128": "128 k",
@@ -878,6 +895,7 @@
     "reservedBandwidthForFileTransmissionPercent": "Резерв передавання файлів (%)",
     "rtMediaQualityProfile": "Якість медіа",
     "rtMediaQualityStrategy": "Стратегія якості медіа",
+    "adaptiveBitrate": "Адаптивний бітрейт",
     "synchronousMediaStream": "Синхронний медіа-потік",
     "STATIC": "Статичний",
     "DYNAMIC": "Динамічний",
@@ -1140,6 +1158,11 @@
     "zones": "Zonen",
     "classes": "Klassen",
 
+    "folder.new": "Neuer Ordner",
+    "folder.create-in": "Ordner erstellen in '{0}'",
+    "folder.create": "Ordner erstellen",
+    "folder.create.placeholder": "Ordnernamen eingeben",
+
     "k32": "32 k",
     "k64": "64 k",
     "k128": "128 k",
@@ -1251,6 +1274,7 @@
     "reservedBandwidthForFileTransmissionPercent": "Dateiübertragungsreserve (%)",
     "rtMediaQualityProfile": "Medienqualität",
     "rtMediaQualityStrategy": "Strategie für Medienqualität",
+    "adaptiveBitrate": "Adaptive Bitrate",
     "synchronousMediaStream": "Synchroner Medienstream",
     "STATIC": "Statisch",
     "DYNAMIC": "Dynamisch",
@@ -1510,6 +1534,11 @@
     "zones": "Zonas",
     "classes": "Clases",
 
+    "folder.new": "Nueva carpeta",
+    "folder.create-in": "Crear carpeta en '{0}'",
+    "folder.create": "Crear carpeta",
+    "folder.create.placeholder": "Introduzca el nombre de la carpeta",
+
     "k32": "32 k",
     "k64": "64 k",
     "k128": "128 k",
@@ -1621,6 +1650,7 @@
     "reservedBandwidthForFileTransmissionPercent": "Reserva de transmisión de archivos(%)",
     "rtMediaQualityProfile": "Calidad de los medios",
     "rtMediaQualityStrategy": "Estrategia de calidad de los medios",
+    "adaptiveBitrate": "Tasa de bits adaptativa",
     "synchronousMediaStream": "Flujo de medios síncrono",
     "STATIC": "Estático",
     "DYNAMIC": "Dinámica",
@@ -1880,6 +1910,11 @@
     "zones": "Zones",
     "classes": "Classes",
 
+    "folder.new": "Nouveau dossier",
+    "folder.create-in": "Créer un dossier dans '{0}'",
+    "folder.create": "Créer le dossier",
+    "folder.create.placeholder": "Entrez le nom du dossier",
+
     "k32": "32 k",
     "k64": "64 k",
     "k128": "128 k",
@@ -1991,6 +2026,7 @@
     "reservedBandwidthForFileTransmissionPercent": "Réserve de transmission de fichiers (%)",
     "rtMediaQualityProfile": "Qualité des médias",
     "rtMediaQualityStrategy": "Stratégie de qualité des médias",
+    "adaptiveBitrate": "Débit adaptatif",
     "synchronousMediaStream": "Flux multimédia synchrone",
     "STATIC": "Statique",
     "DYNAMIC": "Dynamique",
@@ -2250,6 +2286,11 @@
     "zones": "Strefy",
     "classes": "Klasy",
 
+    "folder.new": "Nowy folder",
+    "folder.create-in": "Utwórz folder w „{0}”",
+    "folder.create": "Utwórz folder",
+    "folder.create.placeholder": "Wprowadź nazwę folderu",
+
     "k32": "32 k",
     "k64": "64 k",
     "k128": "128 k",
@@ -2361,6 +2402,7 @@
     "reservedBandwidthForFileTransmissionPercent": "Rezerwa transmisji pliku (%)",
     "rtMediaQualityProfile": "Jakość mediów",
     "rtMediaQualityStrategy": "Strategia jakości mediów",
+    "adaptiveBitrate": "Adaptacyjna szybkość transmisji",
     "synchronousMediaStream": "Synchroniczny strumień multimediów",
     "STATIC": "Statyczny",
     "DYNAMIC": "Dynamiczny",
@@ -2620,6 +2662,11 @@
     "zones": "Зоны",
     "classes": "Классы",
 
+    "folder.new": "Новая папка",
+    "folder.create-in": "Создать папку в '{0}'",
+    "folder.create": "Создать папку",
+    "folder.create.placeholder": "Введите имя папки",
+
     "k32": "32 k",
     "k64": "64 k",
     "k128": "128 k",
@@ -2731,6 +2778,7 @@
     "reservedBandwidthForFileTransmissionPercent": "Резерв передачи файла (%)",
     "rtMediaQualityProfile": "Профиль кКачества",
     "rtMediaQualityStrategy": "Стратегия выбора качества",
+    "adaptiveBitrate": "Адаптивный битрейт",
     "synchronousMediaStream": "Синхронный медиапоток",
     "STATIC": "Статический",
     "DYNAMIC": "Динамический",

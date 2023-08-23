@@ -127,24 +127,28 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         this.qualityControl = new TimerTask() {
             @Override
             public void run() {
-                int ttlfCnt = totalVideoFrameCounter.get();
-                int skfCnt = skippedVideoFrameCounter.get();
-                totalVideoFrameCounter.set(0);
-                skippedVideoFrameCounter.set(0);
-                if (ttlfCnt == 0) {
-                    return;
-                }
-                double skf = skfCnt / (double) ttlfCnt;
-                double load = TrafficControl.INSTANCE.bandwidthLoad();
-                log.info("Bandwidth load: {} Skipped frames: {}/{} ({})", load, skfCnt, ttlfCnt, skf);
-                if (skf > 0.3 && load > 1) {
-                    increaseQuality = -2;
-                } else if (skf > 0.2 || load > 0.8) {
-                    increaseQuality = -1;
-                } else if (load < 0.7) {
-                    increaseQuality = 1;
+                if(portalWebRTCIntegrationThing.getConfiguration().adaptiveBitrate) {
+                    int ttlfCnt = totalVideoFrameCounter.get();
+                    int skfCnt = skippedVideoFrameCounter.get();
+                    totalVideoFrameCounter.set(0);
+                    skippedVideoFrameCounter.set(0);
+                    if (ttlfCnt == 0) {
+                        return;
+                    }
+                    double skf = skfCnt / (double) ttlfCnt;
+                    double load = TrafficControl.INSTANCE.bandwidthLoad();
+                    log.info("Bandwidth load: {} Skipped frames: {}/{} ({})", load, skfCnt, ttlfCnt, skf);
+                    if (skf > 0.3 && load > 1) {
+                        increaseQuality = -2;
+                    } else if (skf > 0.2 || load > 0.8) {
+                        increaseQuality = -1;
+                    } else if (load < 0.7) {
+                        increaseQuality = 1;
+                    } else {
+                        increaseQuality = 0;
+                    }
                 } else {
-                    increaseQuality = 0;
+                    increaseQuality = 1;
                 }
             }
         };
@@ -456,7 +460,7 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         PortalWebRTCIntegrationConfiguration.QualityProfile qp = config.rtMediaQualityProfile;
         final FFmpegFrameRecorder recorder;
 
-        double k = (double)imageHeight / imageWidth;
+        double k = (double) imageHeight / imageWidth;
 
         int targetWidth = Math.min(imageWidth, 1024);
         int targetHeight = (int) (targetWidth * k);
@@ -470,9 +474,9 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
 //        recorder.setVideoOption("preset", "ultrafast");
 //        recorder.setVideoOption("crf", "26");
 
-        recorder.setVideoOption("tune", qp.tune);
-        recorder.setVideoOption("preset", qp.preset);
-        recorder.setVideoOption("crf", "" + qp.crf);
+//        recorder.setVideoOption("tune", qp.tune);
+//        recorder.setVideoOption("preset", qp.preset);
+//        recorder.setVideoOption("crf", "" + qp.crf);
 
 //        recorder.setVideoOption("tune", "film");
 //        recorder.setVideoOption("preset", "slower");
@@ -483,9 +487,9 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         recorder.setVideoBitrate(bitRate);
         recorder.setAspectRatio(aspectRatio);
 
-        int gop = (int) (frameRate * 2);
-        if (gop < 5) {
-            gop = 5;
+        int gop = (int) (frameRate * qp.gopSeconds);
+        if (gop < 1) {
+            gop = 1;
         }
         recorder.setGopSize(gop);
         log.debug("RT Video Stream grabber created");

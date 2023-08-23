@@ -2,6 +2,7 @@ package com.banalytics.box.module.media.task.watermark;
 
 import com.banalytics.box.TimeUtil;
 import com.banalytics.box.module.*;
+import com.banalytics.box.module.constants.PenColor;
 import com.banalytics.box.module.standard.Onvif;
 import org.apache.commons.lang3.StringUtils;
 import org.bytedeco.javacpp.Pointer;
@@ -25,6 +26,7 @@ import static com.banalytics.box.module.ExecutionContext.GlobalVariables.CALCULA
 import static com.banalytics.box.module.ExecutionContext.GlobalVariables.SOURCE_TASK_UUID;
 import static org.bytedeco.opencv.global.opencv_imgproc.getTextSize;
 import static org.bytedeco.opencv.global.opencv_imgproc.putText;
+import static org.opencv.imgproc.Imgproc.LINE_4;
 
 public class WatermarkTask extends AbstractTask<WatermarkConfig> implements PreProcessor<Frame> {
     public WatermarkTask(BoxEngine metricDeliveryService, AbstractListOfTask<?> parent) {
@@ -50,7 +52,13 @@ public class WatermarkTask extends AbstractTask<WatermarkConfig> implements PreP
 
     @Override
     public void doStart(boolean ignoreAutostartProperty, boolean startChildren) throws Exception {
-        penColor = new Scalar(255, 255, 255, 0);
+        PenColor color = configuration.getPenColor();
+        penColor = new Scalar(
+                color.blue,
+                color.green,
+                color.red,
+                color.alpha
+        );
 
         dateTimeFormatter = DateTimeFormatter.ofPattern(configuration.dateFormat.pattern);
 
@@ -186,7 +194,7 @@ public class WatermarkTask extends AbstractTask<WatermarkConfig> implements PreP
                         configuration.fontScale,
                         penColor,
                         configuration.fontThickness,
-                        0,
+                        LINE_4,
                         false);
 
                 int topMax = drawPoint.y() + textH;

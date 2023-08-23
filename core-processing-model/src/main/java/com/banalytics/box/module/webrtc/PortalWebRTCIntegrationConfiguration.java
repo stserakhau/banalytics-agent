@@ -58,10 +58,10 @@ public class PortalWebRTCIntegrationConfiguration extends AbstractConfiguration 
             })
     public QualityProfile rtMediaQualityProfile = QualityProfile.HIGH;
 
-    @UIComponent(index = 90, type = checkbox, required = true,
-            uiConfig = {
-                    @UIComponent.UIConfig(name = "show-empty", value = "false")
-            })
+    @UIComponent(index = 90, type = checkbox, required = true)
+    public boolean adaptiveBitrate = true;
+
+    @UIComponent(index = 100, type = checkbox, required = true)
     public boolean synchronousMediaStream = false;
 
     public enum QualityStrategy {
@@ -69,26 +69,29 @@ public class PortalWebRTCIntegrationConfiguration extends AbstractConfiguration 
     }
 
     public enum QualityProfile {
-        BAD("faster", "zerolatency ", 0,  5000),
-        VERY_LOW("faster", "zerolatency ", 2,10000),
-        LOW("faster", "zerolatency ", 4,20000),
-        LOWER_MEDIUM("faster", "zerolatency ", 8,30000),
-        MEDIUM("faster", "zerolatency ", 10,50000),
-        UPPER_MEDIUM("faster", "zerolatency", 14,80000),
-        HIGH("faster", "zerolatency", 18,120000),
-        VERY_HIGH("faster", "zerolatency", 22,200000),
-        HIGHEST("faster", "zerolatency", 28,640000);
+        BAD("faster", "zerolatency", 0, 5000, 1),
+        VERY_LOW("faster", "zerolatency", 2, 10000, 1),
+        LOW("faster", "zerolatency", 4, 20000, 1),
+        LOWER_MEDIUM("faster", "zerolatency", 8, 30000, 1),
+        MEDIUM("faster", "zerolatency", 10, 50000, 1),
+        UPPER_MEDIUM("faster", "zerolatency", 14, 80000, 1),
+        HIGH("faster", "zerolatency", 18, 120000, 1),
+        VERY_HIGH("faster", "zerolatency", 22, 200000, 1),
+        HIGHEST("faster", "zerolatency", 28, 640000, 1);
 
         public final String preset;
         public final String tune;
         public final int crf;
         public final int videoBitrate;
 
-        QualityProfile(String preset, String tune, int crf, int videoBitrate) {
+        public final double gopSeconds;
+
+        QualityProfile(String preset, String tune, int crf, int videoBitrate, double gopSeconds) {
             this.preset = preset;
             this.tune = tune;
             this.crf = crf;
             this.videoBitrate = videoBitrate;
+            this.gopSeconds = gopSeconds;
         }
     }
 }

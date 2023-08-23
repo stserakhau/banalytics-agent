@@ -4,6 +4,7 @@ import com.banalytics.box.api.integration.form.ComponentType;
 import com.banalytics.box.api.integration.form.annotation.UIComponent;
 import com.banalytics.box.module.AbstractConfiguration;
 import com.banalytics.box.module.constants.DateFormat;
+import com.banalytics.box.module.constants.PenColor;
 import com.banalytics.box.module.constants.PenFont;
 import com.banalytics.box.module.constants.Place;
 import lombok.Getter;
@@ -40,7 +41,10 @@ public class WatermarkConfig extends AbstractConfiguration {
     @UIComponent(index = 90, type = ComponentType.drop_down, required = true, restartOnChange = true)
     public PenFont penFont = PenFont.FONT_HERSHEY_COMPLEX;
 
-    @UIComponent(index = 100, type = ComponentType.int_input, required = true, restartOnChange = true,
+    @UIComponent(index = 100, type = ComponentType.drop_down, required = true, restartOnChange = true)
+    public PenColor penColor = PenColor.WHITE;
+
+    @UIComponent(index = 110, type = ComponentType.int_input, required = true, restartOnChange = true,
             uiConfig = {
                     @UIComponent.UIConfig(name = "step", value = "0.1"),
                     @UIComponent.UIConfig(name = "min", value = "0.3"),
@@ -48,7 +52,7 @@ public class WatermarkConfig extends AbstractConfiguration {
             })
     public double fontScale = 0.6;
 
-    @UIComponent(index = 110, type = ComponentType.int_input, required = true, restartOnChange = true,
+    @UIComponent(index = 120, type = ComponentType.int_input, required = true, restartOnChange = true,
             uiConfig = {
             @UIComponent.UIConfig(name = "min", value = "1"),
             @UIComponent.UIConfig(name = "max", value = "10")

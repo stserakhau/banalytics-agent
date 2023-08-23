@@ -3,7 +3,7 @@ package com.banalytics.box.module.constants;
 import java.util.Date;
 
 public enum SplitTimeInterval {
-    s10(5000),
+    s10(10000),
     m1(60000);
 
     public final int intervalMillis;

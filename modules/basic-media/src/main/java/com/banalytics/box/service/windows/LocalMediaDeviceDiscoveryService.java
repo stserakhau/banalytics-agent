@@ -39,14 +39,15 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
 
     private volatile long expirationTimeout;
 
-    public synchronized  void scanLocalDevices() {
+    public synchronized void scanLocalDevices() {
         log.info("============Scan started");
         synchronized (org.bytedeco.ffmpeg.global.avcodec.class) {
             long now = System.currentTimeMillis();
             if (now < expirationTimeout) {
+                log.info("============Scan results from cache");
                 return;
             }
-            expirationTimeout = now + 30000;
+            expirationTimeout = now + 120 * 1000;
             List<String> result = Collections.synchronizedList(new ArrayList<>());
             avutil.av_log_set_level(avutil.AV_LOG_INFO);
             avutil.setLogCallback(new LogCallback() {
@@ -147,6 +148,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
     }
 
     private static void execute(String format, String option, String device) {
+        log.info("Execute: {}, {}, {}", format, option, device);
         AVFormatContext context = avformat_alloc_context();
         AVDictionary options = new AVDictionary(null);
         try {
@@ -162,6 +164,8 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
             }
         } finally {
             avformat_free_context(context);
+
+            log.info("Executed");
         }
     }
 }
