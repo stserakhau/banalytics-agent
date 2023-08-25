@@ -1,24 +1,24 @@
 {
   "en": {
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "WhatApp integration",
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "WhatApp integration ({0})",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "WhatsApp integration",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "WhatsApp integration ({0})",
     "alias": "Alias",
     "pinCode": "Authorization code"
   },
   "by" : {
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Інтэграцыя WhatApp",
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Інтэграцыя WhatApp ({0})",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Інтэграцыя WhatsApp",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Інтэграцыя WhatsApp ({0})",
     "alias": "Псеўданім",
     "pinCode": "Код аўтарызацыі"
   },
   "ua" : {
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Інтеграція WhatApp",
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Інтеграція WhatApp ({0})",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Інтеграція WhatsApp",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Інтеграція WhatsApp ({0})",
     "alias": "Псевдонім",
     "pinCode": "Код авторизації"
   },
   "de" : {
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "WhatApp-Integration",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "WhatsApp-Integration",
     "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "WhatsApp-Integration ({0})",
     "alias": "Alias",
     "pinCode": "Autorisierungscode"
@@ -30,20 +30,20 @@
     "pinCode": "Código de Autorización"
   },
   "fr" : {
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Intégration WhatApp",
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Intégration WhatApp ({0})",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Intégration WhatsApp",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Intégration WhatsApp ({0})",
     "alias": "Alias",
     "pinCode": "Code d'autorisation"
   },
   "pl" : {
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Integracja WhatApp",
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Integracja WhatApp ({0})",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Integracja WhatsApp",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Integracja WhatsApp ({0})",
     "alias": "Alias",
     "pinCode": "Kod autoryzacji"
   },
   "ru" : {
     "com.banalytics.box.module.whatsapp.WhatsAppBotThing": "Интеграция с WhatsApp",
-    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Интеграция с WhatApp ({0})",
+    "com.banalytics.box.module.whatsapp.WhatsAppBotThing.title": "Интеграция с WhatsApp ({0})",
     "alias": "Псевдоним",
     "pinCode": "Код авторизации"
   }
