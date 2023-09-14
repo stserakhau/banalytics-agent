@@ -27,10 +27,10 @@ Banalytics Box is a platform that allows the installation of specific NVR or med
 
 # What's inside Banalytics?
 - Audit log
-- User/Group based security with external management of the access to the functions (https://banalytics.live/?layout=knowledge-base.html&anchor=PortalWebRTCIntegrationThing)
-- Event manager & actions (https://banalytics.live/?layout=knowledge-base.html&anchor=EventManagerThing)
-- Integration with the embedded audio system (https://banalytics.live/?layout=knowledge-base.html&anchor=LocalAudioPlayerThing)
-- Publishing cameras to public access (https://banalytics.live/?layout=knowledge-base.html&anchor=integrate-camera-to-site)
+- [User/Group based security with external management of the access to the functions](https://banalytics.live/?layout=knowledge-base.html&anchor=PortalWebRTCIntegrationThing)
+- [Event manager & actions](https://banalytics.live/?layout=knowledge-base.html&anchor=EventManagerThing)
+- [Integration with the embedded audio system](https://banalytics.live/?layout=knowledge-base.html&anchor=LocalAudioPlayerThing)
+- [Publishing cameras to public access](https://banalytics.live/?layout=knowledge-base.html&anchor=integrate-camera-to-site)
 - Flex and open map dashboards
 - Simple Web RTC dialer
 - and much more
