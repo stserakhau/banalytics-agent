@@ -1,21 +1,16 @@
-# [What is Banalytics box agent](https://banalytics.live)
+# What is Banalytics box agent? (https://banalytics.live)
 
-Agent of the distributed open source scada platform.
-
-Is Banalytics a media server? Well, for specific usage - yes. Like a media server, Banalytics software installed on a computer or network device allows storing, managing, and streaming multimedia content to various client devices. As a media server, Banalytis software allows organizing storage for multimedia files. Banalytics software provides user management and sharing capabilities.
-
-However, Banalytics is not only a media server. [It is more](https://banalytics.live/?layout=articles.html&anchor=about-banalytics).
+Banalytics Box is a platform that allows the installation of specific NVR or media server components. The most fantastic thing about Banalytics Box is that you can install it on any Windows or Linux-based device with Intel/AMD Procesor 1,66 GHz (or similar) and 2 GB RAM. This can be any mini or even micro PC. Read more at https://banalytics.live/?layout=articles.html&anchor=about-banalytics.
 
 
-
-# [How to use](https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox)
+# How to use (https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox)
 
 **Five steps before play starts:**
 1. Sign in https://console.banalytics.live
-2. Download and unzip package
+2. Download and unzip the package
 3. Run installation script (admin permissions under the windows need to register Banalytics agent into the Services)
-4. Register the UUID of the installer agent in Banalytics console.
-5. Wait some time while the agent downloads the default set of the plugins and restart.
+4. Register the UUID of the installer agent in the Banalytics console.
+5. Wait some time while the agent downloads the default set of the plugins and restarts.
 6. Try to configure your free toy.
 
 
@@ -30,25 +25,25 @@ However, Banalytics is not only a media server. [It is more](https://banalytics.
 - [WhatsApp integration (available for agents marked as Dev environment - draft implementation)](https://banalytics.live/?layout=knowledge-base.html&anchor=com.banalytics.box.modules_whatsapp-bot)
 
 
-# What's inside banalytics ?
+# What's inside Banalytics?
 - Audit log
-- [User/Group based security with external management of the access to the functions](https://banalytics.live/?layout=knowledge-base.html&anchor=PortalWebRTCIntegrationThing)
-- [Event manager & actions](https://banalytics.live/?layout=knowledge-base.html&anchor=EventManagerThing)
-- [Integration with embedded audio system](https://banalytics.live/?layout=knowledge-base.html&anchor=LocalAudioPlayerThing)
-- [Publishing cameras to public access](https://banalytics.live/?layout=knowledge-base.html&anchor=integrate-camera-to-site)
-- Flex & Open map dashboards
+- User/Group based security with external management of the access to the functions (https://banalytics.live/?layout=knowledge-base.html&anchor=PortalWebRTCIntegrationThing)
+- Event manager & actions (https://banalytics.live/?layout=knowledge-base.html&anchor=EventManagerThing)
+- Integration with the embedded audio system (https://banalytics.live/?layout=knowledge-base.html&anchor=LocalAudioPlayerThing)
+- Publishing cameras to public access (https://banalytics.live/?layout=knowledge-base.html&anchor=integrate-camera-to-site)
+- Flex and open map dashboards
 - Simple Web RTC dialer
-- etc
+- and much more
 
 
 
-We are ready to collaborate with your team over different interesting features for integration to your infrastructure.
+We are ready to collaborate with your team over different interesting features for integration into your infrastructure.
 
 Contacts:
 - https://www.linkedin.com/in/sergei-terehov-1563b8198/
 - https://www.linkedin.com/in/irina-terekhova-b96a0511/
 
-Related greate projects:
+Related:
 - [devopvoid](https://github.com/devopvoid/webrtc-java)
 - [Bytedeco](http://bytedeco.org/)
 - [YoloV7](https://github.com/WongKinYiu/yolov7)
