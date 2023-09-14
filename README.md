@@ -1,13 +1,13 @@
-# What is Banalytics box agent? (https://banalytics.live)
+# [What is Banalytics box agent?](https://banalytics.live)
 
-Banalytics Box is a platform that allows the installation of specific NVR or media server components. The most fantastic thing about Banalytics Box is that you can install it on any Windows or Linux-based device with Intel/AMD Procesor 1,66 GHz (or similar) and 2 GB RAM. This can be any mini or even micro PC. Read more at https://banalytics.live/?layout=articles.html&anchor=about-banalytics.
+Banalytics Box is a platform that allows the installation of specific NVR or media server components. The most fantastic thing about Banalytics Box is that you can install it on any Windows or Linux-based device with Intel/AMD Procesor 1,66 GHz (or similar) and 2 GB RAM. This can be any mini or even micro PC. [Read more here](https://banalytics.live/?layout=articles.html&anchor=about-banalytics).
 
 
-# How to use (https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox)
+# [How to use](https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox)
 
 **Five steps before play starts:**
-1. Sign in https://console.banalytics.live
-2. Download and unzip the package
+1. [Sign-in to the administration console](https://console.banalytics.live)
+2. Go to "Quick start" -> "Download Banalytics Box software" -> download and unzip the package
 3. Run installation script (admin permissions under the windows need to register Banalytics agent into the Services)
 4. Register the UUID of the installer agent in the Banalytics console.
 5. Wait some time while the agent downloads the default set of the plugins and restarts.
