@@ -1,6 +1,6 @@
 # [What is Banalytics box agent?](https://banalytics.live)
 
-Banalytics Box is a platform that allows the installation of specific NVR or media server components. The most fantastic thing about Banalytics Box is that you can install it on any Windows or Linux-based device with Intel/AMD Procesor 1,66 GHz (or similar) and 2 GB RAM. This can be any mini or even micro PC. [Read more here](https://banalytics.live/?layout=articles.html&anchor=about-banalytics).
+Banalytics Box is a SCADA  platform that allows the installation of specific NVR or media server components. The most fantastic thing about Banalytics Box is that you can install it on any Windows or Linux-based device with Intel/AMD Procesor 1,66 GHz (or similar) and 2 GB RAM. This can be any mini or even micro PC. [Read more here](https://banalytics.live/?layout=articles.html&anchor=about-banalytics).
 
 
 # [How to use](https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox)
