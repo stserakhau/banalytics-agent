@@ -6,6 +6,7 @@ import com.banalytics.box.module.*;
 import com.banalytics.box.module.constants.MediaFormat;
 import com.banalytics.box.module.constants.SplitTimeInterval;
 import com.banalytics.box.module.standard.FileStorage;
+import com.banalytics.box.module.storage.filestorage.FileStorageThing;
 import com.banalytics.box.service.SystemThreadsService;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.ffmpeg.global.avcodec;
@@ -175,7 +176,7 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
                         evt.option("duration", (int) duration);
                         engine.fireEvent(evt);
                     });
-                    log.info("Recording committed: {}", new Date());
+//                    log.info("Recording committed: {}", new Date());
                 } catch (Throwable e) {
                     log.error("Recording commit failed.", e);
                 }

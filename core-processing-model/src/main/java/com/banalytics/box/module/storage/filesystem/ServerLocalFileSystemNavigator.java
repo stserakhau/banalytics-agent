@@ -87,30 +87,35 @@ public class ServerLocalFileSystemNavigator extends AbstractThing<ServerLocalFil
         FileUtils.moveFile(srcFile, destinationFile, StandardCopyOption.ATOMIC_MOVE);
     }
 
+    private static String fileKey(UUID sourceUuid, String fileName) {
+        return sourceUuid.toString() + ":" + fileName;
+    }
     @Override
-    public File startOutputTransaction(String fileName) throws Exception {
+    public File startOutputTransaction(UUID sourceUuid, String fileName) throws Exception {
         File localTemp = File.createTempFile(getUuid() + "-", ".tmp");
-        outputStreamMap.put(fileName, localTemp);
-        log.debug("Start file transaction {}: {}", fileName, localTemp.toURI());
+        final String fileKey = fileKey(sourceUuid, fileName);
+        outputStreamMap.put(fileKey, localTemp);
+        log.debug("Start file transaction {}: {}", fileKey, localTemp.toURI());
         return localTemp;
     }
 
     @Override
-    public void commitOutputTransaction(String fileName, String destinationUri, Consumer<Pair<String, File>> consumer) throws Exception {
-        finishOutputTransaction(fileName, destinationUri, true, consumer);
+    public void commitOutputTransaction(UUID sourceUuid, String fileName, String destinationUri, Consumer<Pair<String, File>> consumer) throws Exception {
+        finishOutputTransaction(sourceUuid, fileName, destinationUri, true, consumer);
     }
 
     @Override
-    public void rollbackOutputTransaction(String fileName, String destinationUri, Consumer<Pair<String, File>> consumer) throws Exception {
-        finishOutputTransaction(fileName, destinationUri, false, consumer);
+    public void rollbackOutputTransaction(UUID sourceUuid, String fileName, String destinationUri, Consumer<Pair<String, File>> consumer) throws Exception {
+        finishOutputTransaction(sourceUuid, fileName, destinationUri, false, consumer);
     }
 
 
-    private void finishOutputTransaction(String fileName, String destinationUri, boolean persistFile, Consumer<Pair<String, File>> consumer) throws Exception {
+    private void finishOutputTransaction(UUID sourceUuid, String fileName, String destinationUri, boolean persistFile, Consumer<Pair<String, File>> consumer) throws Exception {
         getExecutorService(this).submit(() -> {
             try {
-                log.debug("Commit {}", fileName);
-                File localTemp = outputStreamMap.remove(fileName);
+                final String fileKey = fileKey(sourceUuid, fileName);
+                log.debug("Commit {}", fileKey);
+                File localTemp = outputStreamMap.remove(fileKey);
                 if (localTemp == null || !localTemp.exists()) {
                     return;
                 }
@@ -154,7 +159,7 @@ public class ServerLocalFileSystemNavigator extends AbstractThing<ServerLocalFil
                     );
                     statistics.committed++;
                     statistics.committedSize += destinationFile.length();
-                    log.debug("File transaction committed {} > {}", fileName, destinationFile);
+                    log.info("File transaction committed {} > {}", fileName, destinationFile);
 
                     consumer.accept(ImmutablePair.of(fileName, destinationFile));
                 } else {

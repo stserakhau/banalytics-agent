@@ -240,18 +240,18 @@ public class FileStorageThing extends AbstractThing<FileStorageConfig> implement
             throw new Exception("error.write.restricted");
         }
         validateFreeSpace();
-        return fileSystem.startOutputTransaction(fileName);
+        return fileSystem.startOutputTransaction(this.getUuid(), fileName);
     }
 
     @Override
     public void commitOutputTransaction(String fileName, Consumer<Pair<String, File>> consumer) throws Exception {
         String destinationUri = configuration.destinationUri;
-        fileSystem.commitOutputTransaction(fileName, destinationUri, consumer);
+        fileSystem.commitOutputTransaction(this.getUuid(), fileName, destinationUri, consumer);
     }
 
     @Override
     public void rollbackOutputTransaction(String fileName, Consumer<Pair<String, File>> consumer) throws Exception {
         String destinationUri = configuration.destinationUri;
-        fileSystem.rollbackOutputTransaction(fileName, destinationUri, consumer);
+        fileSystem.rollbackOutputTransaction(this.getUuid(), fileName, destinationUri, consumer);
     }
 }

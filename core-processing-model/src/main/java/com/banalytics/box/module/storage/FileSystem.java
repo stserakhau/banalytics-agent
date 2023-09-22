@@ -6,6 +6,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public interface FileSystem {
@@ -16,11 +17,11 @@ public interface FileSystem {
 
     void pushFile(File srcFile, String destinationUri, String targetContextPath) throws Exception;
 
-    File startOutputTransaction(String fileName) throws Exception;
+    File startOutputTransaction(UUID sourceUuid, String fileName) throws Exception;
 
-    void commitOutputTransaction(String fileName, String destinationUri, Consumer<Pair<String, File>> consumer) throws Exception;
+    void commitOutputTransaction(UUID sourceUuid, String fileName, String destinationUri, Consumer<Pair<String, File>> consumer) throws Exception;
 
-    void rollbackOutputTransaction(String fileName, String destinationUri, Consumer<Pair<String, File>> consumer) throws Exception;
+    void rollbackOutputTransaction(UUID sourceUuid, String fileName, String destinationUri, Consumer<Pair<String, File>> consumer) throws Exception;
 
     Object call(Map<String, Object> params) throws Exception;
 
