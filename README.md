@@ -1,6 +1,9 @@
 # [What is Banalytics box agent?](https://banalytics.live)
 
-Banalytics Box is a SCADA  platform that allows the installation of specific NVR or media server components. The most fantastic thing about Banalytics Box is that you can install it on any Windows or Linux-based device with Intel/AMD Procesor 1,66 GHz (or similar) and 2 GB RAM. This can be any mini or even micro PC. [Read more here](https://banalytics.live/?layout=articles.html&anchor=about-banalytics).
+Banalytics Box is a SCADA  platform that allows the installation of specific NVR or media server components.
+The most fantastic thing about Banalytics Box is that you can install it on any Windows or Linux-based device
+with Intel/AMD Procesor 1,66 GHz (or similar) and 2 GB RAM. This can be any mini or even micro PC.
+[Read more here](https://banalytics.live/?layout=articles.html&anchor=about-banalytics&selectClass=about-banalytics).
 
 
 # [How to use](https://banalytics.live/?layout=knowledge-base.html&anchor=install-and-register-BanalyticsBox)
@@ -27,10 +30,10 @@ Banalytics Box is a SCADA  platform that allows the installation of specific NVR
 
 # What's inside Banalytics?
 - Audit log
-- [User/Group based security with external management of the access to the functions](https://banalytics.live/?layout=knowledge-base.html&anchor=PortalWebRTCIntegrationThing)
-- [Event manager & actions](https://banalytics.live/?layout=knowledge-base.html&anchor=EventManagerThing)
-- [Integration with the embedded audio system](https://banalytics.live/?layout=knowledge-base.html&anchor=LocalAudioPlayerThing)
-- [Publishing cameras to public access](https://banalytics.live/?layout=knowledge-base.html&anchor=integrate-camera-to-site)
+- [User/Group based security with external management of the access to the functions](https://banalytics.live/?layout=knowledge-base.html&anchor=PortalWebRTCIntegrationThing&selectClass=PortalWebRTCIntegrationThing)
+- [Event manager & actions](https://banalytics.live/?layout=knowledge-base.html&anchor=EventManagerThing&selectClass=EventManagerThing)
+- [Integration with the embedded audio system](https://banalytics.live/?layout=knowledge-base.html&anchor=LocalAudioPlayerThing&selectClass=LocalAudioPlayerThing)
+- [Publishing cameras to public access](https://banalytics.live/?layout=knowledge-base.html&selectClass=integrate-camera-to-site)
 - Flex and open map dashboards
 - Simple Web RTC dialer
 - and much more
