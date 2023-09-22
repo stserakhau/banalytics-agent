@@ -40,6 +40,13 @@ public class OnvifGrabberTaskConfiguration extends AbstractConfiguration {
     )
     public String deviceProfile;
 
+    @UIComponent(index = 25,
+            type = ComponentType.checkbox,
+            required = true,
+            restartOnChange = true
+    )
+    public boolean disableAudioRecording = true;
+
     @UIComponent(
             index = 30,
             type = ComponentType.int_input,

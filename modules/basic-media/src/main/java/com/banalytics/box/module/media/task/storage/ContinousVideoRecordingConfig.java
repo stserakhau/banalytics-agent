@@ -30,6 +30,12 @@ public class ContinousVideoRecordingConfig extends AbstractConfiguration {
     )
     public UUID storageUuid;
 
+    @UIComponent(index = 15,
+            type = ComponentType.checkbox,
+            required = true
+    )
+    public boolean disableAudioRecording = false;
+
     @UIComponent(index = 20, type = ComponentType.drop_down, required = true, restartOnChange = true)
     public TimestampFormat pathPattern = TimestampFormat.yyyyMMdd_hh_mmss;
 

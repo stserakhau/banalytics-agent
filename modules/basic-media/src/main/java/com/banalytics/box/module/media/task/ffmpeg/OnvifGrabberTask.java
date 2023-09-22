@@ -204,6 +204,10 @@ public class OnvifGrabberTask extends AbstractStreamingMediaTask<OnvifGrabberTas
             grabber.setFrameRate(configuration.fpsControl);
         }
 
+        if(configuration.disableAudioRecording) {
+            grabber.setMetadata("audio", "disabled");
+        }
+
         return grabber;
     }
 

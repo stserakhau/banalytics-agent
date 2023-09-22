@@ -26,6 +26,13 @@ public class SimpleRTSPGrabberTaskConfiguration extends AbstractConfiguration {
     )
     public UUID urlUuid;
 
+    @UIComponent(index = 15,
+            type = ComponentType.checkbox,
+            required = true,
+            restartOnChange = true
+    )
+    public boolean disableAudioRecording = true;
+
     @UIComponent(
             index = 20,
             type = ComponentType.int_input,

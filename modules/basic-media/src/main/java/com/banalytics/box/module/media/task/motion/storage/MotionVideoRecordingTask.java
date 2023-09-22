@@ -100,6 +100,9 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
         UUID dataSourceUuid = executionContext.getVar(SOURCE_TASK_UUID);
         FrameGrabber frameGrabber = executionContext.getVar(FrameGrabber.class);
         Frame frame = executionContext.getVar(Frame.class);
+        if (configuration.disableAudioRecording && frame.type == Frame.Type.AUDIO) {
+            return true;
+        }
         Boolean videoMotionDetected = executionContext.getVar(VIDEO_MOTION_DETECTED);
         Boolean audioMotionDetected = executionContext.getVar(AUDIO_MOTION_DETECTED);
         boolean motionDetected = Boolean.TRUE.equals(videoMotionDetected)

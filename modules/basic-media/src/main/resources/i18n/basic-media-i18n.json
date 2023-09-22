@@ -31,6 +31,7 @@
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Capture of {0}",
     "urlUuid": "Media source",
     "fpsControl": "Control frame rate (0 - disabled)",
+    "disableAudioRecording": "Disable audio",
 
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Media capture of local device",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Capture of {0}",
@@ -167,6 +168,7 @@
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Захоп {0}",
     "urlUuid": "Крыніца медыя",
     "fpsControl": "Кіраванне частатой кадраў (0 - выключана)",
+    "disableAudioRecording": "Адключыць гук",
 
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Захоп лакальных медыя",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Захоп {0}",
@@ -311,6 +313,7 @@
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Захоплення {0}",
     "urlUuid": "Джерело медіа",
     "fpsControl": "Керувати частотою кадрів (0 - вимкнено)",
+    "disableAudioRecording": "Вимкнути звук",
 
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Зйомка локального медіа",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Захоплення {0}",
@@ -447,6 +450,7 @@
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Eroberung von {0}",
     "urlUuid": "Medienquelle",
     "fpsControl": "Framerate steuern (0 - deaktiviert)",
+    "disableAudioRecording": "Audio deaktivieren",
 
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Lokale Medienerfassung",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Eroberung von {0}",
@@ -583,6 +587,7 @@
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Captura de {0}",
     "urlUuid": "fuente de medios",
     "fpsControl": "Velocidad de cuadros de control (0 - deshabilitado)",
+    "disableAudioRecording": "Desactivar audio",
 
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Captura de medios locales",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Captura de {0}",
@@ -719,6 +724,7 @@
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Capture de {0}",
     "urlUuid": "Source média",
     "fpsControl": "Fréquence d'images de contrôle (0 - désactivé)",
+    "disableAudioRecording": "Désactiver l'audio",
 
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Captation des médias locaux",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Capture de {0}",
@@ -855,6 +861,7 @@
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Przechwytywanie {0}",
     "urlUuid": "Źródło mediów",
     "fpsControl": "Kontroluj liczbę klatek na sekundę (0 — wyłączone)",
+    "disableAudioRecording": "Wyłącz dźwięk",
 
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Przechwytywanie lokalnych mediów",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Przechwytywanie {0}",
@@ -991,6 +998,7 @@
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Захват {0}",
     "urlUuid": "URL источника",
     "fpsControl": "Управление частотой кадров (0 - отключено)",
+    "disableAudioRecording": "Отключить звук",
 
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Захват медиапотока USB камеры",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Захват {0}",

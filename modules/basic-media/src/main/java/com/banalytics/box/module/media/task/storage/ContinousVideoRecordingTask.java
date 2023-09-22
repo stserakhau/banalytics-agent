@@ -92,6 +92,9 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
         UUID dataSourceUuid = executionContext.getVar(SOURCE_TASK_UUID);
         FrameGrabber frameGrabber = executionContext.getVar(FrameGrabber.class);
         Frame frame = executionContext.getVar(Frame.class);
+        if (configuration.disableAudioRecording && frame.type == Frame.Type.AUDIO) {
+            return true;
+        }
         boolean videoKeyFrame = executionContext.getVar(VIDEO_KEY_FRAME) == null || (Boolean) executionContext.getVar(VIDEO_KEY_FRAME);
         boolean timeoutTriggered = now > flushTimeout;
 
@@ -155,7 +158,7 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
         } finally {
             this.recorder = null;
             String fileName = this.fileName;
-            SystemThreadsService.execute(this,() -> {
+            SystemThreadsService.execute(this, () -> {
                 try {
                     Thread.sleep(500);// wait to stop recorder
                     fileStorage.commitOutputTransaction(fileName, (pair) -> {

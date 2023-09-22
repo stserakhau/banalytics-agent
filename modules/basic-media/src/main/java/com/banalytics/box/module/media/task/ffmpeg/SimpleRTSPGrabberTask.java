@@ -179,6 +179,10 @@ public class SimpleRTSPGrabberTask extends AbstractStreamingMediaTask<SimpleRTSP
             grabber.setFrameRate(configuration.fpsControl);
         }
 
+        if(configuration.disableAudioRecording) {
+            grabber.setMetadata("audio", "disabled");
+        }
+
         return grabber;
     }
 

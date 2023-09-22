@@ -17,6 +17,7 @@ import static com.banalytics.box.BanalyticsBoxInstanceState.getInstance;
 import static com.banalytics.box.module.ExecutionContext.GlobalVariables.*;
 import static com.banalytics.box.module.State.RUN;
 import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
+import static org.bytedeco.javacv.Frame.Type.AUDIO;
 
 @Slf4j
 public class GrabberStreamWorker implements Runnable {
@@ -32,6 +33,8 @@ public class GrabberStreamWorker implements Runnable {
     final int useFpsDelay;
     final boolean filePlay;
 
+    final boolean audioDisabled;
+
     private final BanalyticsWatermarkPreprocessor banalyticsWatermarkPreprocessor = new BanalyticsWatermarkPreprocessor(null, null);
 
     public GrabberStreamWorker(AbstractStreamingMediaTask<?> task, FFmpegFrameGrabber grabber, boolean filePlay, int fpsControl, String rotateImage) {
@@ -40,6 +43,7 @@ public class GrabberStreamWorker implements Runnable {
         this.rotateImage = rotateImage;
         this.filePlay = filePlay;
         this.useFpsDelay = fpsControl > 0 ? 1000 / fpsControl : 0;
+        this.audioDisabled = "disabled".equals(grabber.getMetadata("audio"));
     }
 
     private final ExecutionContext context = new ExecutionContext();
@@ -155,7 +159,11 @@ public class GrabberStreamWorker implements Runnable {
                         Thread.sleep(frameRateControlTime);
                     }
 
-                    frame = grabber.grabFrame();
+                    if(audioDisabled) {
+                        frame = grabber.grabImage();
+                    } else {
+                        frame = grabber.grabFrame();
+                    }
                     if (frame == null) {
                         throw new Exception("Null frame received. Media stream stopped. Restarting task '" + task.getTitle() + "' via " + task.configuration.restartOnFailure);
                     }
