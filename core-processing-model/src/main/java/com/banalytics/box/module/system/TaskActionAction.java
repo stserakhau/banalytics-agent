@@ -6,6 +6,7 @@ import com.banalytics.box.module.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ public class TaskActionAction extends AbstractAction<TaskActionActionConfigurati
         super(engine, parent);
     }
 
-    ITask<?> targetTask;
+    public ITask<?> targetTask;
 
     @Override
     protected boolean isFireActionEvent() {
@@ -56,6 +57,17 @@ public class TaskActionAction extends AbstractAction<TaskActionActionConfigurati
             return "";
         }
         return configuration.action + ": " + targetTask.getTitle();
+    }
+
+    @Override
+    public Map<String, Object> uiDetails() {
+        if (targetTask == null) {
+            super.uiDetails();
+        }
+        return Map.of(
+                TARGET_OBJECT_TITLE, targetTask.getTitle(),
+                TARGET_OBJECT_CLASS, targetTask.getSelfClassName()
+        );
     }
 
     @Override

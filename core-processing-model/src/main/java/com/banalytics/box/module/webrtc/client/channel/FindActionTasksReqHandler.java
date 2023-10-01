@@ -7,6 +7,7 @@ import com.banalytics.box.api.integration.webrtc.channel.environment.FindActionT
 import com.banalytics.box.api.integration.webrtc.channel.environment.FindActionTasksRes;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.constants.RestartOnFailure;
+import com.banalytics.box.module.system.TaskActionAction;
 import com.banalytics.box.module.webrtc.client.UserThreadContext;
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +29,7 @@ public class FindActionTasksReqHandler implements ChannelRequestHandler {
 
             Set<String> actionClasses = req.getActionClasses();
 
-            Collection<AbstractTask<?>> actions = engine.findActionTasks();
+            Collection<AbstractAction<?>> actions = engine.findActionTasks();
 
             if (actionClasses != null && !actionClasses.isEmpty()) {//action group filter
                 actions = actions.stream()
@@ -37,7 +38,7 @@ public class FindActionTasksReqHandler implements ChannelRequestHandler {
             }
 
             //security action filter
-            if(!UserThreadContext.isMyEnvironment()) {
+            if (!UserThreadContext.isMyEnvironment()) {
                 actions = actions.stream()
                         .filter(action -> {
                             Thing<?> sourceThing = action.getSourceThing();
@@ -51,20 +52,28 @@ public class FindActionTasksReqHandler implements ChannelRequestHandler {
 
             res.setTasks(actions
                     .stream()
-                    .map(i -> new NodeDescriptor(
-                            i.getUuid(),
-                            i.getSelfClassName(),
-                            i.getTitle(),
-                            i.getSourceThingUuid(),
-                            nodeType(i.getClass()),
-                            isSupportsSubtasks(i.getClass()),
-                            (i instanceof AbstractListOfTask mt && !mt.getSubTasks().isEmpty()),
-                            isSupportsMediaStream(i.getClass()),
-                            NodeState.valueOf(i.getState().name()),
-                            i.stateDescription,
-                            i.configuration.getRestartOnFailure() != RestartOnFailure.STOP_ON_FAILURE,
-                            i instanceof Singleton
-                    ))
+                    .map(i -> {
+                        NodeDescriptor nd = new NodeDescriptor(
+                                i.getUuid(),
+                                i.getSelfClassName(),
+                                i.getTitle(),
+                                i.getSourceThingUuid(),
+                                nodeType(i.getClass()),
+                                isSupportsSubtasks(i.getClass()),
+                                false, //(i instanceof AbstractListOfTask mt && !mt.getSubTasks().isEmpty()),
+                                isSupportsMediaStream(i.getClass()),
+                                NodeState.valueOf(i.getState().name()),
+                                i.stateDescription,
+                                i.configuration.getRestartOnFailure() != RestartOnFailure.STOP_ON_FAILURE,
+                                i instanceof Singleton
+                        );
+                        if (i instanceof TaskActionAction taa) {
+                            if (taa.targetTask != null) {
+                                nd.getOptions().put("targetTaskClass", taa.targetTask.getSelfClassName());
+                            }
+                        }
+                        return nd;
+                    })
                     .collect(Collectors.toList()));
 
             return res;

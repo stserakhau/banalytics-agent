@@ -410,9 +410,9 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
             }
 
             case "readActionTasks" -> {
-                Collection<AbstractTask<?>> actionTasks = engine.findActionTasks();
+                Collection<AbstractAction<?>> actionTasks = engine.findActionTasks();
                 Map<UUID, Map<String, Object>> actions = new HashMap<>();
-                for (AbstractTask<?> actionTask : actionTasks) {
+                for (AbstractAction actionTask : actionTasks) {
                     actions.put(
                             actionTask.getUuid(),
                             Map.of(
@@ -512,6 +512,9 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
         for (Action action : actions) {
             ITask<?> actionTask = engine.findTask(action.getTaskUuid());
             if (actionTask instanceof IAction a) {
+                if(event.getNodeUuid().equals(a.getUuid())) {//check cycles execution - if event node and target action is the same nodes - skip action execution
+                    continue;
+                }
                 ruleExecutorService.submit(() -> {
                     try {
                         ExecutionContext ctx = new ExecutionContext();

@@ -2,6 +2,7 @@ package com.banalytics.box.module;
 
 import com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent;
 
+import static com.banalytics.box.module.State.RUN;
 import static com.banalytics.box.module.utils.Utils.nodeType;
 
 public abstract class AbstractAction<CONFIGURATION extends IConfiguration> extends AbstractTask<CONFIGURATION> implements IAction {
@@ -14,8 +15,16 @@ public abstract class AbstractAction<CONFIGURATION extends IConfiguration> exten
     protected abstract boolean isFireActionEvent();
 
     @Override
+    protected boolean canStart() {
+        return true;
+    }
+
+    @Override
     public void action(ExecutionContext ctx) throws Exception {
-        if(isFireActionEvent()) {
+        if (this.state != State.RUN) {
+            return;
+        }
+        if (isFireActionEvent()) {
             engine.fireEvent(new ActionEvent(
                     nodeType(this.getClass()),
                     this.getUuid(),
@@ -25,7 +34,7 @@ public abstract class AbstractAction<CONFIGURATION extends IConfiguration> exten
             ));
         }
         doAction(ctx);
-        if(isFireActionEvent()) {
+        if (isFireActionEvent()) {
             engine.fireEvent(new ActionEvent(
                     nodeType(this.getClass()),
                     this.getUuid(),

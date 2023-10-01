@@ -19,7 +19,7 @@ public interface BoxEngine {
         throw new RuntimeException("Method not implemented");
     }
 
-    default <T extends Thing<?>> T getThingAndSubscribe(UUID uuid, InitShutdownSupport initShutdownSupport) {
+    default <T extends Thing<?>> T getThingAndSubscribe(UUID uuid, InitShutdownSupport initShutdownSupport) throws Exception {
         return null;
     }
 
@@ -105,7 +105,7 @@ public interface BoxEngine {
         throw new RuntimeException("Method not implemented");
     }*/
 
-    default Collection<AbstractTask<?>> findActionTasks() {
+    default Collection<AbstractAction<?>> findActionTasks() {
         throw new RuntimeException("Method not implemented");
     }
 

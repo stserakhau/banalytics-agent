@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -24,6 +26,7 @@ public class NodeDescriptor {
     private boolean restartOnFailure;
     private boolean singleton;
     private boolean removable = true;
+    private Map<String, String> options = new HashMap<>();
 
     public NodeDescriptor() {
     }

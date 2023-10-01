@@ -261,7 +261,7 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
             throw new RuntimeException(e);
         }
 
-        if (state == State.STOPPED || state == State.ERROR) {
+        if (state == State.STOPPED || state == State.ERROR || state == State.INIT_ERROR) {
             log.warn("==== Stopped: {}", state);
         }
     }

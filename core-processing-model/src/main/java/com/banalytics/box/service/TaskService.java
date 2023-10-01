@@ -167,26 +167,25 @@ public class TaskService implements InitializingBean {
         }
     }
 
-    public Collection<AbstractTask<?>> findActionTasks() {
-        Collection<AbstractTask<?>> result = new HashSet<>();
+    public Collection<AbstractAction<?>> findActionTasks() {
+        Collection<AbstractAction<?>> result = new HashSet<>();
         for (AbstractTask<?> task : applicationAllTasksMap.values()) {
-            if (task instanceof IAction a) {
-                result.add(task);
+            if (task instanceof AbstractAction a) {
+                result.add(a);
             }
         }
         return result;
     }
 
-    public List<Map<String, ?>> findActionTasksUI() {
-        List<Map<String, ?>> result = new ArrayList<>();
-        for (AbstractTask<?> actionTask : findActionTasks()) {
-            result.add(
-                    Map.of(
-                            "key", actionTask.getUuid(),
-                            "className", actionTask.getSelfClassName(),
-                            "title", actionTask.getTitle()
-                    )
-            );
+    public List<Map<String, Object>> findActionTasksUI() {
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (AbstractAction actionTask : findActionTasks()) {
+            Map<String, Object> uiDetails = new HashMap<>();
+            uiDetails.put("key", actionTask.getUuid());
+            uiDetails.put("className", actionTask.getSelfClassName());
+            uiDetails.put("title", actionTask.getTitle());
+            uiDetails.putAll(actionTask.uiDetails());
+            result.add(uiDetails);
         }
         return result;
     }
@@ -559,7 +558,7 @@ public class TaskService implements InitializingBean {
     public Map<UUID, String> findByStandard(Class<?>... standards) {
         Map<UUID, String> res = new HashMap<>();
         for (Thing<?> thing : primaryInstance.getThings()) {
-            if(!UserThreadContext.hasReadPermission(thing.getUuid())){
+            if (!UserThreadContext.hasReadPermission(thing.getUuid())) {
                 continue;
             }
             for (Class<?> standardInterface : standards) {
@@ -595,7 +594,7 @@ public class TaskService implements InitializingBean {
             standardCache.clear();
             restartNeed = true;
         } else {
-            if(!UserThreadContext.hasUpdatePermission(thingUuid)){
+            if (!UserThreadContext.hasUpdatePermission(thingUuid)) {
                 throw new Exception("updateDenied");
             }
             thing = primaryInstance.getThing(thingUuid);

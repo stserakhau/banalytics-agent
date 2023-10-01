@@ -66,6 +66,14 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
         sendTaskState(e.getMessage());
     }
 
+    public void onInitException(Throwable e) {
+        this.state = State.INIT_ERROR;
+        log.error("Operation failed {} ({}): {}", getSelfClassName(), getTitle(), e.getMessage());
+        log.error("Exception details", e);
+        this.stateDescription = e.getMessage();
+        sendTaskState(e.getMessage());
+    }
+
     public void onException(Throwable e) {
         this.state = State.ERROR;
         log.error("Operation failed {} ({}): {}", getSelfClassName(), getTitle(), e.getMessage());
@@ -130,20 +138,23 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
         try {
             doInit();
         } catch (Throwable e) {
-            onException(e);
+            onInitException(e);
         }
+    }
+
+    protected boolean canStart() {
+        Thing<?> sourceThing = getSourceThing();
+        return sourceThing != null && sourceThing.getState() == RUN;
     }
 
     public synchronized void start(boolean ignoreAutostartProperty, boolean startChildren) {
         log.info("Start {} ({})", state, getUuid());
-        if (state == RUN || state == STARTING || state == null) {
+        if (state == INIT_ERROR || state == RUN || state == STARTING || state == null) {
             return;
         }
         init();
 
-        Thing<?> sourceThing = getSourceThing();
-        if (sourceThing != null && sourceThing.getState() != RUN) {
-            log.warn("Thing not started: {} / {}", sourceThing.getUuid(), sourceThing.getTitle());
+        if (!canStart()) {
             return;
         }
 
@@ -301,6 +312,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
             case STARTING:
 //                runtimeOutSpec = null;//reset runtime spec on restart
             case STOPPED:
+            case INIT_ERROR:
             case ERROR:
             default:
                 return false; // block the execution tree
@@ -385,6 +397,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
     public Set<Class<? extends AbstractTask<?>>> shouldAddAfter() {
         return Set.of();
     }
+
     public Set<Class<? extends AbstractTask<?>>> shouldAddBefore() {
         return Set.of();
     }

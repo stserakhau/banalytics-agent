@@ -27,6 +27,11 @@ public class ForwardEventToConsumerAction extends AbstractAction<ForwardEventToC
     private EventConsumer.Recipient recipient;
 
     @Override
+    public Object uniqueness() {
+        return configuration.eventConsumerThing + ":" + configuration.forwardToAccounts;
+    }
+
+    @Override
     protected boolean isFireActionEvent() {
         return !(
                 EventHistoryThingConfig.THING_UUID.equals(eventConsumer.getUuid())

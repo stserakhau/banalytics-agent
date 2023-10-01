@@ -6,6 +6,7 @@ import com.banalytics.box.module.storage.FileSystem;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
@@ -29,6 +30,8 @@ public class PlayAudioAction extends AbstractAction<PlayAudioActionConfiguration
 
     private AudioPlayer audioPlayer;
     private FileSystem fileSystem;
+
+    private File audioFile;
 
     private long executionTimeout;
 
@@ -56,6 +59,8 @@ public class PlayAudioAction extends AbstractAction<PlayAudioActionConfiguration
             ((Thing<?>) this.fileSystem).unSubscribe(this);
         }
         this.fileSystem = engine.getThingAndSubscribe(configuration.fileSystemUuid, this);
+
+        this.audioFile = fileSystem.getLocalFile(configuration.playAudioFile);
     }
 
     @Override
@@ -72,8 +77,8 @@ public class PlayAudioAction extends AbstractAction<PlayAudioActionConfiguration
         }
         try {
             executionTimeout = currentTime + configuration.waitBeforeNextExecution.intervalMillis;
-            File audioFile = fileSystem.getLocalFile(configuration.playAudioFile);
-            audioPlayer.play(audioFile);
+
+            audioPlayer.play(this.audioFile);
         } catch (Throwable e) {
             onProcessingException(e);
         }
@@ -87,6 +92,14 @@ public class PlayAudioAction extends AbstractAction<PlayAudioActionConfiguration
 
     @Override
     public void doStop() throws Exception {
+    }
+
+    @Override
+    public Map<String, Object> uiDetails() {
+        if (audioPlayer == null) {
+            super.uiDetails();
+        }
+        return Map.of(TARGET_OBJECT_TITLE, audioPlayer.getTitle());
     }
 
     @Override

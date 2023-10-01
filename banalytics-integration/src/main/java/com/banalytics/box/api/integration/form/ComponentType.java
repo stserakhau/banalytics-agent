@@ -28,6 +28,17 @@ public enum ComponentType {
      */
     level_selector,
 
+    /**
+     * uiConfig = {
+     *    @UIComponent.UIConfig(name = "rest", value = "https://console.banalytics.live/api/public/camera/descriptor?producer={key}&model={key}")
+     * }
+     *
+     * component provide search by partial values
+     * UI is input where user types the value and see search result under input box, after choosing property of selected object fills the input
+     * If no selection click input clear.
+     */
+    parametrized_rest_search,
+
     text_input,
     text_area,
     text_input_readonly,

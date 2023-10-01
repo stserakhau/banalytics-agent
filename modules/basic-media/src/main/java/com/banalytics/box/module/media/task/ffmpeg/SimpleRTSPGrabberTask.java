@@ -141,7 +141,7 @@ public class SimpleRTSPGrabberTask extends AbstractStreamingMediaTask<SimpleRTSP
 
     @Override
     public void doStop() throws Exception {
-        if (this.state != State.ERROR) {
+        if (this.state != State.ERROR && this.state != State.INIT_ERROR) {
             this.state = State.STOPPING;
         }
         if (this.grabberThread != null) {

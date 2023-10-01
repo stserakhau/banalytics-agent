@@ -53,7 +53,8 @@ public class PlayAudioActionConfiguration extends AbstractConfiguration {
                     @UIComponent.UIConfig(name = "enableFolderSelection", value = "false"),
                     @UIComponent.UIConfig(name = "enableFileSelection", value = "true"),
                     @UIComponent.UIConfig(name = "fileNameFilter", value = "^.*\\.(wav|acc|mp3)$")
-            })
+            },
+            restartOnChange = true)
     public String playAudioFile;
 
     @UIComponent(

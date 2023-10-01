@@ -545,15 +545,17 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
         SecurityModel.TargetNode targetNode = targetNodeStr == null ? null : SecurityModel.TargetNode.valueOf(targetNodeStr);
         switch (method) {
             case "readAccounts" -> {
+                // portal accounts
                 Map<String, Share> accountShare = securityModel.getAccountShare();
                 List<String> callers = new ArrayList<>();
                 for (String acc : accountShare.keySet()) {
                     callers.add(acc + "~" + acc);
                 }
+                /* disable forwards to public shares
                 Map<String, Share> publicShare = securityModel.getPublicShare();
                 for (String acc : publicShare.keySet()) {
                     callers.add(acc + "~" + acc);
-                }
+                }*/
                 callers.sort(String::compareToIgnoreCase);
                 return callers;
             }

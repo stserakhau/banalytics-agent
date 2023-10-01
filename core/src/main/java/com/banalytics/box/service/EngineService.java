@@ -320,15 +320,15 @@ public class EngineService implements BoxEngine, InitializingBean {
     }*/
 
     @Override
-    public Collection<AbstractTask<?>> findActionTasks() {
+    public Collection<AbstractAction<?>> findActionTasks() {
         return taskService.findActionTasks();
     }
 
     @Override
-    public <T extends Thing<?>> T getThingAndSubscribe(UUID uuid, InitShutdownSupport initShutdownSupport) {
+    public <T extends Thing<?>> T getThingAndSubscribe(UUID uuid, InitShutdownSupport initShutdownSupport) throws Exception {
         T thing = taskService.getThing(uuid);
         if (thing == null) {
-            return null;
+            throw new Exception("thing.error.notFound");
         }
         thing.subscribe(initShutdownSupport);
         return thing;

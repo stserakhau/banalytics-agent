@@ -47,6 +47,11 @@ public final class Instance extends AbstractListOfTask<Instance.Config> {
     }
 
     @Override
+    protected boolean canStart() {
+        return true;
+    }
+
+    @Override
     public void doStart(boolean ignoreAutostartProperty, boolean startChildren) throws Exception {
         // start things and their subscribers
 

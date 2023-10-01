@@ -17,6 +17,12 @@ public class UrlMediaStreamThingConfiguration extends AbstractConfiguration {
     @UIComponent(index = 10, type = ComponentType.text_input, required = true)
     public String title = "";
 
+//    @UIComponent(index = 15, type = ComponentType.parametrized_rest_search, required = true,
+//            uiConfig = {
+//            @UIComponent.UIConfig(name = "rest", value = "https://console.banalytics.live/api/public/camera/descriptor?producer={producer}&model={model}")
+//    })
+//    public String urlTemplate = "";
+
     @UIComponent(index = 20, type = ComponentType.drop_down, required = true, restartOnChange = true)
     public MediaUrlSchema schema = MediaUrlSchema.rtsp;
 

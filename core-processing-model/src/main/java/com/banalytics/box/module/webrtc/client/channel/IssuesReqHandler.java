@@ -60,7 +60,7 @@ public class IssuesReqHandler implements ChannelRequestHandler {
             if (!allowed) {
                 continue;
             }
-            if (t.getState() == State.ERROR) {
+            if (t.getState() == State.ERROR || t.getState() == State.INIT_ERROR) {
                 NodeDescriptor nd = new NodeDescriptor(
                         t.getUuid(),
                         t.getSelfClassName(),
