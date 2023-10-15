@@ -204,7 +204,13 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
 
     private void initializeManager() throws Exception {
         String currentAddr = getNextAddress();
-        String connectionUri = "wss://" + currentAddr + ":" + this.wssPort + "/portal-integration?";
+        String connectionUri;
+        if (this.wssPort == -1) {
+            connectionUri = "wss://" + currentAddr + "/portal-integration?";
+        } else {
+            connectionUri = "wss://" + currentAddr + ":" + this.wssPort + "/portal-integration?";
+        }
+
 //        String connectionUri = configuration.portalUrl + "/portal-integration?";
         if (getEnvironmentUUID() != null) {//when new environment created
             connectionUri += Constants.ENVIRONMENT_UUID.varName + "=" + getEnvironmentUUID().toString();
