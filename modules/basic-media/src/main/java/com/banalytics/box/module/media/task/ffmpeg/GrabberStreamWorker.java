@@ -12,6 +12,7 @@ import org.bytedeco.javacv.FrameGrabber;
 
 import java.util.Arrays;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static com.banalytics.box.BanalyticsBoxInstanceState.getInstance;
 import static com.banalytics.box.module.ExecutionContext.GlobalVariables.*;
@@ -28,7 +29,7 @@ public class GrabberStreamWorker implements Runnable {
     long videoFrameCounter = 0;
     long audioFrameCounter = 0;
 
-    long lastFrameReceivedTime = 0;
+    AtomicLong lastFrameReceivedTime = new AtomicLong(0);
 
     final int useFpsDelay;
     final boolean filePlay;
@@ -193,7 +194,7 @@ public class GrabberStreamWorker implements Runnable {
                     }
 
                     previousFrameWidth = imageWidth;
-                    lastFrameReceivedTime = System.currentTimeMillis();
+                    lastFrameReceivedTime.set(System.currentTimeMillis());
 
                     boolean videoFrame = frame.getTypes().contains(Frame.Type.VIDEO);
                     boolean videoKeyFrame = frame.keyFrame && videoFrame;
@@ -258,7 +259,7 @@ public class GrabberStreamWorker implements Runnable {
             public void run() {
                 long now = System.currentTimeMillis();
                 if (task.state == RUN) {
-                    if (now - lastFrameReceivedTime > 15000) {//if no frame grabbed in last 10 seconds, the restart
+                    if (now - lastFrameReceivedTime.get() > 15000) {//if no frame grabbed in last 10 seconds, the restart
                         cancel();// self cancel
                         // and fire restart via exception
                         task.onProcessingException(new Exception("Frozen Media Stream. No frames received. Restarting the task: '" + task.getTitle() + "' via " + task.configuration.restartOnFailure));
