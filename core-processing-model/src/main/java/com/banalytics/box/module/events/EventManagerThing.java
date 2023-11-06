@@ -512,12 +512,14 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
         for (Action action : actions) {
             ITask<?> actionTask = engine.findTask(action.getTaskUuid());
             if (actionTask instanceof IAction a) {
-                UUID evtUuid = event.getNodeUuid();
-                if (evtUuid == null) {
-                    log.warn("Event with null node uuid: {}", event);
-                }
-                if (evtUuid != null && evtUuid.equals(a.getUuid())) {//check cycles execution - if event node and target action is the same nodes - skip action execution
-                    continue;
+                if (event != null) {
+                    UUID evtUuid = event.getNodeUuid();
+                    if (evtUuid == null) {
+                        log.warn("Event with null node uuid: {}", event);
+                    }
+                    if (evtUuid != null && evtUuid.equals(a.getUuid())) {//check cycles execution - if event node and target action is the same nodes - skip action execution
+                        continue;
+                    }
                 }
                 ruleExecutorService.submit(() -> {
                     try {
