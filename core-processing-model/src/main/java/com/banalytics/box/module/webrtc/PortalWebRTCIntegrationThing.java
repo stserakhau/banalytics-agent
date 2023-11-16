@@ -231,6 +231,28 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
         ));
     }
 
+
+    public RTCClient findAgent(UUID agentUuid) {
+        for (RTCClient ag : clientMap.values()) {
+            if (agentUuid.equals(ag.environmentUUID)) {
+                return ag;
+            }
+        }
+        return null;
+    }
+    public void sendReady(UUID agentUuid) {
+        Ready ready = new Ready();
+//        ready.fromAgentUuid = ;
+        ready.toAgentUuid = agentUuid;
+        portalIntegrationThing.sendMessage(ready);
+    }
+
+    public void sendBye(UUID agentUuid) {
+        Bye bye = new Bye();
+        bye.toAgentUuid = agentUuid;
+        portalIntegrationThing.sendMessage(bye);
+    }
+
     private final PeerConnectionListenerAdaptor peerConnectionListenerAdaptor = new PeerConnectionListenerAdaptor() {
         @Override
         public void onConnecting(ConnectionEvent event) {
@@ -277,7 +299,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
             String transactionId = event.getRtcClient().transactionId;
             clientConnectionTimeMap.remove(transactionId);
             RTCClient client = clientMap.remove(transactionId);
-            log.info("RTCClient removed: {} = {}", event.getRtcClient().transactionId, client);
+            log.info("RTCClient removed: {}", client.environmentUUID);
         }
     };
 
@@ -301,8 +323,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
     public AbstractWebRTCMessage handleMessage(WebSocketSession session, AbstractMessage message) {
         log.debug("Processing WebRTC signal:\n{}", message);
         AbstractWebRTCMessage rtcMsg = (AbstractWebRTCMessage) message;
-        String clientWebSocketSession = rtcMsg.clientWebSocketSession;
-        if (!portalIntegrationThing.getEnvironmentUUID().equals(rtcMsg.toClientUuid)
+        if (!portalIntegrationThing.getEnvironmentUUID().equals(rtcMsg.toAgentUuid)
                 || StringUtils.isEmpty(rtcMsg.fromAccountEmail)) {
             throw new RuntimeException("Invalid routing of the message: " + rtcMsg);//todo alert to portal UI
         }
@@ -331,7 +352,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                             rtcMsg.fromMyAccount,
                             rtcMsg.fromAccountEmail,
                             engine,
-                            rtcMsg.toClientUuid,
+                            rtcMsg.fromAgentUuid,
                             offer.iceServersList,
                             share,
                             publicShare
@@ -345,8 +366,8 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                             rtcClient.peerConnection,
                             offer
                     );
-                    answer.setToClientUuid(portalIntegrationThing.getEnvironmentUUID());
-                    answer.clientWebSocketSession = transactionId;
+                    answer.setToAgentUuid(offer.fromAgentUuid);
+                    answer.setFromAgentUuid(offer.toAgentUuid);
 
                     CommonUtils.sendMessage(session, answer);
                     return null;
@@ -403,7 +424,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                             rtcMsg.fromMyAccount,
                             rtcMsg.fromAccountEmail,
                             engine,
-                            rtcMsg.toClientUuid,
+                            rtcMsg.toAgentUuid,
                             iceServersList,
                             share,
                             publicShare
@@ -412,7 +433,8 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                     clientConnectionTimeMap.put(transactionId, System.currentTimeMillis());
                     rtcClient.addIceCandidateConsumer(iceCandidateConsumer);
                     Offer offer = ReadyProcessor.execute(rtcClient.peerConnection);
-                    offer.setToClientUuid(portalIntegrationThing.getEnvironmentUUID());
+                    offer.setToAgentUuid(ready.fromAgentUuid);
+                    offer.setFromAgentUuid(ready.toAgentUuid);
                     offer.clientWebSocketSession = transactionId;
                     offer.setIceServersList(iceServersList);
                     CommonUtils.sendMessage(session, offer);

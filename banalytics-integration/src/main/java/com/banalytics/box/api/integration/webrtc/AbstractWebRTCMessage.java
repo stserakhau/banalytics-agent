@@ -14,7 +14,8 @@ import java.util.UUID;
 @ToString(callSuper = true)
 public abstract class AbstractWebRTCMessage extends AbstractMessage {
     public String clientWebSocketSession;
-    public UUID toClientUuid;
+    public UUID fromAgentUuid;
+    public UUID toAgentUuid;
     public boolean fromMyAccount;
     public Long fromAccountId;
     public String fromAccountEmail;

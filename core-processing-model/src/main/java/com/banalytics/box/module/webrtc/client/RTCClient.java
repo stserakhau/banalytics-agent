@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.channels.SeekableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -57,9 +58,9 @@ public class RTCClient implements PeerConnectionObserver {
     private static final String ENVIRONMENT_CHANNEL_ID = "environment-channel";
     private static final String DATA_TRANSFER_CHANNEL_ID = "data-transfer";
     private static final String MEDIA_TRANSFER_CHANNEL_ID = "media-transfer";
-    private static final String STUB_CHANNEL_ID = "stub-channel";
+    //    private static final String STUB_CHANNEL_ID = "stub-channel";
     private final Map<String, Map<Class<? extends AbstractChannelMessage>, ChannelRequestHandler>> environmentChannelRequestHandlerMap = new HashMap<>();
-    private final UUID environmentUUID;
+    public final UUID environmentUUID;
     public final boolean publicShare;
     private final Share share;
     public long lastInteractionTime = System.currentTimeMillis();
@@ -147,7 +148,7 @@ public class RTCClient implements PeerConnectionObserver {
             }
         };
         this.peerConnection = factory.createPeerConnection(config, this);
-        createEnvironmentChannel();
+        createEnvironmentChannel(null);
     }
 
     public boolean isMyProfileConnection() {
@@ -170,12 +171,17 @@ public class RTCClient implements PeerConnectionObserver {
         return authenticated;
     }
 
-    private void createEnvironmentChannel() {
-        RTCDataChannelInit controlChannel = new RTCDataChannelInit();
-        controlChannel.priority = RTCPriorityType.MEDIUM;
-        controlChannel.ordered = true;
+    private void createEnvironmentChannel(RTCDataChannel dataChannel) {
+        if (dataChannel == null) {
+            RTCDataChannelInit controlChannel = new RTCDataChannelInit();
+            controlChannel.negotiated = false;
+            controlChannel.priority = RTCPriorityType.MEDIUM;
+            controlChannel.ordered = true;
 
-        this.environmentChannel = this.peerConnection.createDataChannel(ENVIRONMENT_CHANNEL_ID, controlChannel);
+            this.environmentChannel = this.peerConnection.createDataChannel(ENVIRONMENT_CHANNEL_ID, controlChannel);
+        } else {
+            this.environmentChannel = dataChannel;
+        }
         log.info("Environment channel created.");
         this.environmentChannel.registerObserver(new RTCDataChannelObserver() {
             @Override
@@ -224,29 +230,44 @@ public class RTCClient implements PeerConnectionObserver {
                 try {
                     String message;
                     if (buffer.binary) {
+                        long transmissionId = buffer.data.getLong();
+                        int batchIndex = buffer.data.getInt();
                         byte[] data = new byte[buffer.data.remaining()];
                         buffer.data.get(data);
-                        message = GZIPUtils.decompress(data);
+                        try {
+                            message = GZIPUtils.decompress(data);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else {
                         message = Charset.defaultCharset()
                                 .decode(buffer.data)
                                 .toString();
                     }
-                    log.debug("Environment Channel Received message:\n{}", message);
+                    log.info("Environment {} Received message:\n{}", environmentUUID, message);
 
-                    final AbstractChannelMessage request = AbstractMessage.from(message);
-                    if (request.isAsyncAllowed()) {
-                        SystemThreadsService.execute(this, () -> {
-                            log.debug("Start to process message async:\n{}", message);
-                            try {
-                                executeCommand(request);
-                            } catch (Throwable e) {
-                                log.error(e.getMessage(), e);
-                            }
-                        });
+                    final AbstractMessage request = AbstractMessage.from(message);
+
+                    if (request instanceof AbstractEvent evt) {
+                        if (authenticated) {
+                            engine.fireEvent(evt);
+                        }
                     } else {
-                        log.debug("Start to process message sync:\n{}", message);
-                        executeCommand(request);
+                        if (request instanceof AbstractChannelMessage req) {
+                            if (req.isAsyncAllowed()) {
+                                SystemThreadsService.execute(this, () -> {
+                                    log.debug("Start to process message async:\n{}", message);
+                                    try {
+                                        executeCommand(req);
+                                    } catch (Throwable e) {
+                                        log.error(e.getMessage(), e);
+                                    }
+                                });
+                            } else {
+                                log.debug("Start to process message sync:\n{}", message);
+                                executeCommand(req);
+                            }
+                        }
                     }
                 } catch (Throwable e) {
                     log.error(e.getMessage(), e);
@@ -279,10 +300,11 @@ public class RTCClient implements PeerConnectionObserver {
                         boolean authenticated;
                         boolean wasPasswordAuth;
                         if (request instanceof AuthenticationPasswordReq pwdAuth) {
+                            String password = pwdAuth.getPassword();
                             if (share == null) {
-                                authenticated = engine.verifyPassword(pwdAuth.getPassword());
+                                authenticated = password != null && engine.verifyPassword(password);
                             } else {
-                                authenticated = Utils.md5Hash(pwdAuth.getPassword()).equals(share.getMd5Password());
+                                authenticated = password != null && Utils.md5Hash(password).equals(share.getMd5Password());
                             }
                             wasPasswordAuth = true;
                         } else {
@@ -492,6 +514,8 @@ public class RTCClient implements PeerConnectionObserver {
     }
 
     public void sendEvent(AbstractEvent event) throws Exception {
+        log.info("Send event to environment {}:\n{}", environmentUUID, event.toJson());
+
         String json = event.toJson();
         byte[] bytes = GZIPUtils.compress(json.getBytes(StandardCharsets.UTF_8));
         sendMessageToChannel(-1, environmentChannel, bytes, true);
@@ -506,6 +530,7 @@ public class RTCClient implements PeerConnectionObserver {
     }
 
     public MediaChannelObserver mediaChannelObserver;
+
     private void createMediaChannel() {
         RTCDataChannelInit init = new RTCDataChannelInit();
         init.priority = RTCPriorityType.HIGH;
@@ -567,10 +592,14 @@ public class RTCClient implements PeerConnectionObserver {
     @Override
     public void onDataChannel(RTCDataChannel dataChannel) {
         String label = dataChannel.getLabel();
-        if (STUB_CHANNEL_ID.equals(label)) {
-//            this.createEnvironmentChannel();
+        log.info("OnDataChannel {}: {}\nnegotiated: {}\nreliable: {}\nordered: {}",
+                dataChannel.getLabel(), environmentUUID,
+                dataChannel.isNegotiated(), dataChannel.isReliable(),
+                dataChannel.isOrdered()
+        );
+        if (ENVIRONMENT_CHANNEL_ID.equals(label)) {
+            this.createEnvironmentChannel(dataChannel);
         }
-        log.info("OnDataChannel {}: {}", dataChannel.getLabel(), transactionId);
     }
 
     private final List<Consumer<IceCandidate>> iceCandidateConsumer = new ArrayList<>();
@@ -585,7 +614,7 @@ public class RTCClient implements PeerConnectionObserver {
             IceCandidate message = new IceCandidate(
                     candidate.sdp, candidate.sdpMid, candidate.sdpMLineIndex
             );
-            message.setToClientUuid(this.environmentUUID);
+            message.setToAgentUuid(this.environmentUUID);
             message.clientWebSocketSession = this.transactionId;
             consumer.accept(message);
         }

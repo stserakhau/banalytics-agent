@@ -163,6 +163,7 @@
     "AUTH_REJECTED_INVALID_PASSWORD": "Authentication rejected (Password)",
 
     "comp.portal-wrtc-integration.tab.account.history": "Account connects history",
+    "comp.portal-wrtc-integration.tab.agent.history": "Agent connects history",
     "comp.portal-wrtc-integration.tab.public.history": "Public connections history",
     "comp.portal-wrtc-integration.tab.accessManagement": "Access management",
 
@@ -170,12 +171,17 @@
     "comp.portal-wrtc-integration.groupsUser": "'{0}' groups",
 
     "comp.portal-wrtc-integration.accountShares": "Account shares",
+    "comp.portal-wrtc-integration.agentShares": "Agent connects",
     "comp.portal-wrtc-integration.userGroups": "User groups",
     "comp.portal-wrtc-integration.publicShares": "Public shares",
 
     "comp.portal-wrtc-integration.share.account": "Account share",
     "comp.portal-wrtc-integration.share.account.new": "New account share",
     "comp.portal-wrtc-integration.share.account.placeholder": "Enter email address for sharing",
+
+    "comp.portal-wrtc-integration.share.agent": "Agent connect",
+    "comp.portal-wrtc-integration.share.agent.new": "Allow agent connect",
+    "comp.portal-wrtc-integration.share.agent.placeholder": "Enter Agent UUID to allow connection",
 
     "comp.portal-wrtc-integration.share.userGroup": "User group",
     "comp.portal-wrtc-integration.share.userGroup.new": "New user group",
@@ -314,6 +320,10 @@
     "useBrowserCache": "Enable UI file cache",
     "browserCacheTTLMinutes": "UI file cache TTL",
     "comp.file-storage.error.manyDownloads": "Too many downloads at the same time.",
+
+    "com.banalytics.box.module.agent.AgentConnectorThing": "Agent connector",
+    "com.banalytics.box.module.agent.AgentConnectorThing.title": "Agent connector ({0})",
+    "agentUuid": "Agent UUID",
 
     "com.banalytics.box.module.audio.LocalAudioPlayerThing": "Audio out",
     "com.banalytics.box.module.audio.LocalAudioPlayerThing.title": "Audio out ({0})",

@@ -25,13 +25,19 @@ public interface PeerConnectionListener {
     }
 
     @AllArgsConstructor
-    @ToString
     @Getter
     class ConnectionEvent {
         final RTCClient rtcClient;
 
         public static ConnectionEvent of(RTCClient rtcClient) {
             return new ConnectionEvent(rtcClient);
+        }
+
+        @Override
+        public String toString() {
+            return "ConnectionEvent{" +
+                    "connectedWithAgent=" + rtcClient.environmentUUID +
+                    '}';
         }
     }
 }

@@ -58,18 +58,17 @@
         <dependency>
             <groupId>dev.onvoid.webrtc</groupId>
             <artifactId>webrtc-java</artifactId>
-            <version>0.7.0</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>dev.onvoid.webrtc</groupId>-->
 <!--            <artifactId>webrtc-java</artifactId>-->
-<!--            <version>0.7.0</version>-->
+<!--            <version>0.8.0</version>-->
 <!--            <classifier>linux-x86_64</classifier>-->
 <!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>dev.onvoid.webrtc</groupId>-->
 <!--            <artifactId>webrtc-java</artifactId>-->
-<!--            <version>0.7.0</version>-->
+<!--            <version>0.8.0</version>-->
 <!--            <classifier>macos-x86_64</classifier>-->
 <!--        </dependency>-->
 

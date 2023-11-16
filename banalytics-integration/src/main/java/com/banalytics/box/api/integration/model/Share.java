@@ -10,6 +10,7 @@ import java.util.*;
 public class Share {
     /**
      * <li>Account email for account share</li>
+     * <li>Agent UUID for Agent share</li>
      * <li>Group name for user group</li>
      * <li>Token string for public share</li>
      */
