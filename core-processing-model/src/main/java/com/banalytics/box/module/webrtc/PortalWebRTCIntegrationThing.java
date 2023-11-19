@@ -155,12 +155,8 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                 });
                 for (String txId : dropSet) {
                     clientConnectionTimeMap.remove(txId);
-                    RTCClient client = clientMap.remove(txId);
 
-                    if (client != null) {
-                        client.stop();
-                        log.info("Connection with {} expired. Client stopped", client.getIdentity());
-                    }
+                    stopClient(txId, "Connection expired.");
                 }
                 if (jpaService.isOpen()) {
                     jpaService.cleanUpExpiredTokens();
@@ -275,13 +271,11 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
         @Override
         public void onFailed(ConnectionEvent event) {
             super.onFailed(event);
-            log.info("Removing RTC client");
             RTCClient c = event.getRtcClient();
             fireStateEvent(c.transactionId,
                     c.publicShare ? ConnectionStateEvent.ConnectionType.PUBLIC : ConnectionStateEvent.ConnectionType.ACCOUNT,
                     ConnectionStateEvent.State.CONNECTION_FAILED, event.getRtcClient().getIdentity());
-            clientMap.remove(c.transactionId);
-            c.stop();
+            stopClient(c.transactionId, "Peer connection failed");
         }
 
         @Override
@@ -298,10 +292,17 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
         private void removeClient(ConnectionEvent event) {
             String transactionId = event.getRtcClient().transactionId;
             clientConnectionTimeMap.remove(transactionId);
-            RTCClient client = clientMap.remove(transactionId);
-            log.info("RTCClient removed: {}", client.environmentUUID);
+            stopClient(transactionId, "Disconnected.");
         }
     };
+
+    private synchronized void stopClient(String transactionId, String message) {
+        RTCClient client = clientMap.remove(transactionId);
+        if (client != null) {
+            log.info(message + " RTCClient stopped: {}", client.environmentUUID);
+            client.stop();
+        }
+    }
 
     private void logConnection(AbstractWebRTCMessage rtcMsg) {
         WebRTCConnectionHistory es = new WebRTCConnectionHistory();
@@ -357,7 +358,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                             share,
                             publicShare
                     );
-                    rtcClient.addIceCandidateConsumer(iceCandidateConsumer);
+                    rtcClient.addIceCandidateConsumer(new IceCandidateConsumer(offer.fromAgentUuid));
 
                     rtcClient.addPeerConnectionListener(peerConnectionListenerAdaptor);
                     clientMap.put(transactionId, rtcClient);
@@ -409,8 +410,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                         if (connectionTime == null || System.currentTimeMillis() > (connectionTime + 30000)) {
                             log.warn("Reconnecting WebRTC client");
                             //stop and drop old connection
-                            RTCClient rtcClient = this.clientMap.remove(transactionId);
-                            rtcClient.stop();
+                            stopClient(transactionId, "Reconnecting.");
                         } else {
                             log.warn("Received duplicated ready message from client: {}. Message skipped.", transactionId);
                             return null;
@@ -431,7 +431,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                     );
                     rtcClient.addPeerConnectionListener(peerConnectionListenerAdaptor);
                     clientConnectionTimeMap.put(transactionId, System.currentTimeMillis());
-                    rtcClient.addIceCandidateConsumer(iceCandidateConsumer);
+                    rtcClient.addIceCandidateConsumer(new IceCandidateConsumer(ready.fromAgentUuid));
                     Offer offer = ReadyProcessor.execute(rtcClient.peerConnection);
                     offer.setToAgentUuid(ready.fromAgentUuid);
                     offer.setFromAgentUuid(ready.toAgentUuid);
@@ -443,10 +443,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                 }
                 case bye -> {
                     log.warn("Received bye from client.");
-                    RTCClient rtcClient = clientMap.remove(transactionId);
-                    if (rtcClient != null) {
-                        rtcClient.stop();
-                    }
+                    stopClient(transactionId, "Bye. ");
                     return null;
                 }
                 default -> {
@@ -460,16 +457,23 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
     }
 
 
-    private final Consumer<IceCandidate> iceCandidateConsumer = new Consumer<>() {
+    private class IceCandidateConsumer implements Consumer<IceCandidate> {
+        final UUID respondToAgentUuid;
+
+        public IceCandidateConsumer(UUID respondToAgentUuid) {
+            this.respondToAgentUuid = respondToAgentUuid;
+        }
+
         @Override
         public void accept(IceCandidate iceCandidate) {
             try {
+                iceCandidate.setToAgentUuid(this.respondToAgentUuid);
                 portalIntegrationThing.sendMessage(iceCandidate);
             } catch (Throwable ex) {
                 log.error("can send ice candidate message.", ex);
             }
         }
-    };
+    }
 
     @Override
     public Set<String> apiMethodsPermissions() {

@@ -22,7 +22,7 @@ public class PortalIntegrationConfiguration extends AbstractConfiguration {
                     })
             }
     )
-    public String portalUrl = "wss://127.0.0.1:8084";
+    public String portalUrl = "wss://router.banalytics.live";
 
 
     @UIComponent(index = 30, type = text_input_readonly)

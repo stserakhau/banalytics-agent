@@ -514,7 +514,7 @@ public class RTCClient implements PeerConnectionObserver {
     }
 
     public void sendEvent(AbstractEvent event) throws Exception {
-        log.info("Send event to environment {}:\n{}", environmentUUID, event.toJson());
+        log.debug("Send event to environment {}:\n{}", environmentUUID, event.toJson());
 
         String json = event.toJson();
         byte[] bytes = GZIPUtils.compress(json.getBytes(StandardCharsets.UTF_8));
@@ -614,7 +614,7 @@ public class RTCClient implements PeerConnectionObserver {
             IceCandidate message = new IceCandidate(
                     candidate.sdp, candidate.sdpMid, candidate.sdpMLineIndex
             );
-            message.setToAgentUuid(this.environmentUUID);
+            message.setFromAgentUuid(this.environmentUUID);
             message.clientWebSocketSession = this.transactionId;
             consumer.accept(message);
         }
