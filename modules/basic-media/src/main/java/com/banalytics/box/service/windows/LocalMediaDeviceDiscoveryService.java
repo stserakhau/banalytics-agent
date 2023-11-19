@@ -139,7 +139,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
                 Thread.sleep(500);
                 log.info("============Scan done");
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
             avutil.av_log_set_level(avutil.AV_LOG_FATAL);
             FFmpegLogCallback.set();

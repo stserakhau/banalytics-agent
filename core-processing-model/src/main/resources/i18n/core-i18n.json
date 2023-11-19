@@ -704,6 +704,10 @@
     "browserCacheTTLMinutes": "TTL кэша файлаў карыстацкага інтэрфейсу",
     "comp.file-storage.error.manyDownloads": "Занадта шмат загрузак адначасова.",
 
+    "com.banalytics.box.module.agent.AgentConnectorThing": "Злучальнік агента",
+    "com.banalytics.box.module.agent.AgentConnectorThing.title": "Злучальнік агента ({0})",
+    "agentUuid": "UUID агента",
+
     "com.banalytics.box.module.audio.LocalAudioPlayerThing": "Аўдыёвыхад",
     "com.banalytics.box.module.audio.LocalAudioPlayerThing.title": "Аўдыявыхад ({0})",
     "audioDevice": "Аўдыёпрылада",
@@ -1082,6 +1086,10 @@
     "browserCacheTTLMinutes": "TTL кешу файлів інтерфейсу користувача",
     "comp.file-storage.error.manyDownloads": "Забагато завантажень одночасно.",
 
+    "com.banalytics.box.module.agent.AgentConnectorThing": "Конектор агента",
+    "com.banalytics.box.module.agent.AgentConnectorThing.title": "Конектор агента ({0})",
+    "agentUuid": "UUID агента",
+
     "com.banalytics.box.module.audio.LocalAudioPlayerThing": "Аудіовихід",
     "com.banalytics.box.module.audio.LocalAudioPlayerThing.title": "Аудіовихід ({0})",
     "audioDevice": "Аудіопристрій",
@@ -1458,7 +1466,11 @@
     "useBrowserCache": "UI-Datei-Cache aktivieren",
     "browserCacheTTLMinutes": "UI-Datei-Cache-TTL",
     "comp.file-storage.error.manyDownloads": "Zu viele Downloads gleichzeitig.",
-    
+
+    "com.banalytics.box.module.agent.AgentConnectorThing": "Agent-Connector",
+    "com.banalytics.box.module.agent.AgentConnectorThing.title": "Agent-Connector ({0})",
+    "agentUuid": "Agent-UUID",
+
     "com.banalytics.box.module.audio.LocalAudioPlayerThing": "Audio Ausgang",
     "com.banalytics.box.module.audio.LocalAudioPlayerThing.title": "Audioausgang ({0})",
     "audioDevice": "Audiogerät",
@@ -1834,6 +1846,10 @@
     "useBrowserCache": "Habilitar caché de archivo de interfaz de usuario",
     "browserCacheTTLMinutes": "TTL de caché de archivo de interfaz de usuario",
     "comp.file-storage.error.manyDownloads": "Demasiadas descargas al mismo tiempo.",
+
+    "com.banalytics.box.module.agent.AgentConnectorThing": "Conector de agente",
+    "com.banalytics.box.module.agent.AgentConnectorThing.title": "Conector de agente ({0})",
+    "agentUuid": "UUID del agente",
 
     "com.banalytics.box.module.audio.LocalAudioPlayerThing": "Salida de audio",
     "com.banalytics.box.module.audio.LocalAudioPlayerThing.title": "Salida de audio ({0})",
@@ -2211,6 +2227,10 @@
     "browserCacheTTLMinutes": "TTL du cache de fichiers de l'interface utilisateur",
     "comp.file-storage.error.manyDownloads": "Trop de téléchargements en même temps.",
 
+    "com.banalytics.box.module.agent.AgentConnectorThing": "Connecteur d'agent",
+    "com.banalytics.box.module.agent.AgentConnectorThing.title": "Connecteur d'agent ({0})",
+    "agentUuid": "UUID de l'agent",
+
     "com.banalytics.box.module.audio.LocalAudioPlayerThing": "Sortie audio",
     "com.banalytics.box.module.audio.LocalAudioPlayerThing.title": "Sortie audio ({0})",
     "audioDevice": "Appareil audio",
@@ -2586,6 +2606,10 @@
     "useBrowserCache": "Włącz pamięć podręczną plików interfejsu użytkownika",
     "browserCacheTTLMinutes": "TTL pamięci podręcznej pliku interfejsu użytkownika",
     "comp.file-storage.error.manyDownloads": "Zbyt wiele pobrań jednocześnie.",
+
+    "com.banalytics.box.module.agent.AgentConnectorThing": "Łącznik agenta",
+    "com.banalytics.box.module.agent.AgentConnectorThing.title": "Łącznik agenta ({0})",
+    "agentUuid": "UUID agenta",
 
     "com.banalytics.box.module.audio.LocalAudioPlayerThing": "Wyjście dzwięku",
     "com.banalytics.box.module.audio.LocalAudioPlayerThing.title": "Wyjście audio ({0})",
@@ -2964,6 +2988,9 @@
     "browserCacheTTLMinutes": "Время жизни кэша файла пользовательского интерфейса",
     "comp.file-storage.error.manyDownloads": "Слишком много загрузок одновременно.",
 
+    "com.banalytics.box.module.agent.AgentConnectorThing": "Соединитель агента",
+    "com.banalytics.box.module.agent.AgentConnectorThing.title": "Соединитель агента ({0})",
+    "agentUuid": "UUID агента",
     
     "com.banalytics.box.module.audio.LocalAudioPlayerThing": "Аудио выход",
     "com.banalytics.box.module.audio.LocalAudioPlayerThing.title": "Аудиовыход ({0})",
