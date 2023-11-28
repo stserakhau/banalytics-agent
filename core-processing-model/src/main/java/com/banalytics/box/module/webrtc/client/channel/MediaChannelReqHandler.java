@@ -1,6 +1,7 @@
 package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.environment.MediaChannelCreateReq;
 import com.banalytics.box.api.integration.webrtc.channel.environment.MediaChannelCreateRes;
 import com.banalytics.box.module.BoxEngine;
@@ -24,7 +25,7 @@ public class MediaChannelReqHandler implements ChannelRequestHandler {
     }
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception {
+    public ChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof MediaChannelCreateReq req) {
             log.debug("Request to Create Media Channel:\n{}", req.toJson());
             UUID taskUuid = req.getTaskUuid();

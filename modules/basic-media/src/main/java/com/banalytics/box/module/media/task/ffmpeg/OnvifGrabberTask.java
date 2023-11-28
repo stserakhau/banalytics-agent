@@ -59,8 +59,8 @@ import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
  */
 @Slf4j
 public class OnvifGrabberTask extends AbstractStreamingMediaTask<OnvifGrabberTaskConfiguration> {
-    public OnvifGrabberTask(BoxEngine metricDeliveryService, AbstractListOfTask<?> parent) {
-        super(metricDeliveryService, parent);
+    public OnvifGrabberTask(BoxEngine engine, AbstractListOfTask<?> parent) {
+        super(engine, parent);
     }
 
     @Override

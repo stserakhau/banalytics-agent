@@ -1,6 +1,7 @@
 package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.environment.AvailableThingClassesReq;
 import com.banalytics.box.api.integration.webrtc.channel.environment.AvailableThingClassesRes;
 import com.banalytics.box.module.BoxEngine;
@@ -14,7 +15,7 @@ public class AvailableThingClassesReqHandler implements ChannelRequestHandler {
     private final BoxEngine engine;
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception {
+    public ChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof AvailableThingClassesReq req) {
             Collection<Class<?>> supportedThings = engine.supportedThings();
             AvailableThingClassesRes res = new AvailableThingClassesRes();

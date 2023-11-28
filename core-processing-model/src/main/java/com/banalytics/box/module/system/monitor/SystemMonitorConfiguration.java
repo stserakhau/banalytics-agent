@@ -3,8 +3,6 @@ package com.banalytics.box.module.system.monitor;
 import com.banalytics.box.api.integration.form.ComponentType;
 import com.banalytics.box.api.integration.form.annotation.UIComponent;
 import com.banalytics.box.module.AbstractConfiguration;
-import com.banalytics.box.module.IUuid;
-import com.banalytics.box.module.Singleton;
 import lombok.Getter;
 import lombok.Setter;
 

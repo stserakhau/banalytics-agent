@@ -1,6 +1,7 @@
 package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.NodeDescriptor;
 import com.banalytics.box.api.integration.webrtc.channel.NodeState;
 import com.banalytics.box.api.integration.webrtc.channel.environment.SaveTaskReq;
@@ -19,7 +20,7 @@ public class SaveTaskReqHandler implements ChannelRequestHandler {
     private final BoxEngine engine;
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception {
+    public ChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof SaveTaskReq req) {
             UUID parentTaskUuid = req.getParentTaskUuid();
             UUID taskUuid = req.getNodeUuid();

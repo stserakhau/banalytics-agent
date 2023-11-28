@@ -2,6 +2,7 @@ package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.api.integration.utils.CommonUtils;
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.environment.I18NReq;
 import com.banalytics.box.api.integration.webrtc.channel.environment.I18NRes;
 import com.banalytics.box.module.AbstractListOfTask;
@@ -28,7 +29,7 @@ public class I18NReqHandler implements ChannelRequestHandler {
     Map<String, Map<String, String>> i18n;
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception {
+    public ChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof I18NReq req) {
             I18NRes res = new I18NRes();
             res.setRequestId(req.getRequestId());

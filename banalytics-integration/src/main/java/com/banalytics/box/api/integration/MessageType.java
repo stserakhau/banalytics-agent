@@ -12,6 +12,7 @@ import com.banalytics.box.api.integration.webrtc.channel.callback.ThingCallbackR
 import com.banalytics.box.api.integration.webrtc.channel.environment.*;
 import com.banalytics.box.api.integration.webrtc.channel.environment.auth.*;
 import com.banalytics.box.api.integration.webrtc.channel.events.*;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.*;
 import com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent;
 import com.banalytics.box.api.integration.websocket.YourSessionId;
 
@@ -126,6 +127,13 @@ public enum MessageType {
     EVT_SOUND(SoundEvent.class),
     EVT_SYS_MON(SystemMonitorEvent.class),
     EVT_FILE_CRT(FileCreatedEvent.class),
+
+    /**
+     * System events
+     */
+    EVT_SYS_KEYB(KeyboardEvent.class), EVT_SYS_GPS(GPSEvent.class),
+    EVT_SYS_GYRO(GyroscopeEvent.class), EVT_SYS_GRAVITY(GravityEvent.class),
+    EVT_SYS_GAMEPAD(GamePadEvent.class),
 
     /**
      * Error Types

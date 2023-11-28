@@ -2,6 +2,7 @@ package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.api.integration.model.SharePermission;
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.NodeDescriptor;
 import com.banalytics.box.api.integration.webrtc.channel.NodeState;
 import com.banalytics.box.api.integration.webrtc.channel.environment.ThingsReq;
@@ -26,7 +27,7 @@ public class ThingsReqHandler implements ChannelRequestHandler {
     }
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage req) throws Exception {
+    public ChannelMessage handle(ChannelMessage req) throws Exception {
         if (req instanceof ThingsReq treq) {
             ThingsRes res = new ThingsRes();
             res.setRequestId(req.getRequestId());

@@ -1,7 +1,7 @@
 package com.banalytics.box.module.webrtc.client.channel;
 
-import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 
 public interface ChannelRequestHandler {
-    AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception;
+    ChannelMessage handle(ChannelMessage request) throws Exception;
 }

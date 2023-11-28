@@ -43,7 +43,7 @@ public class FormUtils {
 
             Object val = wrapper.getPropertyValue(propertyName);
             String value = val == null ? "null" : val.toString();
-            String escapedValue = StringEscapeUtils.escapeXml11(value);
+            String escapedValue = StringEscapeUtils.escapeXml11(StringEscapeUtils.escapeEcmaScript(value));
             sb.append(' ').append(propertyName)
                     .append("=\"")
                     .append(escapedValue)
@@ -59,7 +59,7 @@ public class FormUtils {
             if ("null".equals(propValue)) {
                 propValue = null;
             } else {
-                propValue = StringEscapeUtils.unescapeXml(propValue);
+                propValue = StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeXml(propValue));
             }
             try {
                 taskW.setPropertyValue(propName, propValue);

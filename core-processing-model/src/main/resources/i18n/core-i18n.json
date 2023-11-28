@@ -109,6 +109,19 @@
     "com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent": "Action state",
     "com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent": "File created",
     "com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent": "Peer Connection state",
+    "com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent": "Keyboard event",
+
+    "pressType": "Press type",
+    "altKey": "Alt",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift",
+    "metaKey": "Meta",
+    "repeat": "Repeat",
+    "code": "Code",
+    "key": "Key",
+    "location": "Location",
+    "UP": "Up",
+    "DOWN": "Down",
 
 
     "actions": "Actions",
@@ -367,6 +380,10 @@
     "grouping.eventSource.eventType":"Event source -> Event Type",
 
 
+    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
+    "script": "Script",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Play audio",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Play of {0}",
     "audioPlayerUuid": "Playing device",
@@ -505,6 +522,20 @@
     "com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent": "Стан дзеяння",
     "com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent": "Файл створаны",
     "com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent": "Стан аднарангавага злучэння",
+    "com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent": "Keyboard event",
+
+    "pressType": "Press type",
+    "altKey": "Alt",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift",
+    "metaKey": "Meta",
+    "repeat": "Repeat",
+    "code": "Code",
+    "key": "Key",
+    "location": "Location",
+    "UP": "Up",
+    "DOWN": "Down",
+
 
     "actions": "Дзеянні",
     "nothingToAdd": "Няма чаго дадаць",
@@ -749,6 +780,10 @@
     "grouping.eventType.eventSource": "Тып падзеі -> Крыніца падзеі",
     "grouping.eventSource.eventType": "Крыніца падзеі -> Тып падзеі",
 
+    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
+    "script": "Script",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Прайграць аўдыя",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Прайграванне {0}",
     "audioPlayerUuid": "Прылада прайгравання",
@@ -887,6 +922,20 @@
     "com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent": "Стан дії",
     "com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent": "Файл створено",
     "com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent": "Стан однорангового підключення",
+    "com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent": "Keyboard event",
+
+    "pressType": "Press type",
+    "altKey": "Alt",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift",
+    "metaKey": "Meta",
+    "repeat": "Repeat",
+    "code": "Code",
+    "key": "Key",
+    "location": "Location",
+    "UP": "Up",
+    "DOWN": "Down",
+
 
     "actions": "Дії",
     "nothingToAdd": "Нічого додати",
@@ -1131,7 +1180,11 @@
     "comp.event-history.error.preview": "Немає компонента візуалізації для попереднього перегляду. Використовуйте інформаційну панель для перегляду історичних даних із збереженням файлів.",
     "grouping.eventType.eventSource":"Тип події -> Джерело події",
     "grouping.eventSource.eventType":"Джерело події -> Тип події",
-    
+
+    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
+    "script": "Script",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Відтворити аудіо",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Відтворення {0}",
     "audioPlayerUuid": "Пристрій відтворення",
@@ -1270,6 +1323,20 @@
     "com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent": "Aktionszustand",
     "com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent": "Datei erstellt",
     "com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent": "Status der Peer-Verbindung",
+    "com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent": "Keyboard event",
+
+    "pressType": "Press type",
+    "altKey": "Alt",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift",
+    "metaKey": "Meta",
+    "repeat": "Repeat",
+    "code": "Code",
+    "key": "Key",
+    "location": "Location",
+    "UP": "Up",
+    "DOWN": "Down",
+
 
     "actions": "Aktionen",
     "nothingToAdd": "Nichts hinzuzufügen",
@@ -1511,7 +1578,11 @@
     "comp.event-history.error.preview": "Keine Renderkomponente zur Vorschau. Verwenden Sie das Dashboard, um historische Daten mit der Dateispeicherung zu kombinieren.",
     "grouping.eventType.eventSource": "Ereignistyp -> Ereignisquelle",
     "grouping.eventSource.eventType": "Ereignisquelle -> Ereignistyp",
-        
+
+    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
+    "script": "Script",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Audio abspielen",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Spiel von {0}",
     "audioPlayerUuid": "Spielgerät",
@@ -1650,6 +1721,20 @@
     "com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent": "Estado de acción",
     "com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent": "Archivo creado",
     "com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent": "Estado de conexión de pares",
+    "com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent": "Keyboard event",
+
+    "pressType": "Press type",
+    "altKey": "Alt",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift",
+    "metaKey": "Meta",
+    "repeat": "Repeat",
+    "code": "Code",
+    "key": "Key",
+    "location": "Location",
+    "UP": "Up",
+    "DOWN": "Down",
+
 
     "actions": "Comportamiento",
     "nothingToAdd": "Nada que añadir",
@@ -1892,6 +1977,10 @@
     "grouping.eventType.eventSource":"Tipo de evento -> Origen del evento",
     "grouping.eventSource.eventType":"Fuente del evento -> Tipo de evento",
 
+    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
+    "script": "Script",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "reproducir audio",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Juego de {0}",
     "audioPlayerUuid": "Dispositivo de reproducción",
@@ -2030,6 +2119,20 @@
     "com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent": "État d'action",
     "com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent": "Fichier créé",
     "com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent": "État de la connexion homologue",
+    "com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent": "Keyboard event",
+
+    "pressType": "Press type",
+    "altKey": "Alt",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift",
+    "metaKey": "Meta",
+    "repeat": "Repeat",
+    "code": "Code",
+    "key": "Key",
+    "location": "Location",
+    "UP": "Up",
+    "DOWN": "Down",
+
 
     "actions": "Actions",
     "nothingToAdd": "Rien à ajouter",
@@ -2272,6 +2375,10 @@
     "grouping.eventType.eventSource":"Type d'événement -> Source d'événement",
     "grouping.eventSource.eventType":"Source de l'événement -> Type d'événement",
 
+    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
+    "script": "Script",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Lecture audio",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Jeu de {0}",
     "audioPlayerUuid": "Appareil de lecture",
@@ -2410,6 +2517,20 @@
     "com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent": "Stan akcji",
     "com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent": "Utworzono plik",
     "com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent": "Stan połączenia równorzędnego",
+    "com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent": "Keyboard event",
+
+    "pressType": "Press type",
+    "altKey": "Alt",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift",
+    "metaKey": "Meta",
+    "repeat": "Repeat",
+    "code": "Code",
+    "key": "Key",
+    "location": "Location",
+    "UP": "Up",
+    "DOWN": "Down",
+
 
     "actions": "Działania",
     "nothingToAdd": "Nic do dodania",
@@ -2652,6 +2773,10 @@
     "grouping.eventType.eventSource":"Typ zdarzenia -> Źródło zdarzenia",
     "grouping.eventSource.eventType":"Źródło zdarzenia -> Typ zdarzenia",
 
+    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
+    "script": "Script",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Odtwórz dźwięk",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Odtwórz {0}",
     "audioPlayerUuid": "Urządzenie odtwarzające",
@@ -2790,6 +2915,20 @@
     "com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent": "Состояние действия",
     "com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent": "Файл создан",
     "com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent": "Состояние однорангового соединения",
+    "com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent": "Keyboard event",
+
+    "pressType": "Press type",
+    "altKey": "Alt",
+    "ctrlKey": "Ctrl",
+    "shiftKey": "Shift",
+    "metaKey": "Meta",
+    "repeat": "Repeat",
+    "code": "Code",
+    "key": "Key",
+    "location": "Location",
+    "UP": "Up",
+    "DOWN": "Down",
+
 
     "actions": "Действия",
     "nothingToAdd": "Нечего добавить",
@@ -3032,6 +3171,10 @@
     "comp.event-history.error.preview": "Нет компонента рендеринга для предварительного просмотра. Используйте Dashboard для объединения просмотра исторических данных с файловым хранилищем.",
     "grouping.eventType.eventSource":"Тип события -> Источник события",
     "grouping.eventSource.eventType":"Источник события -> Тип события",
+
+    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
+    "script": "Script",
 
     "com.banalytics.box.module.audio.PlayAudioAction": "Воспроизвести аудио",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Воспроизведение {0}",

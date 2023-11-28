@@ -1,6 +1,7 @@
 package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.environment.EmptyRes;
 import com.banalytics.box.api.integration.webrtc.channel.environment.StopTaskReq;
 import com.banalytics.box.api.integration.webrtc.channel.environment.StopThingReq;
@@ -15,7 +16,7 @@ public class StopThingReqHandler implements ChannelRequestHandler {
     private final BoxEngine engine;
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception {
+    public ChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof StopThingReq req) {
             UUID thingUuid = req.getNodeUuid();
 

@@ -2,6 +2,7 @@ package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.api.integration.form.FormModel;
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.environment.ThingConfigurationDescriptorReq;
 import com.banalytics.box.api.integration.webrtc.channel.environment.ThingConfigurationDescriptorRes;
 import com.banalytics.box.module.BoxEngine;
@@ -15,7 +16,7 @@ public class ThingConfigurationDescriptorReqHandler implements ChannelRequestHan
     private final BoxEngine engine;
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception {
+    public ChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof ThingConfigurationDescriptorReq req) {
             UUID thingUuid = req.getNodeUuid();
             String className = req.getClassName();

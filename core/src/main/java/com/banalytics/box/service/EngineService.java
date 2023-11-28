@@ -339,6 +339,11 @@ public class EngineService implements BoxEngine, InitializingBean {
         return beanFactory.getBean(beanClass);
     }
 
+    @Override
+    public <T> T getBean(String beanName) {
+        return (T) beanFactory.getBean(beanName);
+    }
+
     private final List<Consumer<AbstractEvent>> eventConsumers = new CopyOnWriteArrayList<>();
 
     @Override
@@ -356,7 +361,9 @@ public class EngineService implements BoxEngine, InitializingBean {
     @Override
     public void fireEvent(AbstractEvent event) {
         try {
-            event.setEnvironmentUuid(getEnvironmentUUID());
+            if (event.getEnvironmentUuid() == null) {//if environment not defined it's local environment
+                event.setEnvironmentUuid(getEnvironmentUUID());
+            }
 
             for (Consumer<AbstractEvent> consumer : this.eventConsumers) {
                 consumer.accept(event);
@@ -376,7 +383,7 @@ public class EngineService implements BoxEngine, InitializingBean {
     @Override
     public Object serviceCall(String serviceName, String methodName, String arg) throws Exception {
         Object ref = beanFactory.getBean(serviceName);
-        if(arg.contains(",")) {
+        if (arg.contains(",")) {
             String[] args = arg.split(",");
             return MethodUtils.invokeMethod(ref, methodName, args);
         } else {

@@ -64,6 +64,8 @@ public class Trigger {
     }
 
     public boolean triggered(AbstractEvent event) {
+        boolean isRuleDefined = false;
+        isRuleDefined |= !eventSourceNodeUUIDs.isEmpty();
         if (!eventSourceNodeUUIDs.isEmpty()) {
             boolean valid = eventSourceNodeUUIDs.contains(event.getNodeUuid());
             if (!valid) {
@@ -71,6 +73,7 @@ public class Trigger {
             }
         }
 
+        isRuleDefined |= !eventSourcesClassNames.isEmpty();
         if (!eventSourcesClassNames.isEmpty()) {
             boolean valid = eventSourcesClassNames.contains(event.getNodeClassName());
             if (!valid) {
@@ -78,6 +81,7 @@ public class Trigger {
             }
         }
 
+        isRuleDefined |= !eventTypesConfigs.isEmpty();
         if (!eventTypesConfigs.isEmpty()) {
             boolean valid = false;
             for (EventTypeConfig etc : eventTypesConfigs) {
@@ -95,6 +99,7 @@ public class Trigger {
             }
         }
 
+        isRuleDefined |= !cronExpressions.isEmpty();
         if (!cronExpressions.isEmpty()) {
             if (executionTime == null) {
                 List<Cron> crons = new ArrayList<>(cronExpressions.size());
@@ -113,7 +118,7 @@ public class Trigger {
             }
         }
 
-        return true;
+        return isRuleDefined;
     }
 
     public Set<UUID> getEventSourceNodeUUIDs() {

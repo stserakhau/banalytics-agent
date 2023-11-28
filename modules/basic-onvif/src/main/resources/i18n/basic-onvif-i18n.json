@@ -6,6 +6,12 @@
     "transportProtocol": "Transport protocol",
     "overrideRtspPort": "Override RTSP port",
 
+    "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
+    "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
+    "speedX": "Speed X",
+    "speedY": "Speed Y",
+    "speedZ": "Speed Z",
+    "stopTimeout": "Stop timeout",
 
     "com.banalytics.box.module.onvif.task.GoToPresetAction": "Go to viewpoint",
     "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Go to viewpoint: {0}",
@@ -25,6 +31,13 @@
     "transportProtocol": "Транспартны пратакол",
     "overrideRtspPort": "Перавызначыць порт RTSP",
 
+    "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
+    "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
+    "speedX": "Speed X",
+    "speedY": "Speed Y",
+    "speedZ": "Speed Z",
+    "stopTimeout": "Stop timeout",
+
     "com.banalytics.box.module.onvif.task.GoToPresetAction": "Перайсці да пункту гледжання",
     "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Перайсці да пункту агляду: {0}",
     "presetToken": "Папярэдняя ўстаноўка",
@@ -42,6 +55,13 @@
     "streamType": "Тип потоку",
     "transportProtocol": "Транспортний протокол",
     "overrideRtspPort": "Перевизначити порт RTSP",
+
+    "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
+    "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
+    "speedX": "Speed X",
+    "speedY": "Speed Y",
+    "speedZ": "Speed Z",
+    "stopTimeout": "Stop timeout",
 
     "com.banalytics.box.module.onvif.task.GoToPresetAction": "Перейти до точки огляду",
     "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Перейти до точки огляду: {0}",
@@ -61,6 +81,13 @@
     "transportProtocol": "Transportprotokoll",
     "overrideRtspPort": "RTSP-Port überschreiben",
 
+    "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
+    "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
+    "speedX": "Speed X",
+    "speedY": "Speed Y",
+    "speedZ": "Speed Z",
+    "stopTimeout": "Stop timeout",
+
     "com.banalytics.box.module.onvif.task.GoToPresetAction": "Gehe zum Aussichtspunkt",
     "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Gehe zum Aussichtspunkt: {0}",
     "presetToken": "Voreinstellung",
@@ -78,6 +105,13 @@
     "streamType": "tipo de transmisión",
     "transportProtocol": "protocolo de transporte",
     "overrideRtspPort": "Anular puerto RTSP",
+
+    "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
+    "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
+    "speedX": "Speed X",
+    "speedY": "Speed Y",
+    "speedZ": "Speed Z",
+    "stopTimeout": "Stop timeout",
 
     "com.banalytics.box.module.onvif.task.GoToPresetAction": "ir al mirador",
     "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Ir al punto de vista: {0}",
@@ -97,6 +131,13 @@
     "transportProtocol": "Protocole de transport",
     "overrideRtspPort": "Remplacer le port RTSP",
 
+    "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
+    "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
+    "speedX": "Speed X",
+    "speedY": "Speed Y",
+    "speedZ": "Speed Z",
+    "stopTimeout": "Stop timeout",
+
     "com.banalytics.box.module.onvif.task.GoToPresetAction": "Aller au point de vue",
     "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Aller au point de vue : {0}",
     "presetToken": "Préréglé",
@@ -115,6 +156,13 @@
     "transportProtocol": "Protokół transportowy",
     "overrideRtspPort": "Zastąp port RTSP",
 
+    "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
+    "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
+    "speedX": "Speed X",
+    "speedY": "Speed Y",
+    "speedZ": "Speed Z",
+    "stopTimeout": "Stop timeout",
+
     "com.banalytics.box.module.onvif.task.GoToPresetAction": "Przejdź do punktu widokowego",
     "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Przejdź do punktu widokowego: {0}",
     "presetToken": "Ustawienie wstępne",
@@ -132,6 +180,13 @@
     "streamType": "Тип потока",
     "transportProtocol": "Транспортный протокол",
     "overrideRtspPort": "Переопределить порт RTSP",
+
+    "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
+    "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
+    "speedX": "Speed X",
+    "speedY": "Speed Y",
+    "speedZ": "Speed Z",
+    "stopTimeout": "Stop timeout",
 
     "com.banalytics.box.module.onvif.task.GoToPresetAction": "Перейти к точке обзора",
     "com.banalytics.box.module.onvif.task.GoToPresetAction.title": "Перейти к точке обзора: {0}",

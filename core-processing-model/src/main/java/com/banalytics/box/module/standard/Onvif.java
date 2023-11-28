@@ -17,9 +17,13 @@ public interface Onvif {
 
     void gotoPreset(String presetToken, float sx, float sy, float sz) throws Exception;
 
-    PTZ ptzState() throws Exception ;
+    PTZ ptzState() throws Exception;
 
     String reboot();
+
+    void rotateContinuouslyStart(float sx, float sy, float sz);
+
+    void rotateContinuouslyStop();
 
     public record MediaParams(int width, int height) {
     }

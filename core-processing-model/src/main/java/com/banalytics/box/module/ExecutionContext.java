@@ -29,6 +29,10 @@ public class ExecutionContext {
         return result;
     }
 
+    public Map<String, Object> variables() {
+        return this.variables;
+    }
+
     public void clear() {
         variables.clear();
     }

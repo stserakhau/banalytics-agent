@@ -1,6 +1,7 @@
 package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.environment.ThingApiCallReq;
 import com.banalytics.box.api.integration.webrtc.channel.environment.ThingApiCallRes;
 import com.banalytics.box.module.BoxEngine;
@@ -19,7 +20,7 @@ public class ThingApiCallReqHandler implements ChannelRequestHandler {
     private final RTCClient rtcClient;
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception {
+    public ChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof ThingApiCallReq req) {
 //            log.info("Request:\n{}", req);
             UUID thingUuid = req.getNodeUuid();

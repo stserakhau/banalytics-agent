@@ -151,8 +151,8 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
             @Override
             public void run() {
                 try {
-                    log.debug("Check connection");
                     long now = System.currentTimeMillis();
+                    log.info("Check connection: {} > {}, {}", now, socketSessionExpirationTime, portalWsSession==null);
                     if (now > socketSessionExpirationTime || portalWsSession == null || !portalWsSession.isOpen()) {
                         log.info("\tConnection expired.");
                         connect();
@@ -289,7 +289,7 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        log.info("Connection established: {}, attrs=[{}]" + session.getId(), session.getAttributes());
+        log.info("Connection established: {}, attrs=[{}]", session.getId(), session.getAttributes());
         this.portalWsSession = session;
         statistics.connEstablished++;
         this.lastConnectionTime = System.currentTimeMillis();

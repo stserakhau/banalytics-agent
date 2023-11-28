@@ -2,6 +2,7 @@ package com.banalytics.box.module.webrtc.client.channel;
 
 import com.banalytics.box.LocalizedException;
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.ExceptionMessage;
 import com.banalytics.box.api.integration.webrtc.channel.environment.DeleteThingReq;
 import com.banalytics.box.api.integration.webrtc.channel.environment.DeleteThingRes;
@@ -15,7 +16,7 @@ public class DeleteThingReqHandler implements ChannelRequestHandler {
     private final BoxEngine engine;
 
     @Override
-    public AbstractChannelMessage handle(AbstractChannelMessage request) throws Exception {
+    public ChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof DeleteThingReq req) {
             try {
                 DeleteThingRes res = new DeleteThingRes();

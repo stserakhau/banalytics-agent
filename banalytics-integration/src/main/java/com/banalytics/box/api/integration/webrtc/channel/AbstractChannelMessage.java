@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public abstract class AbstractChannelMessage extends AbstractMessage {
+public abstract class AbstractChannelMessage extends AbstractMessage implements ChannelMessage {
     int requestId;
 
     public AbstractChannelMessage(MessageType type) {

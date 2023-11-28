@@ -4,7 +4,6 @@ import com.banalytics.box.api.integration.form.FormModel;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.service.JpaService;
 import org.springframework.boot.info.BuildProperties;
-import org.springframework.core.io.Resource;
 
 import java.io.File;
 import java.util.*;
@@ -42,6 +41,7 @@ public interface BoxEngine {
     default File applicationHomeFolder() {
         return new File(".");
     }
+
     default File applicationConfigFolder() {
         return new File(".");
     }
@@ -110,6 +110,10 @@ public interface BoxEngine {
     }
 
     default <T> T getBean(Class<T> beanClass) {
+        throw new RuntimeException("Method not implemented");
+    }
+
+    default <T> T getBean(String beanName) {
         throw new RuntimeException("Method not implemented");
     }
 

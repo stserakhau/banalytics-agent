@@ -2,6 +2,7 @@ package com.banalytics.box.module.events;
 
 import com.banalytics.box.TimeUtil;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent;
 import com.banalytics.box.model.task.EnvironmentNode;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.events.model.Action;

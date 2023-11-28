@@ -6,12 +6,14 @@ import com.banalytics.box.api.integration.model.Share;
 import com.banalytics.box.api.integration.model.SharePermission;
 import com.banalytics.box.api.integration.webrtc.IceCandidate;
 import com.banalytics.box.api.integration.webrtc.channel.AbstractChannelMessage;
+import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.ExceptionMessage;
 import com.banalytics.box.api.integration.webrtc.channel.NodeDescriptor;
 import com.banalytics.box.api.integration.webrtc.channel.environment.*;
 import com.banalytics.box.api.integration.webrtc.channel.environment.auth.*;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent;
 import com.banalytics.box.module.BoxEngine;
 import com.banalytics.box.module.ITask;
 import com.banalytics.box.module.MediaCaptureCallbackSupport;
@@ -21,6 +23,7 @@ import com.banalytics.box.module.webrtc.ChannelsUtils;
 import com.banalytics.box.module.webrtc.PortalWebRTCIntegrationConfiguration;
 import com.banalytics.box.module.webrtc.PortalWebRTCIntegrationThing;
 import com.banalytics.box.module.webrtc.client.channel.*;
+import com.banalytics.box.module.webrtc.client.channel.measurement.KeyboardEventHandler;
 import com.banalytics.box.module.webrtc.client.channel.observer.DataTransferChannelObserver;
 import com.banalytics.box.module.webrtc.client.channel.observer.MediaChannelObserver;
 import com.banalytics.box.service.SystemThreadsService;
@@ -59,7 +62,7 @@ public class RTCClient implements PeerConnectionObserver {
     private static final String DATA_TRANSFER_CHANNEL_ID = "data-transfer";
     private static final String MEDIA_TRANSFER_CHANNEL_ID = "media-transfer";
     //    private static final String STUB_CHANNEL_ID = "stub-channel";
-    private final Map<String, Map<Class<? extends AbstractChannelMessage>, ChannelRequestHandler>> environmentChannelRequestHandlerMap = new HashMap<>();
+    private final Map<String, Map<Class<? extends ChannelMessage>, ChannelRequestHandler>> environmentChannelRequestHandlerMap = new HashMap<>();
     public final UUID environmentUUID;
     public final boolean publicShare;
     private final Share share;
@@ -100,7 +103,7 @@ public class RTCClient implements PeerConnectionObserver {
         this.share = share;
         this.publicShare = publicShare;
 
-        Map<Class<? extends AbstractChannelMessage>, ChannelRequestHandler> requestHandlersMap = new HashMap<>();
+        Map<Class<? extends ChannelMessage>, ChannelRequestHandler> requestHandlersMap = new HashMap<>();
         requestHandlersMap.put(AvailableActionTaskClassesReq.class, new AvailableActionTaskClassesReqHandler(engine));
         requestHandlersMap.put(AvailableSingletonThingClassesReq.class, new AvailableSingletonThingClassesReqHandler(engine));
         requestHandlersMap.put(AvailableThingClassesReq.class, new AvailableThingClassesReqHandler(engine));
@@ -127,6 +130,7 @@ public class RTCClient implements PeerConnectionObserver {
         requestHandlersMap.put(ThingsReq.class, new ThingsReqHandler(engine, share == null ? null : share.getSharePermissions()));
         requestHandlersMap.put(IssuesReq.class, new IssuesReqHandler(engine, share == null ? null : share.getSharePermissions()));
         requestHandlersMap.put(ThingsGroupsReq.class, new ThingsGroupsReqHandler(engine));
+        requestHandlersMap.put(KeyboardEvent.class, new KeyboardEventHandler(engine));
 
         environmentChannelRequestHandlerMap.put(ENVIRONMENT_CHANNEL_ID, requestHandlersMap);
 
@@ -463,7 +467,7 @@ public class RTCClient implements PeerConnectionObserver {
                     if (channelRequestHandler == null) {
                         throw new Exception("No handler found for message: " + request.toJson());
                     }
-                    AbstractChannelMessage response = channelRequestHandler.handle(request);
+                    ChannelMessage response = channelRequestHandler.handle(request);
                     if (response != null) {
                         sendEnvironmentMessage(response);
                     }
@@ -507,7 +511,7 @@ public class RTCClient implements PeerConnectionObserver {
         }
     }
 
-    public void sendEnvironmentMessage(AbstractChannelMessage message) throws Exception {
+    public void sendEnvironmentMessage(ChannelMessage message) throws Exception {
         String json = message.toJson();
         byte[] bytes = GZIPUtils.compress(json.getBytes(StandardCharsets.UTF_8));
         sendMessageToChannel(message.getRequestId(), environmentChannel, bytes, true);
