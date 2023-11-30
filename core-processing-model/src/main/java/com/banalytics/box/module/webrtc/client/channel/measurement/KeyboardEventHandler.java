@@ -16,7 +16,7 @@ public class KeyboardEventHandler implements ChannelRequestHandler {
     @Override
     public AbstractChannelMessage handle(ChannelMessage request) throws Exception {
         if (request instanceof KeyboardEvent event) {
-            log.info("Keyboard event received:\n{}", event);
+//            log.info("Keyboard event received:\n{}", event);
             engine.fireEvent(event);
         }
         return null;

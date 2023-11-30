@@ -97,7 +97,7 @@ public class PTZRotateAction extends AbstractAction<PTZRotateActionConfiguration
                 @Override
                 public void run() {
                     long now = System.currentTimeMillis();
-                    log.info("Wait: {}", (stopTime - now));
+//                    log.info("Wait: {}", (stopTime - now));
                     if (now > stopTime) {
                         stopTimerTask = null;
                         rotating = false;
