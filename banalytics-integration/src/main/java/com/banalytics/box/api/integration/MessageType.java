@@ -13,6 +13,9 @@ import com.banalytics.box.api.integration.webrtc.channel.environment.*;
 import com.banalytics.box.api.integration.webrtc.channel.environment.auth.*;
 import com.banalytics.box.api.integration.webrtc.channel.events.*;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.*;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GPAxisChangeEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GPButtonChangeEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GamePadStateChangedEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent;
 import com.banalytics.box.api.integration.websocket.YourSessionId;
 
@@ -133,7 +136,13 @@ public enum MessageType {
      */
     EVT_SYS_KEYB(KeyboardEvent.class), EVT_SYS_GPS(GPSEvent.class),
     EVT_SYS_GYRO(GyroscopeEvent.class), EVT_SYS_GRAVITY(GravityEvent.class),
-    EVT_SYS_GAMEPAD(GamePadEvent.class),
+
+    /**
+     * Gamepad events
+     */
+    EVT_SYS_GAMEPAD_SCH(GamePadStateChangedEvent.class),//client level
+    EVT_SYS_GAMEPAD_AXS(GPAxisChangeEvent.class),//agent level
+    EVT_SYS_GAMEPAD_BTN(GPButtonChangeEvent.class),//agent level
 
     /**
      * Error Types

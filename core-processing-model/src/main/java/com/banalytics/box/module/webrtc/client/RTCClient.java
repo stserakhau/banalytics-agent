@@ -248,7 +248,7 @@ public class RTCClient implements PeerConnectionObserver {
                                 .decode(buffer.data)
                                 .toString();
                     }
-                    log.info("Environment {} Received message:\n{}", environmentUUID, message);
+//                    log.info("Environment {} Received message:\n{}", environmentUUID, message);
 
                     final AbstractMessage request = AbstractMessage.from(message);
 

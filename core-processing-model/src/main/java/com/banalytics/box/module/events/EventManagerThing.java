@@ -3,6 +3,9 @@ package com.banalytics.box.module.events;
 import com.banalytics.box.TimeUtil;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.*;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GPAxisChangeEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GPButtonChangeEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GamePadStateChangedEvent;
 import com.banalytics.box.model.task.EnvironmentNode;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.events.model.Action;
@@ -356,11 +359,13 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
                     eventClasses = engine.eventTypeClasses();
                 }
                 {//always visible events
-                    eventClasses.add(GamePadEvent.class);
+                    eventClasses.add(GamePadStateChangedEvent.class);
                     eventClasses.add(GPSEvent.class);
                     eventClasses.add(GravityEvent.class);
                     eventClasses.add(GyroscopeEvent.class);
                     eventClasses.add(KeyboardEvent.class);
+                    eventClasses.add(GPAxisChangeEvent.class);
+                    eventClasses.add(GPButtonChangeEvent.class);
                 }
 
                 return eventClasses.stream().map(Class::getName).collect(Collectors.toList());

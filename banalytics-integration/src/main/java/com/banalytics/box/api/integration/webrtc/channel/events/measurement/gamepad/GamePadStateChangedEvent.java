@@ -1,7 +1,8 @@
-package com.banalytics.box.api.integration.webrtc.channel.events.measurement;
+package com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad;
 
-import com.banalytics.box.api.integration.AbstractMessage;
 import com.banalytics.box.api.integration.MessageType;
+import com.banalytics.box.api.integration.form.ComponentType;
+import com.banalytics.box.api.integration.form.annotation.UIComponent;
 import com.banalytics.box.api.integration.webrtc.channel.ChannelMessage;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import lombok.Getter;
@@ -14,18 +15,20 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class GamePadEvent extends AbstractEvent implements ChannelMessage {
+public class GamePadStateChangedEvent extends AbstractEvent implements ChannelMessage {
+    public int gamepadIndex;
+
     //https://developer.mozilla.org/en-US/docs/Web/API/Gamepad/axes
     public double[] axes;
 
     //https://developer.mozilla.org/en-US/docs/Web/API/Gamepad/buttons
-    public double[] buttons;
+    public GamepadButton[] buttons;
 
 //    https://developer.mozilla.org/en-US/docs/Web/API/GamepadPose
 //    GamepadPose pose
 
-    public GamePadEvent() {
-        super(MessageType.EVT_SYS_GAMEPAD);
+    public GamePadStateChangedEvent() {
+        super(MessageType.EVT_SYS_GAMEPAD_SCH);
     }
 
     @Override
@@ -36,5 +39,15 @@ public class GamePadEvent extends AbstractEvent implements ChannelMessage {
     @Override
     public boolean isAsyncAllowed() {
         return true;
+    }
+
+    @Getter
+    @Setter
+    @ToString(callSuper = true)
+    public static class GamepadButton {
+        public int index;
+        public boolean pressed;
+        public boolean touched;
+        public double value;
     }
 }
