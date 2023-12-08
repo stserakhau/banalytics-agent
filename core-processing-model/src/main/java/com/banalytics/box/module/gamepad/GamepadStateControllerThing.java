@@ -35,7 +35,6 @@ public class GamepadStateControllerThing extends AbstractThing<GamepadStateContr
             return;
         }
         GamePadStateChangedEvent gpe = (GamePadStateChangedEvent) abstractEvent;
-        log.info("Consumed: {}", gpe);
         Pair<double[], GamepadButton[]> gamepadState = gamepadStates.get(gpe.gamepadIndex);
         if (gamepadState == null) {
             gamepadStates.put(
@@ -52,7 +51,6 @@ public class GamepadStateControllerThing extends AbstractThing<GamepadStateContr
                     e.setEnvironmentUuid(gpe.getEnvironmentUuid());
                     e.setNodeType(gpe.getNodeType());
                     e.setNodeUuid(gpe.getNodeUuid());
-                    log.info("Axis Fired: {}", e);
                     engine.fireEvent(e);
                 }
                 axisStates[i] = newVal;
@@ -76,7 +74,6 @@ public class GamepadStateControllerThing extends AbstractThing<GamepadStateContr
                     e.setEnvironmentUuid(gpe.getEnvironmentUuid());
                     e.setNodeType(gpe.getNodeType());
                     e.setNodeUuid(gpe.getNodeUuid());
-                    log.info("Button Fired: {}", e);
                     engine.fireEvent(e);
                     buttonStates[i] = newVal;
                 }
