@@ -75,6 +75,10 @@ public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActio
 
     boolean rotating;
 
+    private long stopTime = 0;
+
+    private TimerTask stopTimerTask;
+
     @Override
     public synchronized void doAction(ExecutionContext ctx) throws Exception {
         AbstractEvent event = ctx.getVar(AbstractEvent.class);
@@ -83,6 +87,28 @@ public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActio
             if (gpe.gamepadIndex != configuration.gamepadIndex) {
                 return;
             }
+
+            long now = System.currentTimeMillis();
+            stopTime = now + configuration.stopTimeout;
+
+            if (stopTimerTask == null) {
+                this.process(ctx);
+                stopTimerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        long now = System.currentTimeMillis();
+                        if (now > stopTime) {
+                            stopTimerTask = null;
+                            rotating = false;
+                            onvif.rotateContinuouslyStop();
+                            cancel();
+                        }
+                    }
+                };
+
+                SYSTEM_TIMER.schedule(stopTimerTask, 0, 100);
+            }
+
 
             double xSpeed = gpe.axes[configuration.axisXIndex];
             double ySpeed = gpe.axes[configuration.axisYIndex];
@@ -100,7 +126,6 @@ public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActio
 
             if (xSpeed == 0 && ySpeed == 0 && zSpeed == 0) {
                 if (rotating) {
-                    log.info("Stopped");
                     onvif.rotateContinuouslyStop();
                 }
                 rotating = false;

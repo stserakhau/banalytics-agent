@@ -70,7 +70,7 @@ public class PTZContinousAxisActionConfiguration extends AbstractConfiguration {
     public int axisYIndex = 1;
 
     @UIComponent(
-            index = 60, type = ComponentType.int_input,
+            index = 70, type = ComponentType.int_input,
             uiConfig = {
                     @UIComponent.UIConfig(name = "min", value = "0"),
                     @UIComponent.UIConfig(name = "max", value = "128")
@@ -78,13 +78,21 @@ public class PTZContinousAxisActionConfiguration extends AbstractConfiguration {
     )
     public int axisZoomIndex = 1;
 
-    @UIComponent(index = 70, type = ComponentType.checkbox)
+    @UIComponent(index = 80, type = ComponentType.checkbox)
     public boolean reverseX;
 
-    @UIComponent(index = 80, type = ComponentType.checkbox)
+    @UIComponent(index = 90, type = ComponentType.checkbox)
     public boolean reverseY;
 
-    @UIComponent(index = 90, type = ComponentType.checkbox)
+    @UIComponent(index = 100, type = ComponentType.checkbox)
     public boolean reverseZoom;
+
+    @UIComponent(index = 110, type = ComponentType.int_input,
+            uiConfig = {
+                    @UIComponent.UIConfig(name = "stop", value = "50"),
+                    @UIComponent.UIConfig(name = "min", value = "100"),
+                    @UIComponent.UIConfig(name = "max", value = "1000")
+            })
+    public int stopTimeout = 300;
 
 }

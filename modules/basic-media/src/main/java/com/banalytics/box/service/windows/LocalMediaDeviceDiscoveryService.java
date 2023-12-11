@@ -20,6 +20,7 @@ import java.util.*;
 
 import static org.bytedeco.ffmpeg.global.avdevice.avdevice_register_all;
 import static org.bytedeco.ffmpeg.global.avformat.*;
+import static org.bytedeco.ffmpeg.global.avutil.av_dict_free;
 import static org.bytedeco.ffmpeg.global.avutil.av_dict_set;
 
 @Slf4j
@@ -163,6 +164,7 @@ public class LocalMediaDeviceDiscoveryService extends AbstractLocalMediaDeviceDi
                 }
             }
         } finally {
+            av_dict_free(options);
             avformat_free_context(context);
 
             log.info("Executed");
