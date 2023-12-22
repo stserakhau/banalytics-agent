@@ -198,7 +198,7 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         return false;
     }
 
-    protected synchronized void mediaStreamToClient(Frame sourceFrame, double frameRate) throws Exception {
+    protected void mediaStreamToClient(Frame sourceFrame, double frameRate) throws Exception {
         if (consumerVideoStreamMap.isEmpty() && consumerList.isEmpty()) {
             return;
         }

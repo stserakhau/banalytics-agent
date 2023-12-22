@@ -1,6 +1,5 @@
 package com.banalytics.box.service;
 
-import com.banalytics.box.TimeUtil;
 import com.banalytics.box.api.integration.form.FormModel;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.module.*;
@@ -9,8 +8,6 @@ import com.banalytics.box.module.cloud.portal.PortalIntegrationThing;
 import com.banalytics.box.module.utils.form.FormUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.map.PassiveExpiringMap;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.BeanFactory;
@@ -19,13 +16,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resources;
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;

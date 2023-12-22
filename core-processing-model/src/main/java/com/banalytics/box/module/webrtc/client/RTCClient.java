@@ -195,7 +195,7 @@ public class RTCClient implements PeerConnectionObserver {
 
             @Override
             public void onStateChange() {
-                log.info("Data channel state changed to: {}", environmentChannel.getState());
+                log.info("Environment channel state changed to: {}", environmentChannel.getState());
                 switch (environmentChannel.getState()) {
                     case OPEN -> {
                         lastInteractionTime = System.currentTimeMillis();
