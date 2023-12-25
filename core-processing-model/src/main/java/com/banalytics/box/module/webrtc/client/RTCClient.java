@@ -632,16 +632,18 @@ public class RTCClient implements PeerConnectionObserver {
     public void start() {
     }
 
-    public synchronized void stop() {
-        log.info("Closing peer connection ({}): {}", this.peerConnection.getConnectionState(), transactionId);
-        if (
-                this.peerConnection.getConnectionState() == RTCPeerConnectionState.NEW
-                        || this.peerConnection.getConnectionState() == RTCPeerConnectionState.CONNECTED
-                        || this.peerConnection.getConnectionState() == RTCPeerConnectionState.CONNECTING
-        ) {
-            this.peerConnection.close();
-            log.info("Peer connection closed: {}", transactionId);
-        }
+    public void stop() {
+//        synchronized(this.peerConnection) {
+            log.info("Closing peer connection ({}): {}", this.peerConnection.getConnectionState(), transactionId);
+            if (
+                    this.peerConnection.getConnectionState() == RTCPeerConnectionState.NEW
+                            || this.peerConnection.getConnectionState() == RTCPeerConnectionState.CONNECTED
+                            || this.peerConnection.getConnectionState() == RTCPeerConnectionState.CONNECTING
+            ) {
+                this.peerConnection.close();
+                log.info("Peer connection closed: {}", transactionId);
+            }
+//        }
     }
 
     private final List<PeerConnectionListener> peerConnectionListeners = new ArrayList<>(2);

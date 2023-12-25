@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
@@ -186,8 +187,6 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         }
     }
 
-    private volatile boolean sendingFrame = false;
-
     private int increaseQuality = 0;
 
     private final AtomicInteger keyFrameCounter = new AtomicInteger(0);
@@ -198,6 +197,7 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         return false;
     }
 
+    private final AtomicBoolean sendingFrame = new AtomicBoolean(false);
     protected void mediaStreamToClient(Frame sourceFrame, double frameRate) throws Exception {
         if (consumerVideoStreamMap.isEmpty() && consumerList.isEmpty()) {
             return;
@@ -213,8 +213,9 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
             this.consumerList = new ArrayList<>();
             final Frame screenShot = sourceFrame.clone();
             SystemThreadsService.execute(this, () -> {
-                sendScreen(localConsumerList, screenShot);
-                screenShot.close();
+                try(screenShot) {
+                    sendScreen(localConsumerList, screenShot);
+                }
             });
         }
         if (!consumerVideoStreamMap.isEmpty()) {
@@ -233,11 +234,12 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
             if (isSyncWrite) {
                 recordFrame(sourceFrame, frameRate);
             } else {
-                if (sendingFrame) {
+                if (sendingFrame.get()) {
                     skippedVideoFrameCounter.incrementAndGet();
                     return;
                 }
-                sendingFrame = true;
+
+                sendingFrame.set(true);
                 final Frame frame = sourceFrame.clone();
                 SystemThreadsService.execute(this, () -> {
                     try (frame) {
@@ -245,14 +247,15 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
                     } catch (Throwable e) {
                         onException(e);
                     } finally {
-                        sendingFrame = false;
+                        sendingFrame.set(false);
                     }
                 });
             }
         }
     }
 
-    private synchronized void recordFrame(Frame frame, double frameRate) throws Exception {
+//    private final Object recordWriteLock = new Object();
+    private void recordFrame(Frame frame, double frameRate) throws Exception {
         if (increaseQuality < 0) {
             for (RealTimeOutputStream rts : consumerVideoStreamMap.values()) {
                 rts.decreaseQuality(increaseQuality < -1);

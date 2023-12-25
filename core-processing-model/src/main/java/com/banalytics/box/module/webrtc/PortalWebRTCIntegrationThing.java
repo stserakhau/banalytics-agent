@@ -296,7 +296,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
         }
     };
 
-    private synchronized void stopClient(String transactionId, String message) {
+    private /*synchronized*/ void stopClient(String transactionId, String message) {
         RTCClient client = clientMap.remove(transactionId);
         if (client != null) {
             log.info(message + " RTCClient stopped: {}", client.environmentUUID);

@@ -273,33 +273,37 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                         if (now > classificationExpirationTimeout) {
                             if (configuration.motionTriggerMode == MOTION_AND_CLASSIFIER && imageClassifier != null && targetMotionDetected && !insideClassificator) {
                                 insideClassificator = true;
-                                UMat clonedColorMat = colorFrame.clone();
-                                SystemThreadsService.execute(this, () -> {
-                                    List<ClassificationResult> results;
-                                    try {
-                                        results = imageClassifier.predict(this.getUuid(), Collections.singletonList(clonedColorMat), (float) configuration.confidenceThreshold, (float) configuration.nmsThreshold);
-                                        classificationExpirationTimeout = System.currentTimeMillis() + configuration.classificationDelay;
-                                    } catch (Throwable e) {
-                                        log.error(e.getMessage(), e);
-                                        sendTaskState(e.getMessage());
-                                        return;
-                                    } finally {
-                                        clonedColorMat.close();
-                                        insideClassificator = false;
-                                    }
+                                final UMat clonedColorMat = colorFrame.clone();
+                                try {
+                                    SystemThreadsService.execute(this, () -> {
+                                        List<ClassificationResult> results;
+                                        try {
+                                            results = imageClassifier.predict(this.getUuid(), Collections.singletonList(clonedColorMat), (float) configuration.confidenceThreshold, (float) configuration.nmsThreshold);
+                                            classificationExpirationTimeout = System.currentTimeMillis() + configuration.classificationDelay;
+                                        } catch (Throwable e) {
+                                            log.error(e.getMessage(), e);
+                                            sendTaskState(e.getMessage());
+                                            return;
+                                        } finally {
+                                            clonedColorMat.close();
+                                            insideClassificator = false;
+                                        }
 
-                                    synchronized (this.classificationResults) {
-                                        this.classificationResults.clear();
-                                        triggeredRegions.clear();
-                                        for (ClassificationResult dr : results) {
-                                            boolean targetClassDetected = targetClasses.isEmpty() || targetClasses.contains(dr.className());
-                                            boolean inTargetZone = zonePainter.checkObjectInZones(dr.x(), dr.y(), dr.width(), dr.height(), triggeredRegions);
-                                            if (targetClassDetected && inTargetZone) {
-                                                this.classificationResults.add(dr);
+                                        synchronized (this.classificationResults) {
+                                            this.classificationResults.clear();
+                                            triggeredRegions.clear();
+                                            for (ClassificationResult dr : results) {
+                                                boolean targetClassDetected = targetClasses.isEmpty() || targetClasses.contains(dr.className());
+                                                boolean inTargetZone = zonePainter.checkObjectInZones(dr.x(), dr.y(), dr.width(), dr.height(), triggeredRegions);
+                                                if (targetClassDetected && inTargetZone) {
+                                                    this.classificationResults.add(dr);
+                                                }
                                             }
                                         }
-                                    }
-                                });
+                                    });
+                                } catch (Throwable e) {
+                                    clonedColorMat.close();
+                                }
                             } else {
                                 if (now > classificationExpirationTimeout + 1000) {
                                     synchronized (this.classificationResults) {

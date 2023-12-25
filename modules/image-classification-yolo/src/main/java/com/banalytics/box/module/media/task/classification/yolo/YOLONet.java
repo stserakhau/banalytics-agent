@@ -51,7 +51,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.bytedeco.opencv.global.opencv_core.CV_32F;
-import static org.bytedeco.opencv.global.opencv_core.minMaxLoc;
 import static org.bytedeco.opencv.global.opencv_dnn.*;
 
 @Slf4j
@@ -65,13 +64,12 @@ public class YOLONet {
     private final int width;
     private final int height;
 
+    private final Size size;
+    private final Scalar zero;
+
+
     private final PreferableBackend preferableBackend;
     private final PreferableTarget preferableTarget;
-
-    private Net net;
-    private StringVector outNames;
-
-    private List<String> names;
 
     /**
      * Creates a new YOLO network.
@@ -94,6 +92,8 @@ public class YOLONet {
         this.preferableTarget = preferableTarget;
         this.width = width;
         this.height = height;
+        this.size = new Size(width, height);
+        this.zero = new Scalar(0.0);
     }
 
     public YOLONet(Path configOnnxPath, Path namesPath,
@@ -108,7 +108,16 @@ public class YOLONet {
         this.preferableTarget = preferableTarget;
         this.width = width;
         this.height = height;
+        this.size = new Size(width, height);
+        this.zero = new Scalar(0.0);
     }
+
+    private Net net;
+
+    private StringVector outNames;
+    private MatVector outs;
+
+    private List<String> names;
 
     /**
      * Initialises the network.
@@ -125,6 +134,7 @@ public class YOLONet {
         }
         // setup output layers
         outNames = net.getUnconnectedOutLayersNames();
+        outs = new MatVector(outNames.size());
 
         net.setPreferableBackend(preferableBackend.value);
         net.setPreferableTarget(preferableTarget.value);
@@ -137,6 +147,9 @@ public class YOLONet {
     public synchronized void stop() {
         if (net != null) {
             net.close();
+            outNames.close();
+            outs.close();
+            names.clear();
         }
     }
 
@@ -149,13 +162,10 @@ public class YOLONet {
     public synchronized List<ClassificationResult> predict(UMat frame, float confidenceThreshold, float nmsThreshold) {
         try (Mat inputBlob = blobFromImage(frame,
                 1 / 255.0,
-                new Size(width, height),
-                new Scalar(0.0),
-                true, false, CV_32F);
-             MatVector outs = new MatVector(outNames.size())) {
-
+                this.size,
+                this.zero,
+                true, false, CV_32F)) {
             net.setInput(inputBlob);
-
             // run detection
             net.forward(outs, outNames);
 
