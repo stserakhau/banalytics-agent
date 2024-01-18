@@ -113,9 +113,9 @@ public class ChannelsUtils {
     }
 
     public static void send(RTCDataChannel channel, RTCDataChannelBuffer channelBuffer) throws Exception {
-        synchronized (channel) {
+//        synchronized (channel) {
             channel.send(channelBuffer);
-        }
+//        }
     }
 
     public static void waitChannelOpen(RTCDataChannel channel, RTCDataChannelObserver observer) {

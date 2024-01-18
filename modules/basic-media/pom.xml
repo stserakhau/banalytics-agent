@@ -16,12 +16,12 @@
     <name>Agent - Basic Media</name>
 
     <properties>
-        <bytedeco.version>1.5.10-SNAPSHOT</bytedeco.version>
-        <bytedeco.ffmpeg.version>6.1</bytedeco.ffmpeg.version>
-        <bytedeco.opencv.version>4.8.1</bytedeco.opencv.version>
-<!--        <bytedeco.version>1.5.9-SNAPSHOT</bytedeco.version>-->
-<!--        <bytedeco.ffmpeg.version>6.0</bytedeco.ffmpeg.version>-->
-<!--        <bytedeco.opencv.version>4.7.0</bytedeco.opencv.version>-->
+<!--        <bytedeco.version>1.5.10-SNAPSHOT</bytedeco.version>-->
+<!--        <bytedeco.ffmpeg.version>6.1</bytedeco.ffmpeg.version>-->
+<!--        <bytedeco.opencv.version>4.8.1</bytedeco.opencv.version>-->
+        <bytedeco.version>1.5.9</bytedeco.version>
+        <bytedeco.ffmpeg.version>6.0</bytedeco.ffmpeg.version>
+        <bytedeco.opencv.version>4.7.0</bytedeco.opencv.version>
         <platform>${javacpp.platform}</platform>
     </properties>
 

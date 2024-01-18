@@ -255,92 +255,94 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
     }
 
 //    private final Object recordWriteLock = new Object();
+    private final Object LOCK = new Object();
     private void recordFrame(Frame frame, double frameRate) throws Exception {
-        if (increaseQuality < 0) {
-            for (RealTimeOutputStream rts : consumerVideoStreamMap.values()) {
-                rts.decreaseQuality(increaseQuality < -1);
+        synchronized (LOCK) {
+            if (increaseQuality < 0) {
+                for (RealTimeOutputStream rts : consumerVideoStreamMap.values()) {
+                    rts.decreaseQuality(increaseQuality < -1);
+                }
             }
-        }
-        if (frame.getTypes().contains(Frame.Type.AUDIO)) {
-            for (RealTimeOutputStream stream : consumerAudioStreamMap.values()) {
-                if (stream.hasConsumers()) {
-                    FFmpegFrameRecorder rtAudioRecorder = audioStreamRecorderMap.get(stream);
-                    if (rtAudioRecorder == null) {
-                        rtAudioRecorder = createRealTimeAudioRecorder(stream);
-                        rtAudioRecorder.start();
-                        audioStreamRecorderMap.put(stream, rtAudioRecorder);
-                    }
+            if (frame.getTypes().contains(Frame.Type.AUDIO)) {
+                for (RealTimeOutputStream stream : consumerAudioStreamMap.values()) {
+                    if (stream.hasConsumers()) {
+                        FFmpegFrameRecorder rtAudioRecorder = audioStreamRecorderMap.get(stream);
+                        if (rtAudioRecorder == null) {
+                            rtAudioRecorder = createRealTimeAudioRecorder(stream);
+                            rtAudioRecorder.start();
+                            audioStreamRecorderMap.put(stream, rtAudioRecorder);
+                        }
 
-                    long fts = frame.timestamp;
-                    long rts = rtAudioRecorder.getTimestamp();
-                    if (fts < rts) {
-                        frame.timestamp = rts + 10;
-                    }
+                        long fts = frame.timestamp;
+                        long rts = rtAudioRecorder.getTimestamp();
+                        if (fts < rts) {
+                            frame.timestamp = rts + 10;
+                        }
 
-                    try {
-                        log.info("Write Audio frame");
-                        rtAudioRecorder.recordSamples(frame.sampleRate, frame.audioChannels, frame.samples);
-                    } catch (FFmpegFrameRecorder.Exception e) {
-                        log.error(e.getMessage(), e);
+                        try {
+                            log.info("Write Audio frame");
+                            rtAudioRecorder.recordSamples(frame.sampleRate, frame.audioChannels, frame.samples);
+                        } catch (FFmpegFrameRecorder.Exception e) {
+                            log.error(e.getMessage(), e);
+                            freeRTAudioRecorder(stream);
+                        }
+                    } else {
                         freeRTAudioRecorder(stream);
                     }
-                } else {
-                    freeRTAudioRecorder(stream);
                 }
             }
-        }
-        if (frame.getTypes().contains(Frame.Type.VIDEO)) {
-            for (RealTimeOutputStream stream : consumerVideoStreamMap.values()) {
-                if (increaseQuality > 0) {
-                    stream.increaseQuality();
-                }
-                if (stream.hasConsumers()) {
-                    RecorderWrapper rtVideoRecorderWrapper = videoStreamRecorderMap.get(stream);
+            if (frame.getTypes().contains(Frame.Type.VIDEO)) {
+                for (RealTimeOutputStream stream : consumerVideoStreamMap.values()) {
+                    if (increaseQuality > 0) {
+                        stream.increaseQuality();
+                    }
+                    if (stream.hasConsumers()) {
+                        RecorderWrapper rtVideoRecorderWrapper = videoStreamRecorderMap.get(stream);
 
-                    stream.setStreamSize(frame.imageWidth, frame.imageHeight);
-                    stream.setFps(frameRate);
-                    {//video stream part
-                        double fpsDeviation = 1;
-                        if (rtVideoRecorderWrapper != null) {
-                            fpsDeviation = Math.min(rtVideoRecorderWrapper.fps, frameRate) / Math.max(rtVideoRecorderWrapper.fps, frameRate);
-                        }
+                        stream.setStreamSize(frame.imageWidth, frame.imageHeight);
+                        stream.setFps(frameRate);
+                        {//video stream part
+                            double fpsDeviation = 1;
+                            if (rtVideoRecorderWrapper != null) {
+                                fpsDeviation = Math.min(rtVideoRecorderWrapper.fps, frameRate) / Math.max(rtVideoRecorderWrapper.fps, frameRate);
+                            }
 
-                        if (stream.propsChanged || stream.bitrateChanged || fpsDeviation < 0.98) {
-                            stream.propsChanged = false;
-                            stream.bitrateChanged = false;
-                            //                    log.info("Stream properties changed");
-                            freeRTVideoRecorder(stream);
-                            rtVideoRecorderWrapper = null;
-                        }
-                        if (rtVideoRecorderWrapper == null) {
+                            if (stream.propsChanged || stream.bitrateChanged || fpsDeviation < 0.98) {
+                                stream.propsChanged = false;
+                                stream.bitrateChanged = false;
+                                //                    log.info("Stream properties changed");
+                                freeRTVideoRecorder(stream);
+                                rtVideoRecorderWrapper = null;
+                            }
+                            if (rtVideoRecorderWrapper == null) {
 //                                    System.out.println("========>>>>>>>>>> stream bitrate " + stream.bitrate());
-                            FFmpegFrameRecorder rtVideoRecorder = createRealTimeVideoStreamRecorder(stream.bitrate(), frameRate, stream.currentWidth, stream.currentHeight, aspectRatio, stream);
-                            rtVideoRecorderWrapper = new RecorderWrapper(frameRate, rtVideoRecorder);
-                            //                    log.info("Recorder created ({}): {}x{} / {} / {}", realTimeRecorder, stream.currentWidth, stream.currentHeight, frameRate, stream.bitrate());
-                            rtVideoRecorder.start();
-                            //                    realTimeRecorder.startUnsafe();
-                            //                    log.info("Recorder started");
-                            videoStreamRecorderMap.put(stream, rtVideoRecorderWrapper);
+                                FFmpegFrameRecorder rtVideoRecorder = createRealTimeVideoStreamRecorder(stream.bitrate(), frameRate, stream.currentWidth, stream.currentHeight, aspectRatio, stream);
+                                rtVideoRecorderWrapper = new RecorderWrapper(frameRate, rtVideoRecorder);
+                                //                    log.info("Recorder created ({}): {}x{} / {} / {}", realTimeRecorder, stream.currentWidth, stream.currentHeight, frameRate, stream.bitrate());
+                                rtVideoRecorder.start();
+                                //                    realTimeRecorder.startUnsafe();
+                                //                    log.info("Recorder started");
+                                videoStreamRecorderMap.put(stream, rtVideoRecorderWrapper);
+                            }
                         }
-                    }
-                    long fts = frame.timestamp;
-                    long rts = rtVideoRecorderWrapper.recorder.getTimestamp();
-                    if (fts < rts) {
-                        frame.timestamp = rts + 10;
-                    }
+                        long fts = frame.timestamp;
+                        long rts = rtVideoRecorderWrapper.recorder.getTimestamp();
+                        if (fts < rts) {
+                            frame.timestamp = rts + 10;
+                        }
 
-                    try {
-                        rtVideoRecorderWrapper.recorder.record(frame);
-                    } catch (FFmpegFrameRecorder.Exception e) {
-                        log.error("Writing frame failed: {}", e.getMessage());
+                        try {
+                            rtVideoRecorderWrapper.recorder.record(frame);
+                        } catch (FFmpegFrameRecorder.Exception e) {
+                            log.error("Writing frame failed: {}", e.getMessage());
+                            freeRTVideoRecorder(stream);
+                        }
+                    } else {
                         freeRTVideoRecorder(stream);
                     }
-                } else {
-                    freeRTVideoRecorder(stream);
                 }
             }
         }
-
     }
 
     private void freeRTVideoRecorder(RealTimeOutputStream stream) throws Exception {
