@@ -336,6 +336,9 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
                                 Location location = msg.location();
                                 boolean locationArg = location != null;
                                 if (locationArg) {
+//                                    Float longitude = location.longitude();
+//                                    Float latitude = location.latitude();
+//                                    Integer livePeriod = location.livePeriod();
                                     lastCommandHandler.handleLocationArgs(
                                             chatId,
                                             location

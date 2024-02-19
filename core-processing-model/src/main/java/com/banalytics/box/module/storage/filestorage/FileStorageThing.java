@@ -78,7 +78,7 @@ public class FileStorageThing extends AbstractThing<FileStorageConfig> implement
 
                 String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
 
-                File src = File.createTempFile("telelgram_download", fileName);
+                File src = File.createTempFile("telegram_download", fileName);
                 IOUtils.copy(url, src);
                 this.pushFile(src, fileName);
             } catch (Exception e) {
