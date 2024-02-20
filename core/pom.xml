@@ -221,6 +221,16 @@
             </dependencies>
         </profile>
         <profile>
+            <id>banalytics-box-enable-object-tracking</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.banalytics.box.modules</groupId>
+                    <artifactId>object-tracking</artifactId>
+                    <version>0.0.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>banalytics-box-enable-network-ip-tracker</id>
             <dependencies>
                 <dependency>

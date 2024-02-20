@@ -5,6 +5,8 @@ import com.banalytics.box.module.AbstractThing;
 import com.banalytics.box.module.BoxEngine;
 import com.banalytics.box.module.ImageClassifier;
 import com.banalytics.box.module.State;
+import com.banalytics.box.service.PreferableBackend;
+import com.banalytics.box.service.PreferableTarget;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.opencv.opencv_core.UMat;

@@ -1,4 +1,4 @@
-package com.banalytics.box.module.media.task.classification.yolo;
+package com.banalytics.box.service;
 
 import org.bytedeco.opencv.opencv_core.IntIntPairVector;
 import org.springframework.beans.factory.InitializingBean;

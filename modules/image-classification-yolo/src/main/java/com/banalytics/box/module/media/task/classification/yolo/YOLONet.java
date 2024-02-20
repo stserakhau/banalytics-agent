@@ -36,6 +36,8 @@ On CPU it is recommended to decrease the width & height of the network or use th
  */
 
 import com.banalytics.box.module.ImageClassifier.ClassificationResult;
+import com.banalytics.box.service.PreferableBackend;
+import com.banalytics.box.service.PreferableTarget;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.javacpp.FloatPointer;
 import org.bytedeco.javacpp.IntPointer;

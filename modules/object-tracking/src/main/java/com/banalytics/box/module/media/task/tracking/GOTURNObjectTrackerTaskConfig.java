@@ -1,0 +1,25 @@
+package com.banalytics.box.module.media.task.tracking;
+
+import com.banalytics.box.api.integration.form.annotation.UIComponent;
+import lombok.Getter;
+import lombok.Setter;
+
+import static com.banalytics.box.api.integration.form.ComponentType.drop_down;
+
+@Getter
+@Setter
+public class GOTURNObjectTrackerTaskConfig extends AbstractObjectTrackerTaskConfig {
+    @UIComponent(
+            index = 20,
+            type = drop_down,
+            required = true,
+            uiConfig = {
+                    @UIComponent.UIConfig(name = "show-empty", value = "false")
+            },
+            backendConfig = {
+                    @UIComponent.BackendConfig(bean = "taskService", method = "subModelsList", params = {"goturn"})
+            },
+            restartOnChange = true
+    )
+    public String subModelName;
+}

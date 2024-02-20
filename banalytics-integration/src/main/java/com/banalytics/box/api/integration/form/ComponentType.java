@@ -10,6 +10,8 @@ public enum ComponentType {
      */
     figures_painter,
 
+    roi_capture,
+
     /**
      * api-uuid - target form property which define uuid of FileSystemNavigator component
      * enableFolderSelection - when true allow to choose folder

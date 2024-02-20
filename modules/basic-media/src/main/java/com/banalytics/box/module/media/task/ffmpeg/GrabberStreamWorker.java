@@ -264,14 +264,14 @@ public class GrabberStreamWorker implements Runnable {
                         // and fire restart via exception
                         task.onProcessingException(new Exception("Frozen Media Stream. No frames received. Restarting the task: '" + task.getTitle() + "' via " + task.configuration.restartOnFailure));
                     } else {
-                        if (
-                                (grabber.hasVideo() && videoFrameCounter == prevVideoFrameCounter)
-                                        || (grabber.hasAudio() && audioFrameCounter == prevAudioFrameCounter)
-                        ) {
-                            cancel();// self cancel
-                            // and fire restart via exception
-                            task.onProcessingException(new Exception("Frozen Media Stream. Restarting the task: '" + task.getTitle() + "' via " + task.configuration.restartOnFailure));
-                        }
+//                        if (
+//                                (grabber.hasVideo() && videoFrameCounter == prevVideoFrameCounter)
+//                                        || (grabber.hasAudio() && audioFrameCounter == prevAudioFrameCounter)
+//                        ) {
+//                            cancel();// self cancel
+//                            // and fire restart via exception
+//                            task.onProcessingException(new Exception("Frozen Media Stream. Restarting the task: '" + task.getTitle() + "' via " + task.configuration.restartOnFailure));
+//                        }
                     }
                     prevVideoFrameCounter = videoFrameCounter;
                     prevAudioFrameCounter = audioFrameCounter;
