@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
 
+import static com.banalytics.box.module.telegram.handlers.FileEventHandler.COMMAND_SEND_FILE;
 import static com.banalytics.box.module.telegram.handlers.VideoShotAllCommandHandler.COMMAND_VIDEO_SHOT_ALL;
 
 public class QuickActionCommandHandler extends AbstractCommandHandler {
@@ -28,6 +29,7 @@ public class QuickActionCommandHandler extends AbstractCommandHandler {
                 .replyMarkup(
                         new ReplyKeyboardMarkup(new KeyboardButton(HomeCommandHandler.COMMAND_HOME))
                                 .addRow(new KeyboardButton(COMMAND_VIDEO_SHOT_ALL))
+                                .addRow(new KeyboardButton(COMMAND_SEND_FILE))
                 );
         bot.execute(message);
     }

@@ -20,12 +20,15 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.request.GetFile;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SendVideo;
+import com.pengrad.telegrambot.response.GetFileResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.core.annotation.Order;
 
@@ -37,7 +40,6 @@ import java.util.stream.Collectors;
 
 import static com.banalytics.box.api.integration.utils.CommonUtils.DEFAULT_OBJECT_MAPPER;
 import static com.banalytics.box.module.State.RUN;
-import static com.banalytics.box.module.Thing.StarUpOrder.CORE;
 import static com.banalytics.box.module.Thing.StarUpOrder.DATA_EXCHANGE;
 import static com.banalytics.box.module.telegram.handlers.AuthorizeCommandHandler.COMMAND_AUTHORIZE;
 
@@ -125,6 +127,7 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
         registerHandler(new LogoutActionCommandHandler(bot, engine, botConfig));
         registerHandler(new RebootActionCommandHandler(bot, engine));
         registerHandler(new ReloadFirmwareActionCommandHandler(bot, engine));
+        registerHandler(new FileEventHandler(this, bot, engine));
         bot.setUpdatesListener(_this);
     }
 
@@ -150,7 +153,7 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
     @Override
     public Set<String> accountNames(Set<String> accountIds) {
         Set<String> result = new HashSet<>();
-        if(botConfig!=null) {
+        if (botConfig != null) {
             for (String accountId : accountIds) {
                 BotConfig.Chat chat = botConfig.allowedChats.get(Long.parseLong(accountId));
                 if (chat == null) {
@@ -286,7 +289,62 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
                     if (lastCommand != null) {
                         CommandHandler lastCommandHandler = commandHandlerMap.get(lastCommand);
                         if (lastCommandHandler != null) {
-                            lastCommandHandler.handleArgs(chatId, message); // and execute it with argument
+                            boolean textArg = StringUtils.isNotEmpty(message);
+                            if (textArg) {
+                                lastCommandHandler.handleArgs(chatId, message); // and execute it with argument
+                            } else {
+                                PhotoSize[] photos = msg.photo();
+                                boolean photoArg = photos != null;
+                                if (photoArg) {
+                                    String fileUri = fileUri(photos[photos.length - 1].fileId());
+                                    lastCommandHandler.handlePhotoArgs(
+                                            chatId,
+                                            fileUri
+                                    ); // and execute it with argument
+                                }
+
+                                Video video = msg.video();
+                                boolean videoArg = video != null;
+                                if (videoArg) {
+                                    String fileUri = fileUri(video.fileId());
+                                    lastCommandHandler.handleVideoArg(
+                                            chatId,
+                                            fileUri
+                                    ); // and execute it with argument
+                                }
+
+                                Audio audio = msg.audio();
+                                boolean audioArg = audio != null;
+                                if (audioArg) {
+                                    String fileUri = fileUri(audio.fileId());
+                                    lastCommandHandler.handleAudioArg(
+                                            chatId,
+                                            fileUri
+                                    ); // and execute it with argument
+                                }
+
+                                Document doc = msg.document();
+                                boolean documentArg = doc != null;
+                                if (documentArg) {
+                                    String fileUri = fileUri(doc.fileId());
+                                    lastCommandHandler.handleDocumentArg(
+                                            chatId,
+                                            fileUri
+                                    ); // and execute it with argument
+                                }
+
+                                Location location = msg.location();
+                                boolean locationArg = location != null;
+                                if (locationArg) {
+//                                    Float longitude = location.longitude();
+//                                    Float latitude = location.latitude();
+//                                    Integer livePeriod = location.livePeriod();
+                                    lastCommandHandler.handleLocationArgs(
+                                            chatId,
+                                            location
+                                    ); // and execute it with argument
+                                }
+                            }
                         }
                     }
                 } else {
@@ -297,6 +355,12 @@ public class TelegramBotThing extends AbstractThing<TelegramBotConfiguration> im
             }
         });
         return CONFIRMED_UPDATES_ALL;
+    }
+
+    private String fileUri(String fileId) {
+        GetFile request = new GetFile(fileId);
+        GetFileResponse res = bot.execute(request);
+        return bot.getFullFilePath(res.file());
     }
 
     private static boolean isCommand(MessageEntity[] entities) {

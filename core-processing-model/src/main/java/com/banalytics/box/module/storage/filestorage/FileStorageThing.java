@@ -1,19 +1,24 @@
 package com.banalytics.box.module.storage.filestorage;
 
 import com.banalytics.box.api.integration.webrtc.channel.environment.ThingApiCallReq;
+import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent;
 import com.banalytics.box.module.AbstractThing;
 import com.banalytics.box.module.BoxEngine;
 import com.banalytics.box.module.Thing;
 import com.banalytics.box.module.constants.RestartOnFailure;
+import com.banalytics.box.module.standard.EventConsumer;
 import com.banalytics.box.module.standard.FileStorage;
 import com.banalytics.box.module.storage.FileSystem;
 import com.banalytics.box.module.storage.FileVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.core.annotation.Order;
 
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,7 +32,7 @@ import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
  */
 @Slf4j
 @Order(Thing.StarUpOrder.BUSINESS)
-public class FileStorageThing extends AbstractThing<FileStorageConfig> implements FileStorage {
+public class FileStorageThing extends AbstractThing<FileStorageConfig> implements FileStorage, EventConsumer {
 
     @Override
     public String getTitle() {
@@ -54,6 +59,37 @@ public class FileStorageThing extends AbstractThing<FileStorageConfig> implement
 
     @Override
     protected void doInit() throws Exception {
+    }
+
+    @Override
+    public void consume(Recipient target, AbstractEvent event) {
+        if (event instanceof FileCreatedEvent fce) {
+            if (fce.getStorageUuid().equals(this.getUuid())) {
+                //if my skip processing - protection from user config error
+                return;
+            }
+
+            try {
+                String dataUri = fce.getContextPath();
+
+                URL url = new URL(dataUri);
+
+                String filePath = url.getFile();
+
+                String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+
+                File src = File.createTempFile("telegram_download", fileName);
+                IOUtils.copy(url, src);
+                this.pushFile(src, fileName);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    @Override
+    public Set<String> accountNames(Set<String> accountIds) {
+        return Set.of();
     }
 
     @Override

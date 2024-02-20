@@ -17,7 +17,7 @@ import java.util.UUID;
 public class ContinousVideoRecordingConfig extends AbstractConfiguration {
 
     @UIComponent(
-            index = 15,
+            index = 10,
             type = ComponentType.drop_down,
             required = true,
             uiConfig = {
