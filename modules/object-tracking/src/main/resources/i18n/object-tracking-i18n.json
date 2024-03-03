@@ -1,5 +1,11 @@
 {
   "en": {
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
+
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing": "Template Search",
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing.title": "Template Search ({0})",
+
     "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
     "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
 
@@ -21,7 +27,9 @@
     "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
     "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
 
-    "stunTimeoutMillis": "Stun timeout (ms)"
+    "stunTimeoutMillis": "Stun timeout (ms)",
+    "targetSamplesPath": "Samples folder",
+    "hypothesisCount": "Hypothesis count"
   },
   "by" : {
   },
