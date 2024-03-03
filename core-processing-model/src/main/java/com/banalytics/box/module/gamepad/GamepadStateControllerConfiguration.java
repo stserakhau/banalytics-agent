@@ -5,17 +5,19 @@ import com.banalytics.box.module.AbstractConfiguration;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 import static com.banalytics.box.api.integration.form.ComponentType.int_input;
 
 @Getter
 @Setter
 public class GamepadStateControllerConfiguration extends AbstractConfiguration {
-//    @UIComponent(index = 10, type = int_input, required = true,
-//            uiConfig = {
-//                    @UIComponent.UIConfig(name = "min", value = "0"),
-//                    @UIComponent.UIConfig(name = "max", value = "20")
-//            })
-//    public int gamepadIndex;
+    public static UUID THING_UUID = UUID.fromString("00000000-0000-0000-0000-000000000011");
+
+    @Override
+    public UUID getUuid() {
+        return THING_UUID;
+    }
 
     @UIComponent(index = 20, type = int_input, required = true,
             uiConfig = {

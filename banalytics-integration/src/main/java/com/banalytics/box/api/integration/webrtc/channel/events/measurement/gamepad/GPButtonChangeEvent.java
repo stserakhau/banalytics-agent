@@ -12,11 +12,12 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 public class GPButtonChangeEvent extends AbstractEvent {
-    @UIComponent(index = 5, type = ComponentType.int_input, uiConfig = {
-            @UIComponent.UIConfig(name = "min", value = "0"),
-            @UIComponent.UIConfig(name = "max", value = "64")
+    @UIComponent(index = 5, type = ComponentType.drop_down, uiConfig = {
+            @UIComponent.UIConfig(name = "sort", value = "asc"),
+            @UIComponent.UIConfig(name = "api-uuid", value = "00000000-0000-0000-0000-000000000011"),
+            @UIComponent.UIConfig(name = "api-method", value = "readGamepadsIds")
     })
-    public int gamepadIndex;
+    public String gamepadId;
 
     @UIComponent(index = 10, type = ComponentType.int_input, uiConfig = {
             @UIComponent.UIConfig(name = "min", value = "0"),
@@ -42,9 +43,9 @@ public class GPButtonChangeEvent extends AbstractEvent {
         super(MessageType.EVT_SYS_GAMEPAD_BTN);
     }
 
-    public GPButtonChangeEvent(int gamepadIndex, int buttonIndex, boolean pressed, boolean touched, double value) {
+    public GPButtonChangeEvent(String gamepadId, int buttonIndex, boolean pressed, boolean touched, double value) {
         this();
-        this.gamepadIndex = gamepadIndex;
+        this.gamepadId = gamepadId;
         this.buttonIndex = buttonIndex;
         this.pressed = pressed;
         this.touched = touched;

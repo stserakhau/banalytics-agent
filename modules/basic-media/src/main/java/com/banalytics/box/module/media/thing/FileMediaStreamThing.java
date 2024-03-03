@@ -7,6 +7,7 @@ import com.banalytics.box.module.constants.MediaFormat;
 import com.banalytics.box.module.standard.UrlMediaStream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.Order;
 
 import java.net.URI;
@@ -22,7 +23,11 @@ public class FileMediaStreamThing extends AbstractThing<FileMediaStreamThingConf
 
     @Override
     public String getTitle() {
-        return configuration.getSourceUri();
+        if (StringUtils.isEmpty(configuration.title)) {
+            return configuration.getSourceUri();
+        } else {
+            return configuration.title;
+        }
     }
 
     @Override

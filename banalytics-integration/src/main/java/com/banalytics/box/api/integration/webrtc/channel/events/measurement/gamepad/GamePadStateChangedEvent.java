@@ -16,7 +16,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 public class GamePadStateChangedEvent extends AbstractEvent implements ChannelMessage {
-    public int gamepadIndex;
+    public String gamepadId;
 
     //https://developer.mozilla.org/en-US/docs/Web/API/Gamepad/axes
     public double[] axes;

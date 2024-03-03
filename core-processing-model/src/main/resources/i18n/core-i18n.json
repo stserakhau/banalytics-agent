@@ -295,7 +295,7 @@
 
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing": "Gamepad state controller",
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing.title": "Gamepad {0}",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "axisIndex": "Axis index",
     "buttonIndex": "Button index",
     "pressed": "Pressed",
@@ -710,7 +710,7 @@
 
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing": "Gamepad state controller",
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing.title": "Gamepad {0}",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "axisIndex": "Axis index",
     "buttonIndex": "Button index",
     "pressed": "Pressed",
@@ -1124,7 +1124,7 @@
 
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing": "Gamepad state controller",
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing.title": "Gamepad {0}",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "axisIndex": "Axis index",
     "buttonIndex": "Button index",
     "pressed": "Pressed",
@@ -1537,7 +1537,7 @@
 
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing": "Gamepad state controller",
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing.title": "Gamepad {0}",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "axisIndex": "Axis index",
     "buttonIndex": "Button index",
     "pressed": "Pressed",
@@ -1949,7 +1949,7 @@
 
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing": "Gamepad state controller",
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing.title": "Gamepad {0}",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "axisIndex": "Axis index",
     "buttonIndex": "Button index",
     "pressed": "Pressed",
@@ -2361,7 +2361,7 @@
 
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing": "Gamepad state controller",
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing.title": "Gamepad {0}",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "axisIndex": "Axis index",
     "buttonIndex": "Button index",
     "pressed": "Pressed",
@@ -2773,7 +2773,7 @@
 
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing": "Gamepad state controller",
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing.title": "Gamepad {0}",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "axisIndex": "Axis index",
     "buttonIndex": "Button index",
     "pressed": "Pressed",
@@ -3186,7 +3186,7 @@
 
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing": "Gamepad state controller",
     "com.banalytics.box.module.gamepad.GamepadStateControllerThing.title": "Gamepad {0}",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "axisIndex": "Axis index",
     "buttonIndex": "Button index",
     "pressed": "Pressed",

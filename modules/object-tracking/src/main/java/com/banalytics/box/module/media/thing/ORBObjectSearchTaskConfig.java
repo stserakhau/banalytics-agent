@@ -8,14 +8,15 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-import static com.banalytics.box.api.integration.form.ComponentType.text_input;
+import static com.banalytics.box.api.integration.form.ComponentType.*;
 
 @Getter
 @Setter
-public class FileMediaStreamThingConfiguration extends AbstractConfiguration {
+public class ORBObjectSearchTaskConfig extends AbstractConfiguration {
     @UIComponent(
             index = 10,
-            type = text_input
+            type = text_input,
+            required = true
     )
     public String title;
 
@@ -39,9 +40,9 @@ public class FileMediaStreamThingConfiguration extends AbstractConfiguration {
             required = true,
             uiConfig = {
                     @UIComponent.UIConfig(name = "api-uuid", value = "fileSystemUuid"),
-                    @UIComponent.UIConfig(name = "enableFolderSelection", value = "false"),
-                    @UIComponent.UIConfig(name = "enableFileSelection", value = "true"),
-                    @UIComponent.UIConfig(name = "fileNameFilter", value = "^.*\\.(mp4|avi|flv|mov|mkv)$"),
+                    @UIComponent.UIConfig(name = "enableFolderSelection", value = "true"),
+                    @UIComponent.UIConfig(name = "enableFileSelection", value = "false")
             }, restartOnChange = true)
-    public String sourceUri;
+    public String targetSamplesPath;
+
 }

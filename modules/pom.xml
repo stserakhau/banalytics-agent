@@ -25,6 +25,7 @@
         <module>network-ip-tracker</module>
         <module>image-classification-yolo</module>
         <module>object-tracking</module>
-<!--        <module>experiments</module>-->
+        <module>toys</module>
+        <module>experiments</module>
     </modules>
 </project>

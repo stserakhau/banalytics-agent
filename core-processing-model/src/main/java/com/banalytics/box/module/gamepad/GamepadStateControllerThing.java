@@ -8,6 +8,7 @@ import com.banalytics.box.api.integration.webrtc.channel.events.measurement.game
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GamePadStateChangedEvent.GamepadButton;
 import com.banalytics.box.module.AbstractThing;
 import com.banalytics.box.module.BoxEngine;
+import com.banalytics.box.module.Singleton;
 import com.banalytics.box.module.Thing;
 import com.banalytics.box.module.standard.EventConsumer;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +23,12 @@ import static com.banalytics.box.module.State.RUN;
 
 @Slf4j
 @Order(Thing.StarUpOrder.INTEGRATION)
-public class GamepadStateControllerThing extends AbstractThing<GamepadStateControllerConfiguration> implements EventConsumer {
+public class GamepadStateControllerThing extends AbstractThing<GamepadStateControllerConfiguration> implements EventConsumer, Singleton {
     public GamepadStateControllerThing(BoxEngine engine) {
         super(engine);
     }
 
-    Map<Integer, Pair<double[], GamepadButton[]>> gamepadStates = new ConcurrentHashMap();
+    private Map<String, Pair<double[], GamepadButton[]>> gamepadStates = new ConcurrentHashMap();
 
     @Override
     public void consume(Recipient target, AbstractEvent abstractEvent) {
@@ -35,10 +36,10 @@ public class GamepadStateControllerThing extends AbstractThing<GamepadStateContr
             return;
         }
         GamePadStateChangedEvent gpe = (GamePadStateChangedEvent) abstractEvent;
-        Pair<double[], GamepadButton[]> gamepadState = gamepadStates.get(gpe.gamepadIndex);
+        Pair<double[], GamepadButton[]> gamepadState = gamepadStates.get(gpe.gamepadId);
         if (gamepadState == null) {
             gamepadStates.put(
-                    gpe.gamepadIndex,
+                    gpe.gamepadId,
                     Pair.of(gpe.getAxes(), gpe.buttons)
             );
         } else {
@@ -65,7 +66,7 @@ public class GamepadStateControllerThing extends AbstractThing<GamepadStateContr
                                 || newVal.touched != stateVal.touched
                 ) {
                     GPButtonChangeEvent e = new GPButtonChangeEvent(
-                            gpe.gamepadIndex,
+                            gpe.gamepadId,
                             newVal.index,
                             newVal.pressed,
                             newVal.touched,
@@ -101,11 +102,6 @@ public class GamepadStateControllerThing extends AbstractThing<GamepadStateContr
     }
 
     @Override
-    public Object uniqueness() {
-        return "gamepad_controller";
-    }
-
-    @Override
     public String getTitle() {
         return getSelfClassName();
     }
@@ -122,10 +118,10 @@ public class GamepadStateControllerThing extends AbstractThing<GamepadStateContr
         }
         String method = (String) params.get(ThingApiCallReq.PARAM_METHOD);
 
-//        switch (method) {
-//            case "readAvailableSubnets" -> {
-//                return deviceDiscoveryService.availableSubnets();
-//            }
+        switch (method) {
+            case "readGamepadsIds" -> {
+                return gamepadStates.keySet();
+            }
 //            case "scanSubnet" -> {
 //                String addr = (String) params.get(PARAM_ADDRESS);
 //                String mask = (String) params.get(PARAM_MASK);
@@ -135,7 +131,7 @@ public class GamepadStateControllerThing extends AbstractThing<GamepadStateContr
 //            case "readScanSubnetResult" -> {
 //                return deviceDiscoveryService.listDiscoveredDevices();
 //            }
-//        }
+        }
 
         throw new Exception("Invalid method: " + method);
     }

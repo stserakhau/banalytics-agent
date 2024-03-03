@@ -33,13 +33,14 @@ public class PTZContinousAxisActionConfiguration extends AbstractConfiguration {
     public UUID deviceUuid;
 
     @UIComponent(
-            index = 30, type = ComponentType.int_input,
+            index = 30, type = ComponentType.drop_down,
             uiConfig = {
-                    @UIComponent.UIConfig(name = "min", value = "0"),
-                    @UIComponent.UIConfig(name = "max", value = "20")
+                    @UIComponent.UIConfig(name = "sort", value = "asc"),
+                    @UIComponent.UIConfig(name = "api-uuid", value = "00000000-0000-0000-0000-000000000011"),
+                    @UIComponent.UIConfig(name = "api-method", value = "readGamepadsIds")
             }
     )
-    public int gamepadIndex;
+    public String gamepadId;
 
     @UIComponent(
             index = 40, type = ComponentType.int_input,

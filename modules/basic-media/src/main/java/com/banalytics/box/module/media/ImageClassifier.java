@@ -1,4 +1,4 @@
-package com.banalytics.box.module;
+package com.banalytics.box.module.media;
 
 import java.util.List;
 import java.util.UUID;

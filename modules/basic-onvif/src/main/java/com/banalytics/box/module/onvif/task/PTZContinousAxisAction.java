@@ -84,7 +84,7 @@ public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActio
         AbstractEvent event = ctx.getVar(AbstractEvent.class);
 
         if (event instanceof GamePadStateChangedEvent gpe) {
-            if (gpe.gamepadIndex != configuration.gamepadIndex) {
+            if (!gpe.gamepadId.equals(configuration.gamepadId)) {
                 return;
             }
 

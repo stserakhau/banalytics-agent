@@ -123,7 +123,7 @@ public class MotionDetectionConfig extends AbstractConfiguration {
                     @UIComponent.UIConfig(name = "sort", value = "asc")
             },
             backendConfig = {
-                    @UIComponent.BackendConfig(bean = "taskService", method = "findByStandard", params = {"com.banalytics.box.module.ImageClassifier"})
+                    @UIComponent.BackendConfig(bean = "taskService", method = "findByStandard", params = {"com.banalytics.box.module.media.ImageClassifier"})
             })
     public UUID imageClassifierThingUuid;
 

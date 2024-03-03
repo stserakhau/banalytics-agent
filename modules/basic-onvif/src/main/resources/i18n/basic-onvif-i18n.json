@@ -15,7 +15,7 @@
 
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction": "PTZ Axis",
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction.title": "PTZ Axis ({0})",
-    "gamepadIndex": "Gamepad index",
+    "gamepadId": "Gamepad",
     "stopThreshold": "Stop threshold",
     "axisXIndex": "X axis index",
     "axisYIndex": "Y axis index",
@@ -52,7 +52,7 @@
 
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction": "Вось PTZ",
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction.title": "Вось PTZ ({0})",
-    "gamepadIndex": "Індэкс геймпада",
+    "gamepadId": "Геймпад",
     "stopThreshold": "Парог прыпынку",
     "axisXIndex": "Індэкс восі Х",
     "axisYIndex": "Індэкс восі Y",
@@ -88,7 +88,7 @@
 
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction": "Вісь PTZ",
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction.title": "Вісь PTZ ({0})",
-    "gamepadIndex": "Індекс геймпада",
+    "gamepadId": "Геймпад",
     "stopThreshold": "Порогове значення зупинки",
     "axisXIndex": "Індекс осі Х",
     "axisYIndex": "Індекс осі Y",
@@ -124,7 +124,7 @@
 
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction": "PTZ-Achse",
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction.title": "PTZ-Achse ({0})",
-    "gamepadIndex": "Gamepad-Index",
+    "gamepadId": "Gamepad",
     "stopThreshold": "Stoppschwelle",
     "axisXIndex": "X-Achsenindex",
     "axisYIndex": "Y-Achsenindex",
@@ -160,7 +160,7 @@
 
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction": "Eje PTZ",
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction.title": "Eje PTZ ({0})",
-    "gamepadIndex": "Índice del gamepad",
+    "gamepadId": "Gamepad",
     "stopThreshold": "Umbral de parada",
     "axisXIndex": "Índice del eje X",
     "axisYIndex": "Índice del eje Y",
@@ -196,7 +196,7 @@
 
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction": "Axe PTZ",
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction.title": "Axe PTZ ({0})",
-    "gamepadIndex": "Index de la manette de jeu",
+    "gamepadId": "Manette de jeu",
     "stopThreshold": "Seuil d'arrêt",
     "axisXIndex": "Indice de l'axe X",
     "axisYIndex": "Indice de l'axe Y",
@@ -232,7 +232,7 @@
 
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction": "Oś PTZ",
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction.title": "Oś PTZ ({0})",
-    "gamepadIndex": "Indeks gamepada",
+    "gamepadId": "Gamepad",
     "stopThreshold": "Próg zatrzymania",
     "axisXIndex": "Indeks osi X",
     "axisYIndex": "Indeks osi Y",
@@ -268,7 +268,7 @@
 
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction": "Ось PTZ",
     "com.banalytics.box.module.onvif.task.PTZContinousAxisAction.title": "Ось PTZ ({0})",
-    "gamepadIndex": "Индекс геймпада",
+    "gamepadId": "Геймпад",
     "stopThreshold": "Порог остановки",
     "axisXIndex": "Индекс оси X",
     "axisYIndex": "Индекс оси Y",

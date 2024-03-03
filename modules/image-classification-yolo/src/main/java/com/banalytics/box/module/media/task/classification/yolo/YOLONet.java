@@ -35,7 +35,7 @@ For faster inferencing CUDA is highly recommended.
 On CPU it is recommended to decrease the width & height of the network or use the tiny variants.
  */
 
-import com.banalytics.box.module.ImageClassifier.ClassificationResult;
+import com.banalytics.box.module.media.ImageClassifier.ClassificationResult;
 import com.banalytics.box.service.PreferableBackend;
 import com.banalytics.box.service.PreferableTarget;
 import lombok.extern.slf4j.Slf4j;

@@ -3,7 +3,7 @@ package com.banalytics.box.module.media.task.classification.yolo;
 import com.banalytics.box.api.integration.webrtc.channel.environment.ThingApiCallReq;
 import com.banalytics.box.module.AbstractThing;
 import com.banalytics.box.module.BoxEngine;
-import com.banalytics.box.module.ImageClassifier;
+import com.banalytics.box.module.media.ImageClassifier;
 import com.banalytics.box.module.State;
 import com.banalytics.box.service.PreferableBackend;
 import com.banalytics.box.service.PreferableTarget;
