@@ -20,7 +20,6 @@ import com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionS
 import com.banalytics.box.api.integration.websocket.YourSessionId;
 
 public enum MessageType {
-
     WS_YOUR_SESSION_ID(YourSessionId.class),
 
     ENV_STATUS_MSG(EnvironmentStatusMessage.class),
@@ -134,15 +133,15 @@ public enum MessageType {
     /**
      * System events
      */
-    EVT_SYS_KEYB(KeyboardEvent.class), EVT_SYS_GPS(GPSEvent.class),
-    EVT_SYS_GYRO(GyroscopeEvent.class), EVT_SYS_GRAVITY(GravityEvent.class),
+    EVT_SYS_KEYB(KeyboardEvent.class, true), EVT_SYS_GPS(GPSEvent.class, true),
+    EVT_SYS_GYRO(GyroscopeEvent.class, true), EVT_SYS_GRAVITY(GravityEvent.class, true),
 
     /**
      * Gamepad events
      */
-    EVT_SYS_GAMEPAD_SCH(GamePadStateChangedEvent.class),//client level
-    EVT_SYS_GAMEPAD_AXS(GPAxisChangeEvent.class),//agent level
-    EVT_SYS_GAMEPAD_BTN(GPButtonChangeEvent.class),//agent level
+    EVT_SYS_GAMEPAD_SCH(GamePadStateChangedEvent.class, true),//client level
+    EVT_SYS_GAMEPAD_AXS(GPAxisChangeEvent.class, true),//agent level
+    EVT_SYS_GAMEPAD_BTN(GPButtonChangeEvent.class, true),//agent level
 
     /**
      * Error Types
@@ -160,8 +159,14 @@ public enum MessageType {
     AUTH_RES(AuthenticationRes.class);
 
     public final Class<? extends AbstractMessage> clazz;
+    public final boolean hidden;
 
     MessageType(Class<? extends AbstractMessage> clazz) {
+        this(clazz, false);
+    }
+
+    MessageType(Class<? extends AbstractMessage> clazz, boolean hidden) {
         this.clazz = clazz;
+        this.hidden = hidden;
     }
 }
