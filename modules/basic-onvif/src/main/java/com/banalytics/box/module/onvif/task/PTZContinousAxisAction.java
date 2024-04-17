@@ -25,7 +25,7 @@ public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActio
 
     @Override
     protected boolean isFireActionEvent() {
-        return true;
+        return false;
     }
 
     @Override

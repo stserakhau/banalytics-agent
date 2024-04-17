@@ -14,7 +14,9 @@ public enum FilterOperators {
         try {
             String propertyName = (String) left.value;
             Object propertyValue = PropertyUtils.getProperty(obj, propertyName);
-
+            if(propertyValue instanceof String){
+                propertyValue = ((String) propertyValue).replaceAll("[\\(\\)]", "");
+            }
             if (propertyValue != null) {
                 Object val = right != null ? right.value : null;
                 val = getCustomTypedValue(obj.getClass(), (String) left.value, val);

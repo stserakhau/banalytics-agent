@@ -9,24 +9,23 @@
         <version>0.0.0</version>
     </parent>
 
-    <artifactId>object-tracking</artifactId>
+    <artifactId>toys</artifactId>
     <version>0.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Agent - Object tracking</name>
+    <name>Agent - Toys</name>
 
     <dependencies>
-        <dependency>
-            <groupId>com.banalytics.box.modules</groupId>
-            <artifactId>basic-media</artifactId>
-            <version>0.0.0-${javacpp.platform}</version>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.banalytics.box</groupId>
             <artifactId>core-processing-model</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fazecast</groupId>
+            <artifactId>jSerialComm</artifactId>
+            <version>2.10.4</version>
         </dependency>
 
         <dependency>
@@ -59,6 +58,23 @@
 <!--                    </execution>-->
 <!--                </executions>-->
 <!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeScope>provided</excludeScope>
+                            <outputDirectory>${project.build.directory}/libs</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>

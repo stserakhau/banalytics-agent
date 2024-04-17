@@ -60,6 +60,15 @@ public class ForwardEventToConsumerAction extends AbstractAction<ForwardEventToC
                     NodeState.valueOf(getState().name()),
                     "Manual"
             ));
+        } else if (ctx.getVar(IAction.MANUAL_RUN) != null) {
+            ctx.setVar(AbstractEvent.class, new StatusEvent(
+                    nodeType(this.getClass()),
+                    this.getUuid(),
+                    getSelfClassName(),
+                    getTitle(),
+                    NodeState.valueOf(getState().name()),
+                    "Scheduled"
+            ));
         }
         this.process(ctx);
     }

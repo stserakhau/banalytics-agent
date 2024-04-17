@@ -149,6 +149,14 @@ public class TaskService implements InitializingBean {
         return res;
     }
 
+    public Collection<String> nonConfigThingMap() {
+        List<String> res = new ArrayList<>(30);
+        for (Thing<?> thing : primaryInstance.getThings()) {
+            res.add(thing.getUuid() + "~" + thing.getTitle());
+        }
+        return res;
+    }
+
     private void bindTaskTreeToList(ITask<?> task, List<String> res, boolean excludeActions, int level) {
         if (excludeActions && task instanceof IAction) {
             return;

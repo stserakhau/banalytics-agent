@@ -101,6 +101,13 @@
     "EVT_SOUND": "Sound",
     "EVT_SYS_MON": "System state",
     "EVT_FILE_CRT": "File Created",
+    "EVT_SYS_KEYB": "Keyboard",
+    "EVT_SYS_GPS": "GPS",
+    "EVT_SYS_GYRO": "Gyrosope",
+    "EVT_SYS_GRAVITY": "Gravity",
+    "EVT_SYS_GAMEPAD_SCH": "Gamepad state",
+    "EVT_SYS_GAMEPAD_AXS": "Gamepad axis",
+    "EVT_SYS_GAMEPAD_BTN": "Gamepad button",
 
     "com.banalytics.box.api.integration.webrtc.channel.events.SystemMonitorEvent": "System state",
     "com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent": "Motion detection",
@@ -394,7 +401,11 @@
     "grouping.eventSource.eventType":"Event source -> Event Type",
 
 
-    "com.banalytics.box.module.system.script.ScriptAction": "Action script",
+    "com.banalytics.box.module.system.TimerAction": "Timer action",
+    "com.banalytics.box.module.system.TimerAction.title": "Time action '{0}'",
+    "delayMillis": "Delay (ms)",
+
+    "com.banalytics.box.module.system.script.ScriptAction": "Script action",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
 
@@ -403,6 +414,10 @@
     "audioPlayerUuid": "Playing device",
     "playAudioFile": "File to play",
     "waitBeforeNextExecution": "Playing frequency limitation",
+
+    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
+    "targetThing": "Target thing",
 
     "com.banalytics.box.module.system.TaskActionAction": "Action on Task",
     "com.banalytics.box.module.system.TaskActionAction.title": "Action: {0}",
@@ -528,6 +543,13 @@
     "EVT_SOUND": "Гук",
     "EVT_SYS_MON": "Стан сервера",
     "EVT_FILE_CRT": "Файл створаны",
+    "EVT_SYS_KEYB": "Клавіятура",
+    "EVT_SYS_GPS": "GPS",
+    "EVT_SYS_GYRO": "Гірасоп",
+    "EVT_SYS_GRAVITY": "Гравітацыя",
+    "EVT_SYS_GAMEPAD_SCH": "Стан геймпада",
+    "EVT_SYS_GAMEPAD_AXS": "Вось геймпада",
+    "EVT_SYS_GAMEPAD_BTN": "Кнопка геймпада",
 
     "com.banalytics.box.api.integration.webrtc.channel.events.SystemMonitorEvent": "Стан сістэмы",
     "com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent": "Выяўленне руху",
@@ -808,6 +830,10 @@
     "grouping.eventType.eventSource": "Тып падзеі -> Крыніца падзеі",
     "grouping.eventSource.eventType": "Крыніца падзеі -> Тып падзеі",
 
+    "com.banalytics.box.module.system.TimerAction": "Timer action",
+    "com.banalytics.box.module.system.TimerAction.title": "Time action '{0}'",
+    "delayMillis": "Delay (ms)",
+
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
@@ -817,6 +843,10 @@
     "audioPlayerUuid": "Прылада прайгравання",
     "playAudioFile": "Файл для прайгравання",
     "waitBeforeNextExecution": "Абмежаванне частаты прайгравання",
+
+    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
+    "targetThing": "Target thing",
 
     "com.banalytics.box.module.system.TaskActionAction": "Дзеянне над задачай",
     "com.banalytics.box.module.system.TaskActionAction.title": "Дзеянне: {0}",
@@ -942,6 +972,13 @@
     "EVT_SOUND": "Гук",
     "EVT_SYS_MON": "Стан сервера",
     "EVT_FILE_CRT": "Файл створен",
+    "EVT_SYS_KEYB": "Клавіатура",
+    "EVT_SYS_GPS": "GPS",
+    "EVT_SYS_GYRO": "Гіросоп",
+    "EVT_SYS_GRAVITY": "Гравітація",
+    "EVT_SYS_GAMEPAD_SCH": "Стан геймпада",
+    "EVT_SYS_GAMEPAD_AXS": "Вісь геймпада",
+    "EVT_SYS_GAMEPAD_BTN": "Кнопка геймпада",
 
     "com.banalytics.box.api.integration.webrtc.channel.events.SystemMonitorEvent": "Стан системи",
     "com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent": "Виявлення руху",
@@ -1223,6 +1260,10 @@
     "grouping.eventType.eventSource":"Тип події -> Джерело події",
     "grouping.eventSource.eventType":"Джерело події -> Тип події",
 
+    "com.banalytics.box.module.system.TimerAction": "Timer action",
+    "com.banalytics.box.module.system.TimerAction.title": "Time action '{0}'",
+    "delayMillis": "Delay (ms)",
+
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
@@ -1232,6 +1273,10 @@
     "audioPlayerUuid": "Пристрій відтворення",
     "playAudioFile": "Файл для відтворення",
     "waitBeforeNextExecution": "Обмеження частоти відтворення",
+
+    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
+    "targetThing": "Target thing",
 
     "com.banalytics.box.module.system.TaskActionAction": "Дія над завданням",
     "com.banalytics.box.module.system.TaskActionAction.title": "Дія: {0}",
@@ -1357,6 +1402,13 @@
     "EVT_SOUND": "Toner",
     "EVT_SYS_MON": "Serverstatus",
     "EVT_FILE_CRT": "Datei erstellt",
+    "EVT_SYS_KEYB": "Tastatur",
+    "EVT_SYS_GPS": "GPS",
+    "EVT_SYS_GYRO": "Gyroskop",
+    "EVT_SYS_GRAVITY": "Schwerkraft",
+    "EVT_SYS_GAMEPAD_SCH": "Gamepad-Status",
+    "EVT_SYS_GAMEPAD_AXS": "Gamepad-Achse",
+    "EVT_SYS_GAMEPAD_BTN": "Gamepad-Taste",
 
     "com.banalytics.box.api.integration.webrtc.channel.events.SystemMonitorEvent": "Systemzustand",
     "com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent": "Bewegungserkennung",
@@ -1635,6 +1687,10 @@
     "grouping.eventType.eventSource": "Ereignistyp -> Ereignisquelle",
     "grouping.eventSource.eventType": "Ereignisquelle -> Ereignistyp",
 
+    "com.banalytics.box.module.system.TimerAction": "Timer action",
+    "com.banalytics.box.module.system.TimerAction.title": "Time action '{0}'",
+    "delayMillis": "Delay (ms)",
+
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
@@ -1644,6 +1700,10 @@
     "audioPlayerUuid": "Spielgerät",
     "playAudioFile": "Datei zum Abspielen",
     "waitBeforeNextExecution": "Begrenzung der Spielfrequenz",
+
+    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
+    "targetThing": "Target thing",
 
     "com.banalytics.box.module.system.TaskActionAction": "Aktion über Aufgabe",
     "com.banalytics.box.module.system.TaskActionAction.title": "Aktion: {0}",
@@ -1769,6 +1829,13 @@
     "EVT_SOUND": "Sonido",
     "EVT_SYS_MON": "Estado del server",
     "EVT_FILE_CRT": "Archivo creado",
+    "EVT_SYS_KEYB": "Teclado",
+    "EVT_SYS_GPS": "GPS",
+    "EVT_SYS_GYRO": "Girósopo",
+    "EVT_SYS_GRAVITY": "Gravedad",
+    "EVT_SYS_GAMEPAD_SCH": "Estado del mando",
+    "EVT_SYS_GAMEPAD_AXS": "Eje del mando",
+    "EVT_SYS_GAMEPAD_BTN": "Botón del mando",
 
     "com.banalytics.box.api.integration.webrtc.channel.events.SystemMonitorEvent": "Estado del sistema",
     "com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent": "Detección de movimiento",
@@ -2047,6 +2114,10 @@
     "grouping.eventType.eventSource":"Tipo de evento -> Origen del evento",
     "grouping.eventSource.eventType":"Fuente del evento -> Tipo de evento",
 
+    "com.banalytics.box.module.system.TimerAction": "Timer action",
+    "com.banalytics.box.module.system.TimerAction.title": "Time action '{0}'",
+    "delayMillis": "Delay (ms)",
+
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
@@ -2056,6 +2127,10 @@
     "audioPlayerUuid": "Dispositivo de reproducción",
     "playAudioFile": "Archivo para reproducir",
     "waitBeforeNextExecution": "Limitación de frecuencia de reproducción",
+
+    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
+    "targetThing": "Target thing",
 
     "com.banalytics.box.module.system.TaskActionAction": "Acción sobre tarea",
     "com.banalytics.box.module.system.TaskActionAction.title": "Acción: {0}",
@@ -2181,6 +2256,13 @@
     "EVT_SOUND": "Sonore",
     "EVT_SYS_MON": "État du server",
     "EVT_FILE_CRT": "Fichier créé",
+    "EVT_SYS_KEYB": "Clavier",
+    "EVT_SYS_GPS": "GPS",
+    "EVT_SYS_GYRO": "Gyrosope",
+    "EVT_SYS_GRAVITY": "Gravité",
+    "EVT_SYS_GAMEPAD_SCH": "État de la manette",
+    "EVT_SYS_GAMEPAD_AXS": "Axe de la manette de jeu",
+    "EVT_SYS_GAMEPAD_BTN": "Bouton de la manette",
 
     "com.banalytics.box.api.integration.webrtc.channel.events.SystemMonitorEvent": "État du système",
     "com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent": "Détection de mouvement",
@@ -2459,6 +2541,10 @@
     "grouping.eventType.eventSource":"Type d'événement -> Source d'événement",
     "grouping.eventSource.eventType":"Source de l'événement -> Type d'événement",
 
+    "com.banalytics.box.module.system.TimerAction": "Timer action",
+    "com.banalytics.box.module.system.TimerAction.title": "Time action '{0}'",
+    "delayMillis": "Delay (ms)",
+
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
@@ -2468,6 +2554,10 @@
     "audioPlayerUuid": "Appareil de lecture",
     "playAudioFile": "Fichier à lire",
     "waitBeforeNextExecution": "Limitation de la fréquence de lecture",
+
+    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
+    "targetThing": "Target thing",
 
     "com.banalytics.box.module.system.TaskActionAction": "Action sur tâche",
     "com.banalytics.box.module.system.TaskActionAction.title": "Action : {0}",
@@ -2593,6 +2683,13 @@
     "EVT_SOUND": "Dźwięk",
     "EVT_SYS_MON": "Stan serwera",
     "EVT_FILE_CRT": "Plik utworzony",
+    "EVT_SYS_KEYB": "Klawiatura",
+    "EVT_SYS_GPS": "GPS",
+    "EVT_SYS_GYRO": "Żyrozop",
+    "EVT_SYS_GRAVITY": "Grawitacja",
+    "EVT_SYS_GAMEPAD_SCH": "Stan gamepada",
+    "EVT_SYS_GAMEPAD_AXS": "Oś gamepada",
+    "EVT_SYS_GAMEPAD_BTN": "Przycisk gamepada",
 
     "com.banalytics.box.api.integration.webrtc.channel.events.SystemMonitorEvent": "Stan systemu",
     "com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent": "Detekcja ruchu",
@@ -2871,6 +2968,10 @@
     "grouping.eventType.eventSource":"Typ zdarzenia -> Źródło zdarzenia",
     "grouping.eventSource.eventType":"Źródło zdarzenia -> Typ zdarzenia",
 
+    "com.banalytics.box.module.system.TimerAction": "Timer action",
+    "com.banalytics.box.module.system.TimerAction.title": "Time action '{0}'",
+    "delayMillis": "Delay (ms)",
+
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
@@ -2880,6 +2981,10 @@
     "audioPlayerUuid": "Urządzenie odtwarzające",
     "playAudioFile": "Plik do odtworzenia",
     "waitBeforeNextExecution": "Ograniczenie częstotliwości odtwarzania",
+
+    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
+    "targetThing": "Target thing",
 
     "com.banalytics.box.module.system.TaskActionAction": "Akcja ponad zadaniem",
     "com.banalytics.box.module.system.TaskActionAction.title": "Akcja: {0}",
@@ -3005,6 +3110,13 @@
     "EVT_SOUND": "Звук",
     "EVT_SYS_MON": "Сис пн",
     "EVT_FILE_CRT": "Файл создан",
+    "EVT_SYS_KEYB": "Клавиатура",
+    "EVT_SYS_GPS": "GPS",
+    "EVT_SYS_GYRO": "Гироскоп",
+    "EVT_SYS_GRAVITY": "Гравитация",
+    "EVT_SYS_GAMEPAD_SCH": "Состояние геймпада",
+    "EVT_SYS_GAMEPAD_AXS": "Ось геймпада",
+    "EVT_SYS_GAMEPAD_BTN": "Кнопка геймпада",
 
     "com.banalytics.box.api.integration.webrtc.channel.events.SystemMonitorEvent": "Состояние системы",
     "com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent": "Обнаружение движения",
@@ -3284,6 +3396,10 @@
     "grouping.eventType.eventSource":"Тип события -> Источник события",
     "grouping.eventSource.eventType":"Источник события -> Тип события",
 
+    "com.banalytics.box.module.system.TimerAction": "Timer action",
+    "com.banalytics.box.module.system.TimerAction.title": "Time action '{0}'",
+    "delayMillis": "Delay (ms)",
+
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
@@ -3294,6 +3410,9 @@
     "playAudioFile": "Файл для воспроизведения",
     "waitBeforeNextExecution": "Ограничение частоты воспроизведения",
 
+    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
+    "targetThing": "Target thing",
 
     "com.banalytics.box.module.system.TaskActionAction": "Действие над задачей",
     "com.banalytics.box.module.system.TaskActionAction.title": "Действие: {0}",

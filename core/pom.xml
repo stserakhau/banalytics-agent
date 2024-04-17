@@ -241,6 +241,16 @@
             </dependencies>
         </profile>
         <profile>
+            <id>banalytics-box-enable-toys</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.banalytics.box.modules</groupId>
+                    <artifactId>toys</artifactId>
+                    <version>0.0.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>banalytics-box-enable-telegram-bot</id>
             <dependencies>
                 <dependency>

@@ -152,7 +152,7 @@ public class PortalIntegrationThing extends AbstractThing<PortalIntegrationConfi
             public void run() {
                 try {
                     long now = System.currentTimeMillis();
-                    log.info("Check connection: {} > {}, {}", now, socketSessionExpirationTime, portalWsSession==null);
+//                    log.info("Check connection: {} > {}, {}", now, socketSessionExpirationTime, portalWsSession==null);
                     if (now > socketSessionExpirationTime || portalWsSession == null || !portalWsSession.isOpen()) {
                         log.info("\tConnection expired.");
                         connect();

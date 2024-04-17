@@ -30,10 +30,10 @@ public class VideoProperties {
     public static class ResolutionFpsCase {
         int width;
         int height;
-        double minRecommendedFps = 5.0;
-        double maxRecommendedFps = 5.0;
-        double minFps = 5.0;
-        double maxFps = 5.0;
+        double minRecommendedFps = 100;
+        double maxRecommendedFps = 0;
+        double minFps = 100;
+        double maxFps = 0;
 
         @Override
         public boolean equals(Object o) {

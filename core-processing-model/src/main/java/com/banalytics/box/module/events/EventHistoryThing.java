@@ -124,7 +124,7 @@ public class EventHistoryThing extends AbstractThing<EventHistoryThingConfig> im
                 for (Class<? extends AbstractEvent> evt : evts) {
                     AbstractEvent e = evt.getDeclaredConstructor().newInstance();
                     MessageType type = e.getType();
-                    if (type == null) {
+                    if (type == null || type.hidden) {
                         continue;
                     }
                     eventTypes.add(type.name());

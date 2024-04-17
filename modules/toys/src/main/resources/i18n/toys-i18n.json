@@ -1,0 +1,23 @@
+{
+  "en": {
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Vector action ({0})"
+  },
+  "by" : {
+  },
+  "ua" : {
+  },
+  "de" : {
+  },
+  "es" : {
+  },
+  "fr" : {
+  },
+  "pl" : {
+  },
+  "ru" : {
+  }
+}

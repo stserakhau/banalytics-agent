@@ -148,7 +148,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
     }
 
     public synchronized void start(boolean ignoreAutostartProperty, boolean startChildren) {
-        log.info("Start {} ({})", state, getUuid());
+        log.info("Start {} / {}", getUuid(), getTitle());
         if (state == INIT_ERROR || state == RUN || state == STARTING || state == null) {
             return;
         }
@@ -192,9 +192,8 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
         sendTaskState();
 
         try {
-            Thread.sleep(50);
             doStop();
-            Thread.sleep(500);//delay to free system resources process before immediate start
+            Thread.sleep(50);//delay to free system resources process before immediate start
             state = State.STOPPED;
             sendTaskState();
         } catch (Throwable e) {
