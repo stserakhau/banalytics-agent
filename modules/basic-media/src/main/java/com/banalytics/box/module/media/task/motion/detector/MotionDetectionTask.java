@@ -31,11 +31,14 @@ import static com.banalytics.box.module.ExecutionContext.GlobalVariables.*;
 import static com.banalytics.box.module.media.task.motion.detector.MatrixSizeType.zero;
 import static com.banalytics.box.module.media.task.motion.detector.MotionDetectionConfig.MotionTriggerMode.MOTION_AND_CLASSIFIER;
 import static com.banalytics.box.module.utils.Utils.nodeType;
-import static org.bytedeco.opencv.global.opencv_core.ACCESS_READ;
-import static org.bytedeco.opencv.global.opencv_core.bitwise_and;
+import static org.bytedeco.opencv.global.opencv_core.*;
 import static org.bytedeco.opencv.global.opencv_imgproc.*;
 import static org.opencv.core.Core.BORDER_DEFAULT;
 
+/**
+ * https://learnopencv.com/background-subtraction-with-opencv-and-bgs-libraries/
+ * https://docs.opencv.org/3.4/d1/dc5/tutorial_background_subtraction.html
+ */
 @Slf4j
 @SubItem(of = {AbstractMediaGrabberTask.class}, group = "media-motion-processing")
 public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetectionConfig> implements PropertyValuesProvider {
@@ -74,18 +77,18 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
     @Override
     public void doStart(boolean ignoreAutostartProperty, boolean startChildren) throws Exception {
         log.info("Initialization started: {}", configuration);
-        if (configuration.autoCalibration) {
-            configuration.backgroundHistoryDistThreshold = 0;
-            configuration.blurSize = MatrixSizeType.s7x7;
-            configuration.backgroundHistorySize = 3;
-        }
+//        if (configuration.autoCalibration) {
+//            configuration.backgroundHistoryDistThreshold = 0;
+//            configuration.blurSize = MatrixSizeType.s7x7;
+//            configuration.backgroundHistorySize = 3;
+//        }
         if (configuration.blurSize != zero) {
             this.blurSize = new Size(configuration.blurSize.width, configuration.blurSize.height);
         } else {
             this.blurSize = null;
         }
 
-        this.backgroundSubtractor = opencv_video.createBackgroundSubtractorMOG2(configuration.backgroundHistorySize, configuration.backgroundHistoryDistThreshold, false);
+//        this.backgroundSubtractor = opencv_video.createBackgroundSubtractorMOG2(configuration.backgroundHistorySize, configuration.backgroundHistoryDistThreshold, false);
         this.converter = new OpenCVFrameConverter.ToMat();
         if (configuration.dilateSize != zero) {
             this.dilateKernel = getStructuringElement(MorphType.MORPH_RECT.index, new Size(configuration.dilateSize.width, configuration.dilateSize.height)).getUMat(ACCESS_READ).clone();//todo memory leak
@@ -132,7 +135,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
     }
 
 
-    BackgroundSubtractor backgroundSubtractor;
+//    BackgroundSubtractor backgroundSubtractor;
     UMat fgMask;
 
     UMat currentGrayFrame;
@@ -184,7 +187,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
 
         close(blurSize);
         close(dilateKernel);
-        close(backgroundSubtractor);
+//        close(backgroundSubtractor);
         close(insensitiveMask);
 
         super.doStop();
@@ -206,6 +209,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
 
     UMat targetGrayFrameUnManagedRef;
 
+    private final UMat previousFrame = new UMat();
     /**
      * TODO https://github.com/bytedeco/javacpp-presets/issues/644   UMAT CRASH ON JVM GC !!!
      */
@@ -220,7 +224,8 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                 frameCounter++;
 //                detectedObjects.clear();
                 triggeredRegions.clear();
-                boolean backgroundReady = frameCounter > configuration.backgroundHistorySize;
+//                boolean backgroundReady = frameCounter > configuration.backgroundHistorySize;
+                boolean backgroundReady = frameCounter > 2; // >2 - need to initialize previousFrame and create fgMask
                 Mat streamColorFrame = converter.convert(frame);
                 try (UMat colorFrame = streamColorFrame.getUMat(ACCESS_READ)) {
                     int timeDivider = (int) Math.floor(grabber.getFrameRate() / configuration.detectionIntensity);
@@ -246,11 +251,16 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                         if (this.insensitiveMask != null) {
                             bitwise_and(targetGrayFrameUnManagedRef, insensitiveMask, targetGrayFrameUnManagedRef);
                         }
-
-                        backgroundSubtractor.apply(targetGrayFrameUnManagedRef, fgMask);
+//                        backgroundSubtractor.apply(targetGrayFrameUnManagedRef, fgMask);
                         if (!backgroundReady) {//if background not ready accumulate data and skip motion detection
+                            targetGrayFrameUnManagedRef.copyTo(previousFrame);
                             return true;
                         }
+                        absdiff(previousFrame, targetGrayFrameUnManagedRef, fgMask);
+
+                        targetGrayFrameUnManagedRef.copyTo(previousFrame);
+                        threshold(fgMask, fgMask, configuration.backgroundHistoryDistThreshold,255, THRESH_BINARY);
+
                         UMat matToContour;
                         if (dilateKernel != null) {
                             dilate(fgMask, dilatedFrame, dilateKernel, DILATE_POINT, 2, BORDER_DEFAULT, DILATE_BORDER_ONE);

@@ -8,6 +8,11 @@
     "transportProtocol": "Transport protocol",
     "overrideRtspPort": "Override RTSP port",
 
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask": "Media capture",
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask.title": "Capture of {0}",
+    "deviceUuid": "Device",
+    "deviceProfile": "Media profile",
+
     "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
     "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
     "speedX": "Speed X",
@@ -47,6 +52,11 @@
     "transportProtocol": "Транспартны пратакол",
     "overrideRtspPort": "Перавызначыць порт RTSP",
 
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask": "Захоп Onvif",
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask.title": "Захоп {0}",
+    "deviceUuid": "Прылада",
+    "deviceProfile": "Медыяпрофіль",
+
     "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
     "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
     "speedX": "Speed X",
@@ -84,6 +94,11 @@
     "streamType": "Тип потоку",
     "transportProtocol": "Транспортний протокол",
     "overrideRtspPort": "Перевизначити порт RTSP",
+
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask": "Захоплення Onvif",
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask.title": "Захоплення {0}",
+    "deviceUuid": "Пристрій",
+    "deviceProfile": "Медіапрофіль",
 
     "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
     "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
@@ -123,6 +138,11 @@
     "transportProtocol": "Transportprotokoll",
     "overrideRtspPort": "RTSP-Port überschreiben",
 
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask": "Onvif-Erfassung",
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask.title": "Eroberung von {0}",
+    "deviceUuid": "Gerät",
+    "deviceProfile": "Medienprofil",
+
     "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
     "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
     "speedX": "Speed X",
@@ -160,6 +180,11 @@
     "streamType": "tipo de transmisión",
     "transportProtocol": "protocolo de transporte",
     "overrideRtspPort": "Anular puerto RTSP",
+
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask": "captura onvif",
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask.title": "Captura de {0}",
+    "deviceUuid": "Dispositivo",
+    "deviceProfile": "perfil de medios",
 
     "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
     "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
@@ -199,6 +224,11 @@
     "transportProtocol": "Protocole de transport",
     "overrideRtspPort": "Remplacer le port RTSP",
 
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask": "Capture Onvif",
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask.title": "Capture de {0}",
+    "deviceUuid": "Appareil",
+    "deviceProfile": "Profil média",
+
     "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
     "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
     "speedX": "Speed X",
@@ -237,6 +267,11 @@
     "transportProtocol": "Protokół transportowy",
     "overrideRtspPort": "Zastąp port RTSP",
 
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask": "Przechwytywanie Onvif",
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask.title": "Przechwytywanie {0}",
+    "deviceUuid": "Urządzenie",
+    "deviceProfile": "Profil mediów",
+
     "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
     "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",
     "speedX": "Speed X",
@@ -274,6 +309,11 @@
     "streamType": "Тип потока",
     "transportProtocol": "Транспортный протокол",
     "overrideRtspPort": "Переопределить порт RTSP",
+
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask": "Захват медиапотока Onvif",
+    "com.banalytics.box.module.onvif.task.ffmpeg.OnvifGrabberTask.title": "Захват {0}",
+    "deviceUuid": "Устройство",
+    "deviceProfile": "Профиль",
 
     "com.banalytics.box.module.onvif.task.PTZRotateAction": "PTZ",
     "com.banalytics.box.module.onvif.task.PTZRotateAction.title": "PTZ ({0})",

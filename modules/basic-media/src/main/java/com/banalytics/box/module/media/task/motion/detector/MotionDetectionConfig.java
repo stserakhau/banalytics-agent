@@ -30,39 +30,39 @@ public class MotionDetectionConfig extends AbstractConfiguration {
     })
     public DebugMode debug = DebugMode.BG_SUBSTRACTOR;
 
-    @UIComponent(index = 25, type = checkbox, required = true, restartOnChange = true)
-    public Boolean autoCalibration = true;
+//    @UIComponent(index = 25, type = checkbox, required = true, restartOnChange = true)
+//    public Boolean autoCalibration = true;
 
     @UIComponent(index = 30, type = int_input, required = true, restartOnChange = true,
-            dependsOn = {"autoCalibration"},
+//            dependsOn = {"autoCalibration"},
             uiConfig = {
-                    @UIComponent.UIConfig(name = "enableCondition", value = "''+form.autoCalibration === 'false'"),
+//                    @UIComponent.UIConfig(name = "enableCondition", value = "''+form.autoCalibration === 'false'"),
                     @UIComponent.UIConfig(name = "min", value = "4"),
                     @UIComponent.UIConfig(name = "max", value = "100")
             })
     public int backgroundHistoryDistThreshold = 8;
 
     @UIComponent(index = 40, type = drop_down, required = true, restartOnChange = true,
-            dependsOn = {"autoCalibration"},
+//            dependsOn = {"autoCalibration"},
             uiConfig = {
-                    @UIComponent.UIConfig(name = "enableCondition", value = "''+form.autoCalibration === 'false'"),
+//                    @UIComponent.UIConfig(name = "enableCondition", value = "''+form.autoCalibration === 'false'"),
                     @UIComponent.UIConfig(name = "show-empty", value = "false")
             })
     public MatrixSizeType blurSize = MatrixSizeType.s3x3;
 
-    @UIComponent(index = 50, type = int_input, required = true, restartOnChange = true,
-            dependsOn = {"autoCalibration"},
-            uiConfig = {
-                    @UIComponent.UIConfig(name = "enableCondition", value = "''+form.autoCalibration === 'false'"),
-                    @UIComponent.UIConfig(name = "min", value = "1"),
-                    @UIComponent.UIConfig(name = "max", value = "100")
-            })
-    public int backgroundHistorySize = 4;
+//    @UIComponent(index = 50, type = int_input, required = true, restartOnChange = true,
+//            dependsOn = {"autoCalibration"},
+//            uiConfig = {
+//                    @UIComponent.UIConfig(name = "enableCondition", value = "''+form.autoCalibration === 'false'"),
+//                    @UIComponent.UIConfig(name = "min", value = "1"),
+//                    @UIComponent.UIConfig(name = "max", value = "100")
+//            })
+//    public int backgroundHistorySize = 4;
 
     @UIComponent(index = 60, type = drop_down, required = true, restartOnChange = true,
-            dependsOn = {"autoCalibration"},
+//            dependsOn = {"autoCalibration"},
             uiConfig = {
-                    @UIComponent.UIConfig(name = "enableCondition", value = "''+form.autoCalibration === 'false'"),
+//                    @UIComponent.UIConfig(name = "enableCondition", value = "''+form.autoCalibration === 'false'"),
                     @UIComponent.UIConfig(name = "show-empty", value = "false")
             }
     )

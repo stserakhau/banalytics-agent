@@ -45,11 +45,6 @@
     "rotateImage": "Rotate image",
     "rtBufferSizeMb": "RT Buffer (Mb)",
 
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Media capture",
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Capture of {0}",
-    "deviceUuid": "Device",
-    "deviceProfile": "Media profile",
-
     "com.banalytics.box.module.media.thing.LocalMediaThing": "Built-in or USB camera & microphone",
     "com.banalytics.box.module.media.thing.LocalMediaThing.title": "Built-in or USB camera & microphone ({0})",
     "camera": "Camera",
@@ -187,11 +182,6 @@
     "localMediaUuid": "Мясцовая крыніца медыя",
     "rotateImage": "Павярнуць выяву",
     "rtBufferSizeMb": "RT-буфер (Мб)",
-
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Захоп Onvif",
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Захоп {0}",
-    "deviceUuid": "Прылада",
-    "deviceProfile": "Медыяпрофіль",
 
     "com.banalytics.box.module.media.thing.LocalMediaThing": "Убудаваная або USB-камера і мікрафон",
     "com.banalytics.box.module.media.thing.LocalMediaThing.title": "Убудаваная або USB-камера і мікрафон",
@@ -339,11 +329,6 @@
     "rotateImage": "Обернути зображення",
     "rtBufferSizeMb": "RT буфер (Мб)",
 
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Захоплення Onvif",
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Захоплення {0}",
-    "deviceUuid": "Пристрій",
-    "deviceProfile": "Медіапрофіль",
-
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask": "Детектор руху",
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask.title": "Детектор руху {0}",
     "detectionAreas": "Області детектора",
@@ -481,11 +466,6 @@
     "localMediaUuid": "Lokale Medienquelle",
     "rotateImage": "Bild drehen",
     "rtBufferSizeMb": "RT-Puffer (MB)",
-
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Onvif-Erfassung",
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Eroberung von {0}",
-    "deviceUuid": "Gerät",
-    "deviceProfile": "Medienprofil",
 
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask": "Bewegungsmelder",
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask.title": "Bewegungsmelder von {0}",
@@ -625,11 +605,6 @@
     "rotateImage": "Girar imagen",
     "rtBufferSizeMb": "Búfer RT (Mb)",
 
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "captura onvif",
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Captura de {0}",
-    "deviceUuid": "Dispositivo",
-    "deviceProfile": "perfil de medios",
-
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask": "Detector de movimiento",
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask.title": "Detector de movimiento de {0}",
     "detectionAreas": "Áreas de detección",
@@ -767,11 +742,6 @@
     "localMediaUuid": "Source média locale",
     "rotateImage": "Faire pivoter l'image",
     "rtBufferSizeMb": "Tampon RT (Mb)",
-
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Capture Onvif",
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Capture de {0}",
-    "deviceUuid": "Appareil",
-    "deviceProfile": "Profil média",
 
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask": "Détecteur de mouvement",
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask.title": "Détecteur de mouvement de {0}",
@@ -911,11 +881,6 @@
     "rotateImage": "Obróć obraz",
     "rtBufferSizeMb": "Bufor RT (Mb)",
 
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Przechwytywanie Onvif",
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Przechwytywanie {0}",
-    "deviceUuid": "Urządzenie",
-    "deviceProfile": "Profil mediów",
-
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask": "Czujnik ruchu",
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask.title": "Czujnik ruchu {0}",
     "detectionAreas": "Obszary detektorów",
@@ -1053,11 +1018,6 @@
     "localMediaUuid": "Медиа источник",
     "rotateImage": "Повернуть изображение",
     "rtBufferSizeMb": "RT-буфер  (МБ)",
-
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Захват медиапотока Onvif",
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Захват {0}",
-    "deviceUuid": "Устройство",
-    "deviceProfile": "Профиль",
 
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask": "Датчик движения",
     "com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask.title": "Детектор движения {0}",
