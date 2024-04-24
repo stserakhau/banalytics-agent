@@ -1,8 +1,10 @@
 package com.banalytics.box.module.media.task.watermark;
 
 import com.banalytics.box.TimeUtil;
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.constants.PenColor;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
 import com.banalytics.box.module.standard.Onvif;
 import org.apache.commons.lang3.StringUtils;
 import org.bytedeco.javacpp.Pointer;
@@ -28,6 +30,7 @@ import static org.bytedeco.opencv.global.opencv_imgproc.getTextSize;
 import static org.bytedeco.opencv.global.opencv_imgproc.putText;
 import static org.opencv.imgproc.Imgproc.LINE_4;
 
+@SubItem(of = {AbstractMediaGrabberTask.class}, group = "media-preprocessors")
 public class WatermarkTask extends AbstractTask<WatermarkConfig> implements PreProcessor<Frame> {
     public WatermarkTask(BoxEngine metricDeliveryService, AbstractListOfTask<?> parent) {
         super(metricDeliveryService, parent);
@@ -143,7 +146,7 @@ public class WatermarkTask extends AbstractTask<WatermarkConfig> implements PreP
         int fw = frame.imageWidth;
         int fh = frame.imageHeight;
 
-        if(drawPoints.size() != watermark.size()){
+        if (drawPoints.size() != watermark.size()) {
             this.clear();
         }
 

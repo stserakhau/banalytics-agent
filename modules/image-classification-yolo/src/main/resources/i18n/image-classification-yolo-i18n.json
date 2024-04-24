@@ -1,5 +1,6 @@
 {
   "en": {
+    "group.image-classifiers": "Image classifiers",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Image classifier",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Image classifier ({0})",
     "workers": "Workers",
@@ -15,6 +16,8 @@
     "detectionDelay": "Classification delay"
   },
   "by" : {
+    "group.image-classifers": "Клясыфікатары выяваў",
+
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Класіфікатар відарысаў",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Класіфікатар відарысаў ({0})",
     "workers": "Workers",
@@ -30,6 +33,8 @@
     "detectionDelay": "Classification delay"
   },
   "ua" : {
+    "group.image-classifiers": "Класифікатори зображень",
+
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Класифікатор зображень",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Класифікатор зображень ({0})",
     "workers": "Workers",
@@ -45,6 +50,8 @@
     "detectionDelay": "Classification delay"
   },
   "de" : {
+    "group.image-classifiers": "Bildklassifikatoren",
+
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Bildklassifizierer",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Bildklassifizierer ({0})",
     "workers": "Workers",
@@ -60,6 +67,8 @@
     "detectionDelay": "Classification delay"
   },
   "es" : {
+    "group.image-classifiers": "Clasificadores de imágenes",
+
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "clasificador de imagen",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Clasificador de imágenes ({0})",
     "workers": "Workers",
@@ -75,6 +84,8 @@
     "detectionDelay": "Retraso de clasificación"
   },
   "fr" : {
+    "group.image-classifiers": "Classificateurs d'images",
+
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Classificateur d'images",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Classificateur d'images ({0})",
     "workers": "Workers",
@@ -90,6 +101,8 @@
     "detectionDelay": "Délai de classement"
   },
   "pl" : {
+    "group.image-classifiers": "Klasyfikatory obrazów",
+
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Klasyfikator obrazu",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Klasyfikator obrazu ({0})",
     "workers": "Workers",
@@ -105,6 +118,8 @@
     "detectionDelay": "Classification delay"
   },
   "ru" : {
+    "group.image-classifiers": "Классификаторы изображений",
+
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing": "Классификатор изображений",
     "com.banalytics.box.module.media.task.classification.yolo.YoloWorkerThing.title": "Классификатор изображений ({0})",
     "workers": "Workers",

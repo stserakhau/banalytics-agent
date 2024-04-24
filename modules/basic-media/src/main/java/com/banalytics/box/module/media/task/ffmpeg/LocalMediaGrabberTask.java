@@ -1,12 +1,16 @@
 package com.banalytics.box.module.media.task.ffmpeg;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.AbstractListOfTask;
 import com.banalytics.box.module.BoxEngine;
 import com.banalytics.box.module.State;
 import com.banalytics.box.module.Thing;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
 import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
+import com.banalytics.box.module.media.thing.FileMediaStreamThing;
 import com.banalytics.box.module.media.thing.LocalMediaThing;
 import com.banalytics.box.module.media.thing.LocalMediaThingConfig;
+import com.banalytics.box.module.media.thing.UrlMediaStreamThing;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -61,7 +65,8 @@ import java.util.UUID;
  * ffmpeg -f dshow -i video="Logitech HD Webcam C270":audio="Микрофон (HD Webcam C270)" -s 800x600 -acodec aac -ac 2 -ab 32k -ar 8000 -flush_packets 0 out.mp4
  */
 @Slf4j
-public class LocalMediaGrabberTask extends AbstractStreamingMediaTask<LocalMediaGrabberTaskConfiguration> {
+@SubItem(of = {LocalMediaThing.class}, group="media-grabbers", singleton = true)
+public class LocalMediaGrabberTask extends AbstractMediaGrabberTask<LocalMediaGrabberTaskConfiguration> {
     public LocalMediaGrabberTask(BoxEngine metricDeliveryService, AbstractListOfTask<?> parent) {
         super(metricDeliveryService, parent);
     }

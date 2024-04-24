@@ -1,5 +1,6 @@
 package com.banalytics.box.module.toys.quadrocopter.action;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GamePadStateChangedEvent;
 import com.banalytics.box.module.AbstractAction;
@@ -15,6 +16,7 @@ import java.util.UUID;
 import static java.lang.Math.abs;
 
 @Slf4j
+@SubItem(of = QuadrocopterThing.class, group = "toys")
 public class VectorAction extends AbstractAction<VectorActionConfig> {
     private QuadrocopterThing quadrocopterThing;
 
@@ -66,7 +68,6 @@ public class VectorAction extends AbstractAction<VectorActionConfig> {
 
             if (configuration.axisXIndex > -1) {
                 double xSpeed = gpe.axes[configuration.axisXIndex];
-                xSpeed = configuration.xyAxisFunction.calc(xSpeed);
                 if (abs(xSpeed) < configuration.stopThreshold) {
                     xSpeed = 0;
                 }
@@ -75,7 +76,6 @@ public class VectorAction extends AbstractAction<VectorActionConfig> {
 
             if (configuration.axisYIndex > -1) {
                 double ySpeed = gpe.axes[configuration.axisYIndex];
-                ySpeed = configuration.xyAxisFunction.calc(ySpeed);
                 if (abs(ySpeed) < configuration.stopThreshold) {
                     ySpeed = 0;
                 }
@@ -84,7 +84,6 @@ public class VectorAction extends AbstractAction<VectorActionConfig> {
 
             if (configuration.axisZIndex > -1) {
                 double zSpeed = gpe.axes[configuration.axisZIndex];
-                zSpeed = configuration.xyAxisFunction.calc(zSpeed);
                 if (abs(zSpeed) < configuration.stopThreshold) {
                     zSpeed = 0;
                 }

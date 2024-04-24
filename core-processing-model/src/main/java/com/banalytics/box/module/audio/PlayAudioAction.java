@@ -1,5 +1,6 @@
 package com.banalytics.box.module.audio;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.standard.AudioPlayer;
 import com.banalytics.box.module.storage.FileSystem;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
+@SubItem(of = LocalAudioPlayerThing.class, group = "media-player")
 public class PlayAudioAction extends AbstractAction<PlayAudioActionConfiguration> {
     @Override
     protected boolean isFireActionEvent() {

@@ -1,5 +1,11 @@
 {
   "en": {
+    "group.media-grabbers": "Media grabbers",
+    "group.media-motion-processing": "Motion detectors",
+    "group.media-preprocessors": "Pre-processors",
+    "group.media-sound-processing": "Sound processing",
+    "group.media-recorders": "Recorders",
+
     "rtsp": "RTSP",
     "h264": "H.264",
     "mov": "MOV",
@@ -27,19 +33,19 @@
     "sourceUri": "Path",
     "mac": "MAC address",
 
-    "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask": "Media capture of network device",
+    "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask": "Media capture",
     "com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask.title": "Capture of {0}",
     "urlUuid": "Media source",
     "fpsControl": "Control frame rate (0 - disabled)",
     "disableAudioRecording": "Disable audio",
 
-    "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Media capture of local device",
+    "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask": "Media capture",
     "com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask.title": "Capture of {0}",
     "localMediaUuid": "Local media source",
     "rotateImage": "Rotate image",
     "rtBufferSizeMb": "RT Buffer (Mb)",
 
-    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Media capture of Onvif",
+    "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask": "Media capture",
     "com.banalytics.box.module.media.task.ffmpeg.OnvifGrabberTask.title": "Capture of {0}",
     "deviceUuid": "Device",
     "deviceProfile": "Media profile",
@@ -137,6 +143,12 @@
     "fontThickness": "Font thickness"
   },
   "by" : {
+    "group.media-grabbers": "Медыяграбберы",
+    "group.media-motion-processing": "Дэтэктары руху",
+    "group.media-preprocessors": "Папярэднія працэсары",
+    "group.media-sound-processing": "Апрацоўка гуку",
+    "group.media-recorders": "Дыктафоны",
+
     "rtsp": "RTSP",
     "h264": "H.264",
     "mov": "MOV",
@@ -274,6 +286,12 @@
     "fontThickness": "Таўшчыня шрыфта"
   },
   "ua" : {
+    "group.media-grabbers": "Медіа-граббери",
+    "group.media-motion-processing": "Детектори руху",
+    "group.media-preprocessors": "Попередні процесори",
+    "group.media-sound-processing": "Обробка звуку",
+    "group.media-recorders": "Диктофони",
+
     "rtsp": "RTSP",
     "h264": "H.264",
     "mov": "MOV",
@@ -411,6 +429,12 @@
     "fontThickness": "Товщина шрифту"
   },
   "de" : {
+    "group.media-grabbers": "Mediengrabber",
+    "group.media-motion-processing": "Bewegungsmelder",
+    "group.media-preprocessors": "Präprozessoren",
+    "group.media-sound-processing": "Tonverarbeitung",
+    "group.media-recorders": "Recorder",
+
     "rtsp": "RTSP",
     "h264": "H.264",
     "mov": "MOV",
@@ -548,6 +572,12 @@
     "fontThickness": "Schriftstärke"
   },
   "es" : {
+    "group.media-grabbers": "Capturadores de medios",
+    "group.media-motion-processing": "Detectores de movimiento",
+    "group.media-preprocessors": "Preprocesadores",
+    "group.media-sound-processing": "Procesamiento de sonido",
+    "group.media-recorders": "Grabadoras",
+
     "rtsp": "RTSP",
     "h264": "H.264",
     "mov": "MOV",
@@ -685,6 +715,12 @@
     "fontThickness": "Grosor de fuente"
   },
   "fr" : {
+    "group.media-grabbers": "Capteurs de médias",
+    "group.media-motion-processing": "Détecteurs de mouvement",
+    "group.media-preprocessors": "Pré-processeurs",
+    "group.media-sound-processing": "Traitement du son",
+    "group.media-recorders": "Enregistreurs",
+
     "rtsp": "RTSP",
     "h264": "H.264",
     "mov": "MOV",
@@ -822,6 +858,12 @@
     "fontThickness": "Épaisseur de la police"
   },
   "pl" : {
+    "group.media-grabbers": "Przechwytywacze multimediów",
+    "group.media-motion-processing": "Czujniki ruchu",
+    "group.media-preprocessors": "Preprocesory",
+    "group.media-sound-processing": "Przetwarzanie dźwięku",
+    "group.media-recorders": "Nagrywarki",
+
     "rtsp": "RTSP",
     "h264": "H.264",
     "mov": "MOV",
@@ -959,6 +1001,12 @@
     "fontThickness": "Grubość czcionki"
   },
   "ru" : {
+    "group.media-grabbers": "Медиа-грабберы",
+    "group.media-motion-processing": "Детекторы движения",
+    "group.media-preprocessors": "Препроцессоры",
+    "group.media-sound-processing": "Обработка звука",
+    "group.media-recorders": "Рекордеры",
+
     "rtsp": "RTSP",
     "h264": "H.264",
     "mov": "MOV",

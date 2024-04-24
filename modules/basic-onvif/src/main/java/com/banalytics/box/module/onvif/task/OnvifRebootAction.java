@@ -1,12 +1,15 @@
 package com.banalytics.box.module.onvif.task;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.*;
+import com.banalytics.box.module.onvif.thing.OnvifThing;
 import com.banalytics.box.module.standard.Onvif;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
 @Slf4j
+@SubItem(of = OnvifThing.class, singleton = true, group = "onvif-actions")
 public class OnvifRebootAction extends AbstractAction<OnvifRebootActionConfiguration> {
     public OnvifRebootAction(BoxEngine engine, AbstractListOfTask<?> parent) {
         super(engine, parent);

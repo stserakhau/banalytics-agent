@@ -1,4 +1,4 @@
-package com.banalytics.box.module.media.task.ffmpeg;
+package com.banalytics.box.module.onvif.task.ffmpeg;
 
 import com.banalytics.box.api.integration.form.ComponentType;
 import com.banalytics.box.api.integration.form.annotation.UIComponent;

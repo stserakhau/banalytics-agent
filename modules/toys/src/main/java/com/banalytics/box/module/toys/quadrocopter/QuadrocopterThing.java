@@ -23,21 +23,12 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
     @Override
     protected void doInit() throws Exception {
         port = SerialPort.getCommPort(configuration.getSerialPort());
-        if (!port.setBaudRate(1000000)) {
-            if (!port.setBaudRate(500000)) {
-                if (!port.setBaudRate(250000)) {
-                    if (!port.setBaudRate(115200)) {
-                        if (!port.setBaudRate(57600)) {
-                            if (!port.setBaudRate(38400)) {
-                                if (!port.setBaudRate(28800)) {
-                                    throw new Exception("Very slow port");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        port.setBaudRate(115200);
+        port.setNumDataBits(8);
+        port.setNumStopBits(1);
+        port.setParity(SerialPort.NO_PARITY);
+        port.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
+        //            serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         log.info("Actual port speed: {} bod", port.getBaudRate());
     }
 
@@ -52,7 +43,10 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
     protected void doStart() throws Exception {
         if (!port.isOpen()) {
             if (!port.openPort()) {
-                throw new Exception("Can't open serial port: " + port);
+                throw new Exception("Can't open port.\n Error code: %s\nError location %s".formatted(
+                        port.getLastErrorCode(),
+                        port.getLastErrorLocation()
+                ));
             }
             Thread.sleep(300);
         }
@@ -65,17 +59,10 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
                 configuration.analogRequestTik,
                 configuration.attitudeRequestTik,
                 configuration.altitudeRequestTik,
-                configuration.engineStop,
-                configuration.engineTest,
                 configuration.engineStart,
-                configuration.engineMax,
-                configuration.trimmerPower,
-                configuration.pidXTrimmerValues,
-                configuration.pidYTrimmerValues,
-                configuration.pidZTrimmerValues,
-                configuration.disarmXYAngle
+                configuration.engineMin,
+                configuration.engineRange
         );
-//        quadrocopter.reboot();
         this.quadrocopter.start();
     }
 

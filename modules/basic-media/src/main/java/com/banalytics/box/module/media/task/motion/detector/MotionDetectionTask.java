@@ -1,11 +1,15 @@
 package com.banalytics.box.module.media.task.motion.detector;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.media.ImageClassifier;
 import com.banalytics.box.module.media.ImageClassifier.ClassificationResult;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
 import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
+import com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask;
+import com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask;
 import com.banalytics.box.module.media.task.motion.storage.MotionVideoRecordingTask;
 import com.banalytics.box.module.media.utils.ZonePainter;
 import com.banalytics.box.service.SystemThreadsService;
@@ -33,6 +37,7 @@ import static org.bytedeco.opencv.global.opencv_imgproc.*;
 import static org.opencv.core.Core.BORDER_DEFAULT;
 
 @Slf4j
+@SubItem(of = {AbstractMediaGrabberTask.class}, group = "media-motion-processing")
 public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetectionConfig> implements PropertyValuesProvider {
     public MotionDetectionTask(BoxEngine metricDeliveryService, AbstractListOfTask<?> parent) {
         super(metricDeliveryService, parent);

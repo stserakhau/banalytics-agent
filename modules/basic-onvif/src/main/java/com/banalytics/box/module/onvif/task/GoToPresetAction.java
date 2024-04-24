@@ -1,6 +1,8 @@
 package com.banalytics.box.module.onvif.task;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.*;
+import com.banalytics.box.module.onvif.thing.OnvifThing;
 import com.banalytics.box.module.standard.Onvif;
 
 import java.util.TimerTask;
@@ -8,6 +10,7 @@ import java.util.UUID;
 
 import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
 
+@SubItem(of = OnvifThing.class, group = "onvif-actions")
 public class GoToPresetAction extends AbstractAction<GoToPresetActionConfiguration> {
     public GoToPresetAction(BoxEngine engine, AbstractListOfTask<?> parent) {
         super(engine, parent);

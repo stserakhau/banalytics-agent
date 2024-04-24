@@ -52,11 +52,6 @@ public class VectorActionConfig extends AbstractConfiguration {
     public double stopThreshold = 0.1;
 
     @UIComponent(
-            index = 45, type = ComponentType.drop_down
-    )
-    public AxisFunction xyAxisFunction = AxisFunction.LINEAR;
-
-    @UIComponent(
             index = 50, type = ComponentType.int_input,
             uiConfig = {
                     @UIComponent.UIConfig(name = "min", value = "-1"),

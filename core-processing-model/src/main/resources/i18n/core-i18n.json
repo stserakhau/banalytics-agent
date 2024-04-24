@@ -14,6 +14,8 @@
     "zones": "Zones",
     "classes": "Classes",
 
+    "group.media-player": "Media players",
+
     "folder.new": "New folder",
     "folder.create-in": "Create folder in '{0}'",
     "folder.create": "Create folder",
@@ -457,6 +459,8 @@
     "zones": "Зоны",
     "classes": "Класы",
 
+    "group.media-player": "Мэдыяплэеры",
+
     "folder.new": "Новая папка",
     "folder.create-in": "Стварыць тэчку ў '{0}'",
     "folder.create": "Стварыць тэчку",
@@ -885,6 +889,8 @@
     "state": "Стан",
     "zones": "Зони",
     "classes": "Класи",
+
+    "group.media-player": "Медіаплеєри",
 
     "folder.new": "Нова папка",
     "folder.create-in": "Створити папку в '{0}'",
@@ -1316,6 +1322,8 @@
     "zones": "Zonen",
     "classes": "Klassen",
 
+    "group.media-player": "Medienplayer",
+
     "folder.new": "Neuer Ordner",
     "folder.create-in": "Ordner erstellen in '{0}'",
     "folder.create": "Ordner erstellen",
@@ -1742,6 +1750,8 @@
     "state": "Estado",
     "zones": "Zonas",
     "classes": "Clases",
+
+    "group.media-player": "Reproductores multimedia",
 
     "folder.new": "Nueva carpeta",
     "folder.create-in": "Crear carpeta en '{0}'",
@@ -2170,6 +2180,8 @@
     "zones": "Zones",
     "classes": "Classes",
 
+    "group.media-player": "Lecteurs multimédia",
+
     "folder.new": "Nouveau dossier",
     "folder.create-in": "Créer un dossier dans '{0}'",
     "folder.create": "Créer le dossier",
@@ -2597,6 +2609,8 @@
     "zones": "Strefy",
     "classes": "Klasy",
 
+    "group.media-player": "Odtwarzacze multimedialne",
+
     "folder.new": "Nowy folder",
     "folder.create-in": "Utwórz folder w „{0}”",
     "folder.create": "Utwórz folder",
@@ -3023,6 +3037,8 @@
     "state": "Состояние",
     "zones": "Зоны",
     "classes": "Классы",
+
+    "group.media-player": "Медиаплееры",
 
     "folder.new": "Новая папка",
     "folder.create-in": "Создать папку в '{0}'",

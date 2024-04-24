@@ -10,7 +10,9 @@ import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -18,7 +20,6 @@ import static com.banalytics.box.BanalyticsBoxInstanceState.getInstance;
 import static com.banalytics.box.module.ExecutionContext.GlobalVariables.*;
 import static com.banalytics.box.module.State.RUN;
 import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
-import static org.bytedeco.javacv.Frame.Type.AUDIO;
 
 @Slf4j
 public class GrabberStreamWorker implements Runnable {
@@ -29,7 +30,7 @@ public class GrabberStreamWorker implements Runnable {
     long videoFrameCounter = 0;
     long audioFrameCounter = 0;
 
-    AtomicLong lastFrameReceivedTime = new AtomicLong(0);
+    private final AtomicLong lastFrameReceivedTime = new AtomicLong(0);
 
     final int useFpsDelay;
     final boolean filePlay;
@@ -101,6 +102,12 @@ public class GrabberStreamWorker implements Runnable {
         return frameFilter;
     }
 
+    public final Collection<ContextPreProcessor> contextPreProcessor = new ArrayList<>();
+
+    public interface ContextPreProcessor {
+        void preProcess(AbstractStreamingMediaTask<?> task, ExecutionContext context);
+    }
+
     @Override
     public void run() {
         long frameRateControlTime = 0;
@@ -151,10 +158,8 @@ public class GrabberStreamWorker implements Runnable {
                         measurementStartTime = measurementEndTime;
                     }
                     context.clear();
-                    if (task instanceof OnvifGrabberTask onvifGrabber) {
-                        if (onvifGrabber.ptzState != null) {
-                            context.setVar(Onvif.PTZ.class, onvifGrabber.ptzState);
-                        }
+                    for (ContextPreProcessor preProcessor : contextPreProcessor) {
+                        preProcessor.preProcess(task, context);
                     }
                     if (frameRateControlTime > 0) {//only for file play case
                         Thread.sleep(frameRateControlTime);

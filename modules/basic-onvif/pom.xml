@@ -30,6 +30,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.banalytics.box.modules</groupId>
+            <artifactId>basic-media</artifactId>
+            <version>0.0.0-${javacpp.platform}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>
             <version>${saaj.version}</version>

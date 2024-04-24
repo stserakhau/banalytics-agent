@@ -1,6 +1,7 @@
 package com.banalytics.box.service;
 
 import com.banalytics.box.api.integration.form.FormModel;
+import com.banalytics.box.api.integration.model.ComponentRelation;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.cloud.portal.PortalIntegrationConfiguration;
@@ -459,5 +460,10 @@ public class EngineService implements BoxEngine, InitializingBean {
     @Override
     public AbstractTask<?> buildTask(String clazz, Map<String, Object> configuration, AbstractListOfTask<?> parent) throws Exception {
         return taskService.buildTask(clazz, configuration, parent);
+    }
+
+    @Override
+    public Map<Class<?>, Set<ComponentRelation>> componentsRelations() {
+        return taskService.componentsRelations;
     }
 }

@@ -38,7 +38,6 @@ public class Engine implements Consumer<ByteBuffer>, Command<Void> {
         }
 
         if ((prevE1 - e1 == 0) && (prevE2 - e2 == 0) && (prevE3 - e3 == 0) && (prevE4 - e4 == 0)) {
-//            System.out.println("Skip send engine command");
             return;
         }
         prevE1 = e1;
@@ -54,13 +53,6 @@ public class Engine implements Consumer<ByteBuffer>, Command<Void> {
         bb.putShort(e4);
 
         send_message(port, MSP_SET_MOTOR, data);
-
-        /*send_message(port, MSP_SET_MOTOR, new byte[]{// MOTOR_DATA
-                0x00, 0x00, //low byte / hi byte for motor 1
-                0x00, 0x00, //low byte / hi byte for motor 2
-                0x00, 0x00, //low byte / hi byte for motor 3
-                0x00, 0x00  //low byte / hi byte for motor 4
-        });*/
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.banalytics.box.module.media.task.classification.yolo;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.MotionEvent;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.media.ImageClassifier;
 import com.banalytics.box.module.media.ImageClassifier.ClassificationResult;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
 import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
 import com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask;
 import com.banalytics.box.module.media.utils.ZonePainter;
@@ -33,6 +35,7 @@ import static org.bytedeco.opencv.global.opencv_imgproc.*;
  * https://github.com/bytedeco/javacv/blob/master/samples/YOLONet.java
  */
 @Slf4j
+@SubItem(of = AbstractMediaGrabberTask.class, singleton = true, group = "image-classifiers")
 public class YoloDetectionTask extends AbstractStreamingMediaTask<YoloDetectionConfig> implements PropertyValuesProvider {
 
     @Override

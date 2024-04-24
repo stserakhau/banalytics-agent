@@ -1,5 +1,6 @@
 package com.banalytics.box.module.media.task.sound;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.api.integration.webrtc.channel.NodeDescriptor;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.SoundEvent;
@@ -7,6 +8,7 @@ import com.banalytics.box.module.AbstractListOfTask;
 import com.banalytics.box.module.AbstractTask;
 import com.banalytics.box.module.BoxEngine;
 import com.banalytics.box.module.ExecutionContext;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
 import com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask;
 import com.banalytics.box.module.media.task.motion.storage.MotionVideoRecordingTask;
 import com.banalytics.box.module.media.task.sound.utils.Spectrogram;
@@ -29,6 +31,7 @@ import static com.banalytics.box.module.utils.ConvertionUtils.averageHistoryMagn
 import static com.banalytics.box.module.utils.Utils.nodeType;
 
 @Slf4j
+@SubItem(of = {AbstractMediaGrabberTask.class}, group = "media-sound-processing")
 public class SoundDetectionTask extends AbstractTask<SoundDetectionConfig> {
     final NodeDescriptor.NodeType NODE_TYPE = nodeType(this.getClass());
 

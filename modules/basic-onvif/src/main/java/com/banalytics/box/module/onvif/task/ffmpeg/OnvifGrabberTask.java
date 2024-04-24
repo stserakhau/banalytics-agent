@@ -1,8 +1,11 @@
-package com.banalytics.box.module.media.task.ffmpeg;
+package com.banalytics.box.module.onvif.task.ffmpeg;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.constants.MediaFormat;
-import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
+import com.banalytics.box.module.media.task.ffmpeg.GrabberStreamWorker;
+import com.banalytics.box.module.onvif.thing.OnvifThing;
 import com.banalytics.box.module.standard.Onvif;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
@@ -58,7 +61,8 @@ import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
  * ffmpeg -f dshow -i video="Logitech HD Webcam C270":audio="Микрофон (HD Webcam C270)" -s 800x600 -acodec aac -ac 2 -ab 32k -ar 8000 -flush_packets 0 out.mp4
  */
 @Slf4j
-public class OnvifGrabberTask extends AbstractStreamingMediaTask<OnvifGrabberTaskConfiguration> {
+@SubItem(of = {OnvifThing.class}, group = "media-grabbers")
+public class OnvifGrabberTask extends AbstractMediaGrabberTask<OnvifGrabberTaskConfiguration> {
     public OnvifGrabberTask(BoxEngine engine, AbstractListOfTask<?> parent) {
         super(engine, parent);
     }
@@ -135,7 +139,13 @@ public class OnvifGrabberTask extends AbstractStreamingMediaTask<OnvifGrabberTas
         Onvif.MediaParams mediaParams = onvif.mediaParams(configuration.deviceProfile);
 
         grabber = createGrabber(this.targetUrl, mediaParams);
-        grabberThread = new Thread(new GrabberStreamWorker(this, grabber, false, configuration.fpsControl, null));
+        GrabberStreamWorker gsw = new GrabberStreamWorker(this, grabber, false, configuration.fpsControl, null);
+        gsw.contextPreProcessor.add((task, context) -> {
+            if (ptzState != null) {
+                context.setVar(Onvif.PTZ.class, ptzState);
+            }
+        });
+        grabberThread = new Thread(gsw);
         grabberThread.start();
         log.info("{}: Initialization finished", getUuid());
 
@@ -204,7 +214,7 @@ public class OnvifGrabberTask extends AbstractStreamingMediaTask<OnvifGrabberTas
             grabber.setFrameRate(configuration.fpsControl);
         }
 
-        if(configuration.disableAudioRecording) {
+        if (configuration.disableAudioRecording) {
             grabber.setMetadata("audio", "disabled");
         }
 

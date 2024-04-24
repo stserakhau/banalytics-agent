@@ -1,6 +1,7 @@
 package com.banalytics.box.module;
 
 import com.banalytics.box.api.integration.form.FormModel;
+import com.banalytics.box.api.integration.model.ComponentRelation;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.service.JpaService;
 import org.springframework.boot.info.BuildProperties;
@@ -198,6 +199,10 @@ public interface BoxEngine {
     }
 
     default AbstractTask<?> buildTask(String clazz, Map<String, Object> configuration, AbstractListOfTask<?> parent) throws Exception {
+        throw new RuntimeException("Method not implemented");
+    }
+
+    default Map<Class<?>, Set<ComponentRelation>> componentsRelations() {
         throw new RuntimeException("Method not implemented");
     }
 }

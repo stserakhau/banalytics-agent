@@ -1,5 +1,7 @@
 {
   "en": {
+    "group.media-object-tracker": "Object trackers",
+
     "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
     "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
 

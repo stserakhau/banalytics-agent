@@ -3,6 +3,7 @@ package com.banalytics.box.module.webrtc;
 import com.banalytics.box.TimeUtil;
 import com.banalytics.box.api.integration.AbstractMessage;
 import com.banalytics.box.api.integration.MessageHandler;
+import com.banalytics.box.api.integration.model.ComponentRelation;
 import com.banalytics.box.api.integration.model.SecurityModel;
 import com.banalytics.box.api.integration.model.Share;
 import com.banalytics.box.api.integration.model.SharePermission;
@@ -348,6 +349,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                     logConnection(rtcMsg);
                     log.debug("Received offer from BB unused now. Case for direct connection between environments.");
                     Offer offer = (Offer) rtcMsg;
+                    Map<Class<?>, Set<ComponentRelation>> componentsRelations = engine.componentsRelations();
                     RTCClient rtcClient = new RTCClient(this,
                             transactionId,
                             rtcMsg.fromMyAccount,
@@ -356,7 +358,8 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                             rtcMsg.fromAgentUuid,
                             offer.iceServersList,
                             share,
-                            publicShare
+                            publicShare,
+                            componentsRelations
                     );
                     rtcClient.addIceCandidateConsumer(new IceCandidateConsumer(offer.fromAgentUuid));
 
@@ -419,6 +422,7 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
 
                     Ready ready = (Ready) rtcMsg;
                     log.debug("Received ready from client");
+                    Map<Class<?>, Set<ComponentRelation>> componentsRelations = engine.componentsRelations();
                     RTCClient rtcClient = new RTCClient(this,
                             transactionId,
                             rtcMsg.fromMyAccount,
@@ -427,7 +431,8 @@ public class PortalWebRTCIntegrationThing extends AbstractThing<PortalWebRTCInte
                             rtcMsg.toAgentUuid,
                             iceServersList,
                             share,
-                            publicShare
+                            publicShare,
+                            componentsRelations
                     );
                     rtcClient.addPeerConnectionListener(peerConnectionListenerAdaptor);
                     clientConnectionTimeMap.put(transactionId, System.currentTimeMillis());

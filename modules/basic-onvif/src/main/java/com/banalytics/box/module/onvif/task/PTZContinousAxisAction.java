@@ -1,9 +1,11 @@
 package com.banalytics.box.module.onvif.task;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GPAxisChangeEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GamePadStateChangedEvent;
 import com.banalytics.box.module.*;
+import com.banalytics.box.module.onvif.thing.OnvifThing;
 import com.banalytics.box.module.standard.Onvif;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,6 +16,7 @@ import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
 import static java.lang.Math.abs;
 
 @Slf4j
+@SubItem(of = OnvifThing.class, group = "onvif-actions")
 public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActionConfiguration> {
     public PTZContinousAxisAction(BoxEngine engine, AbstractListOfTask<?> parent) {
         super(engine, parent);

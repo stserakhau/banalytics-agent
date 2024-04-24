@@ -1,10 +1,13 @@
 package com.banalytics.box.module.media.task.storage;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.constants.MediaFormat;
 import com.banalytics.box.module.constants.SplitTimeInterval;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
+import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
 import com.banalytics.box.module.standard.FileStorage;
 import com.banalytics.box.module.storage.filestorage.FileStorageThing;
 import com.banalytics.box.service.SystemThreadsService;
@@ -24,6 +27,7 @@ import static com.banalytics.box.module.ExecutionContext.GlobalVariables.*;
 import static com.banalytics.box.module.utils.Utils.nodeType;
 
 @Slf4j
+@SubItem(of = {AbstractMediaGrabberTask.class}, group = "media-recorders")
 public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVideoRecordingConfig> implements MediaCaptureCallbackSupport, FileStorageSupport {
     public ContinousVideoRecordingTask(BoxEngine metricDeliveryService, AbstractListOfTask<?> parent) {
         super(metricDeliveryService, parent);

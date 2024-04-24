@@ -2,6 +2,8 @@ package com.banalytics.box.service;
 
 import com.banalytics.box.LocalizedException;
 import com.banalytics.box.api.integration.form.annotation.UIComponent;
+import com.banalytics.box.api.integration.model.ComponentRelation;
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.cloud.portal.PortalIntegrationThing;
 import com.banalytics.box.module.cloud.portal.suc.SoftwareUpgradeCenterThing;
@@ -59,6 +61,8 @@ public class TaskService implements InitializingBean {
 
     private final Set<Class<? extends Thing>> availableThingsClasses = new HashSet<>();
 
+    public final Map<Class<?>, Set<ComponentRelation>> componentsRelations = new HashMap<>();
+
     private final Map<Map<String, Class<?>>, Set<Class<? extends ITask>>> inSpecTaskMap = new HashMap<>();
 
     private boolean firstRun = false;
@@ -102,9 +106,10 @@ public class TaskService implements InitializingBean {
         //scan available tasks and build input specifications
         Reflections r = new Reflections("com.banalytics.box.module");
         {
-            Set<Class<? extends AbstractTask>> set = r.getSubTypesOf(AbstractTask.class);
+            Map<Class<?>, Set<ComponentRelation>> itemSubItemsMap = new HashMap<>();
+            Set<Class<? extends AbstractTask>> foundTasksSet = r.getSubTypesOf(AbstractTask.class);
             log.info("Found tasks:");
-            for (Class<? extends AbstractTask> t : set) {
+            for (Class<? extends AbstractTask> t : foundTasksSet) {
                 if (t.isInterface()
                         || Modifier.isAbstract(t.getModifiers())
                         || t.getName().indexOf('$') > -1) {
@@ -119,7 +124,29 @@ public class TaskService implements InitializingBean {
                                 inSpec,
                                 aClass -> new HashSet<>()
                         ).add(t);
+
+                SubItem subItem = t.getDeclaredAnnotation(SubItem.class);
+                if (subItem != null) {//task is sub item of another task
+                    for (Class<?> cls : subItem.of()) {
+                        Set<ComponentRelation> subItems = itemSubItemsMap.computeIfAbsent(cls, c -> new HashSet<>());
+                        subItems.add(new ComponentRelation(t, subItem.group(), subItem.singleton()));
+                    }
+                }
             }
+
+            itemSubItemsMap.forEach((item, subItems) -> {
+                if (item.isInterface()
+                        || Modifier.isAbstract(item.getModifiers())
+                        || item.getName().indexOf('$') > -1) {
+                    for(Class<?> cls : foundTasksSet) {
+                        if(item.isAssignableFrom(cls)){
+                            componentsRelations.put(cls, subItems);
+                        }
+                    }
+                } else {
+                    componentsRelations.put(item, subItems);
+                }
+            });
         }
         {
             Set<Class<? extends Thing>> set = r.getSubTypesOf(Thing.class);

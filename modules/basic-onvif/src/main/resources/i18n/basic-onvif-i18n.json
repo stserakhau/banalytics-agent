@@ -1,5 +1,7 @@
 {
   "en": {
+    "group.onvif-actions": "Onvif actions",
+
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Onvif camera",
     "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Onvif camera ({0})",
     "streamType": "Stream type",
@@ -37,6 +39,8 @@
     "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Reboot Onvif device: {0}"
   },
   "by" : {
+    "group.onvif-actions": "Дзеянні Onvif",
+
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Камера Onvif",
     "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Камера Onvif ({0})",
     "streamType": "Тып плыні",
@@ -73,6 +77,8 @@
     "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Перазагрузіць прыладу Onvif: {0}"
   },
   "ua" : {
+    "group.onvif-actions": "Дії Onvif",
+
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Камера Onvif",
     "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Камера Onvif ({0})",
     "streamType": "Тип потоку",
@@ -109,6 +115,8 @@
     "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Перезавантажити пристрій Onvif: {0}"
   },
   "de" : {
+    "group.onvif-actions": "Onvif-Aktionen",
+
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Onvif-Kamera",
     "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Onvif-Kamera ({0})",
     "streamType": "Stream-Typ",
@@ -145,6 +153,8 @@
     "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Onvif-Gerät neu starten: {0}"
   },
   "es" : {
+    "group.onvif-actions": "Acciones Onvif",
+
     "com.banalytics.box.module.onvif.thing.OnvifThing": "camara onvif",
     "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Cámara Onvif ({0})",
     "streamType": "tipo de transmisión",
@@ -181,6 +191,8 @@
     "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Reiniciar dispositivo Onvif: {0}"
   },
   "fr" : {
+    "group.onvif-actions": "Actions Onvif",
+
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Caméra onvif",
     "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Caméra Onvif ({0})",
     "streamType": "Type de flux",
@@ -217,6 +229,8 @@
     "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Redémarrer l'appareil Onvif: {0}"
   },
   "pl" : {
+    "group.onvif-actions": "Akcje Onvif",
+
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Kamera Onvif",
     "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Kamera Onvif ({0})",
     "streamType": "Typ strumienia",
@@ -253,6 +267,8 @@
     "com.banalytics.box.module.onvif.task.OnvifRebootAction.title": "Uruchom ponownie urządzenie Onvif: {0}"
   },
   "ru" : {
+    "group.onvif-actions": "Действия Onvif",
+
     "com.banalytics.box.module.onvif.thing.OnvifThing": "Onvif камера",
     "com.banalytics.box.module.onvif.thing.OnvifThing.title": "Onvif-камера ({0})",
     "streamType": "Тип потока",

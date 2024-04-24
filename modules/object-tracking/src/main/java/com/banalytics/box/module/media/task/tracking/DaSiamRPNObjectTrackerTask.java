@@ -1,16 +1,18 @@
 package com.banalytics.box.module.media.task.tracking;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.AbstractListOfTask;
 import com.banalytics.box.module.BoxEngine;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
 import com.banalytics.box.service.PreferableBackend;
 import com.banalytics.box.service.PreferableTarget;
 import org.bytedeco.javacpp.BytePointer;
-import org.bytedeco.opencv.global.opencv_dnn;
 import org.bytedeco.opencv.opencv_video.Tracker;
 import org.bytedeco.opencv.opencv_video.TrackerDaSiamRPN;
 
 import java.io.File;
 
+@SubItem(of = AbstractMediaGrabberTask.class, singleton = true, group = "media-object-tracker")
 public class DaSiamRPNObjectTrackerTask extends AbstractObjectTrackerTask<DaSiamRPNObjectTrackerTaskConfig> {
     public DaSiamRPNObjectTrackerTask(BoxEngine engine, AbstractListOfTask<?> parent) {
         super(engine, parent);

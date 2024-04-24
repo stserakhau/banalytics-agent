@@ -2,6 +2,7 @@ package com.banalytics.box.module.webrtc.client;
 
 import com.banalytics.box.LocalizedException;
 import com.banalytics.box.api.integration.AbstractMessage;
+import com.banalytics.box.api.integration.model.ComponentRelation;
 import com.banalytics.box.api.integration.model.Share;
 import com.banalytics.box.api.integration.model.SharePermission;
 import com.banalytics.box.api.integration.webrtc.IceCandidate;
@@ -66,6 +67,7 @@ public class RTCClient implements PeerConnectionObserver {
     public final UUID environmentUUID;
     public final boolean publicShare;
     private final Share share;
+    private final Map<Class<?>, Set<ComponentRelation>> componentsRelations;
     public long lastInteractionTime = System.currentTimeMillis();
 
     private String currentToken;
@@ -88,7 +90,7 @@ public class RTCClient implements PeerConnectionObserver {
     public RTCClient(PortalWebRTCIntegrationThing webRTCIntegrationThing, String transactionId, boolean myProfileConnection, String identity,
                      BoxEngine engine, UUID environmentUUID,
                      String[] iceServersList,
-                     Share share, boolean publicShare) {
+                     Share share, boolean publicShare, Map<Class<?>, Set<ComponentRelation>> componentsRelations) {
         this.webRTCIntegrationThing = webRTCIntegrationThing;
         this.transactionId = transactionId;
         this.myProfileConnection = myProfileConnection;
@@ -102,6 +104,7 @@ public class RTCClient implements PeerConnectionObserver {
         this.environmentUUID = environmentUUID;
         this.share = share;
         this.publicShare = publicShare;
+        this.componentsRelations = componentsRelations;
 
         Map<Class<? extends ChannelMessage>, ChannelRequestHandler> requestHandlersMap = new HashMap<>();
         requestHandlersMap.put(AvailableActionTaskClassesReq.class, new AvailableActionTaskClassesReqHandler(engine));
@@ -206,6 +209,7 @@ public class RTCClient implements PeerConnectionObserver {
                             authRes.setRequestId(-1);
                             authRes.setAuthenticated(true);
                             authRes.setPermissions(share.getSharePermissions());
+                            authRes.setComponentRelations(componentsRelations);
 
                             try {
                                 sendEnvironmentMessage(authRes);
@@ -320,6 +324,7 @@ public class RTCClient implements PeerConnectionObserver {
                             this.authenticated = true;
                             authRes.setAuthenticated(true);
                             authRes.setPermissions(share == null ? null : share.getSharePermissions());
+                            authRes.setComponentRelations(componentsRelations);
                             currentToken = this.webRTCIntegrationThing.createEnvironmentAccessToken(identity);
                             authRes.setToken(currentToken);
                             sendEnvironmentMessage(authRes);

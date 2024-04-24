@@ -1,17 +1,10 @@
 package com.banalytics.box.module.toys.quadrocopter.model.utils;
 
 import com.fazecast.jSerialComm.SerialPort;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.banalytics.box.module.toys.quadrocopter.model.command.Command.MSP_SET_MOTOR;
-
-@Slf4j
 public class PortUtils {
 //    private static final Map<Short, Long> awaitingResponseCommandTimeout = new HashMap<>();
 //    public static AtomicInteger reqCounter = new AtomicInteger(0);

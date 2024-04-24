@@ -1,11 +1,14 @@
 package com.banalytics.box.module.media.task.ffmpeg;
 
+import com.banalytics.box.api.integration.model.SubItem;
 import com.banalytics.box.module.AbstractListOfTask;
 import com.banalytics.box.module.BoxEngine;
 import com.banalytics.box.module.State;
 import com.banalytics.box.module.Thing;
 import com.banalytics.box.module.constants.MediaFormat;
-import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
+import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
+import com.banalytics.box.module.media.thing.FileMediaStreamThing;
+import com.banalytics.box.module.media.thing.UrlMediaStreamThing;
 import com.banalytics.box.module.standard.UrlMediaStream;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
@@ -59,7 +62,8 @@ import java.util.UUID;
  * ffmpeg -f dshow -i video="Logitech HD Webcam C270":audio="Микрофон (HD Webcam C270)" -s 800x600 -acodec aac -ac 2 -ab 32k -ar 8000 -flush_packets 0 out.mp4
  */
 @Slf4j
-public class SimpleRTSPGrabberTask extends AbstractStreamingMediaTask<SimpleRTSPGrabberTaskConfiguration> {
+@SubItem(of = {FileMediaStreamThing.class, UrlMediaStreamThing.class}, group = "media-grabbers")
+public class SimpleRTSPGrabberTask extends AbstractMediaGrabberTask<SimpleRTSPGrabberTaskConfiguration> {
     public SimpleRTSPGrabberTask(BoxEngine metricDeliveryService, AbstractListOfTask<?> parent) {
         super(metricDeliveryService, parent);
     }
@@ -179,7 +183,7 @@ public class SimpleRTSPGrabberTask extends AbstractStreamingMediaTask<SimpleRTSP
             grabber.setFrameRate(configuration.fpsControl);
         }
 
-        if(configuration.disableAudioRecording) {
+        if (configuration.disableAudioRecording) {
             grabber.setMetadata("audio", "disabled");
         }
 
