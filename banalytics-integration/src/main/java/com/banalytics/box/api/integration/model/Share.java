@@ -9,10 +9,10 @@ import java.util.*;
 @Setter
 public class Share {
     /**
-     * <li>Account email for account share</li>
-     * <li>Agent UUID for Agent share</li>
+     * <li>Account email for account sharing</li>
+     * <li>Agent UUID for Agent sharing</li>
      * <li>Group name for user group</li>
-     * <li>Token string for public share</li>
+     * <li>Token string for public sharing</li>
      */
     String identity;
 
