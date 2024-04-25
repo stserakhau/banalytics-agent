@@ -196,13 +196,13 @@
     "comp.portal-wrtc-integration.groupUsers": "Users in group '{0}'",
     "comp.portal-wrtc-integration.groupsUser": "'{0}' groups",
 
-    "comp.portal-wrtc-integration.accountShares": "Account shares",
+    "comp.portal-wrtc-integration.accountShares": "Account sharing",
     "comp.portal-wrtc-integration.agentShares": "Agent connects",
     "comp.portal-wrtc-integration.userGroups": "User groups",
-    "comp.portal-wrtc-integration.publicShares": "Public shares",
+    "comp.portal-wrtc-integration.publicShares": "Public sharing",
 
-    "comp.portal-wrtc-integration.share.account": "Account share",
-    "comp.portal-wrtc-integration.share.account.new": "New account share",
+    "comp.portal-wrtc-integration.share.account": "Account sharing",
+    "comp.portal-wrtc-integration.share.account.new": "New account sharing",
     "comp.portal-wrtc-integration.share.account.placeholder": "Enter email address for sharing",
 
     "comp.portal-wrtc-integration.share.agent": "Agent connect",
@@ -214,16 +214,16 @@
     "comp.portal-wrtc-integration.share.userGroup.placeholder": "Enter user group name",
     "comp.portal-wrtc-integration.share.userGroup.details": "<b>Server Uuid:</b> <span style='user-select: all;'>{0}</span><br><b>Device Uuid:</b> <span style='user-select: all;'>{1}</span>",
 
-    "comp.portal-wrtc-integration.share.public": "Public share",
-    "comp.portal-wrtc-integration.share.public.new": "New public share",
+    "comp.portal-wrtc-integration.share.public": "Public sharing",
+    "comp.portal-wrtc-integration.share.public.new": "New public sharing",
     "comp.portal-wrtc-integration.share.public.placeholder": "Domain name",
     "comp.portal-wrtc-integration.share.public.notes": "<i>Examples:</i><ul><li>mysite.abc - for domain</li><li>localhost</li><li>null - when html content opened as file in browser</li></ul>",
     "comp.portal-wrtc-integration.share.public.token": "Token of {0}",
     "comp.portal-wrtc-integration.share.public.title": "Connection details: {0}",
     "comp.portal-wrtc-integration.share.public.details": "<b>Token:</b> <span style='user-select: all;'>{0}</span><br><b>Server Uuid:</b> <span style='user-select: all;'>{1}</span><br><b>Device Uuid:</b> <span style='user-select: all;'>{2}</span>",
 
-    "comp.portal-wrtc-integration.share.resetPassword.q": "Reset share password for {0} ?",
-    "comp.portal-wrtc-integration.share.resetPassword.success": "Share password successfully reset.\nEmail with generated password sent to target user.",
+    "comp.portal-wrtc-integration.share.resetPassword.q": "Reset sharing password for {0} ?",
+    "comp.portal-wrtc-integration.share.resetPassword.success": "Sharing password successfully reset.\nEmail with generated password sent to target user.",
     "comp.portal-wrtc-integration.share.add": "Share with '{0}'?",
 
     "comp.portal-wrtc-integration.share.accountShare.deleteQuest": "Stop sharing with account '{0}'?",
@@ -255,10 +255,10 @@
     "comp.portal-wrtc-integration.share.apiMethodsPermissions.scan*": "Scanning",
     "comp.portal-wrtc-integration.share.apiMethodsPermissions.read*": "Read",
     "comp.portal-wrtc-integration.share.apiMethodsPermissions.share": "Share",
-    "comp.portal-wrtc-integration.share.apiMethodsPermissions.shareThing": "Share thing",
+    "comp.portal-wrtc-integration.share.apiMethodsPermissions.shareThing": "Share component",
     "comp.portal-wrtc-integration.share.apiMethodsPermissions.readStatistics": "Statistics",
-    "comp.portal-wrtc-integration.share.apiMethodsPermissions.unShare": "Un-share",
-    "comp.portal-wrtc-integration.share.apiMethodsPermissions.unShareThing": "Un-share thing",
+    "comp.portal-wrtc-integration.share.apiMethodsPermissions.unShare": "Unshare",
+    "comp.portal-wrtc-integration.share.apiMethodsPermissions.unShareThing": "Unshare component",
     "comp.portal-wrtc-integration.share.apiMethodsPermissions.setPassword": "Change password",
     "comp.portal-wrtc-integration.share.apiMethodsPermissions.resetPassword": "Reset password",
 
@@ -848,9 +848,9 @@
     "playAudioFile": "Файл для прайгравання",
     "waitBeforeNextExecution": "Абмежаванне частаты прайгравання",
 
-    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction": "Action on component",
     "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
-    "targetThing": "Target thing",
+    "targetThing": "Target component",
 
     "com.banalytics.box.module.system.TaskActionAction": "Дзеянне над задачай",
     "com.banalytics.box.module.system.TaskActionAction.title": "Дзеянне: {0}",
@@ -1280,9 +1280,9 @@
     "playAudioFile": "Файл для відтворення",
     "waitBeforeNextExecution": "Обмеження частоти відтворення",
 
-    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction": "Action on component",
     "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
-    "targetThing": "Target thing",
+    "targetThing": "Target component",
 
     "com.banalytics.box.module.system.TaskActionAction": "Дія над завданням",
     "com.banalytics.box.module.system.TaskActionAction.title": "Дія: {0}",
@@ -1709,9 +1709,9 @@
     "playAudioFile": "Datei zum Abspielen",
     "waitBeforeNextExecution": "Begrenzung der Spielfrequenz",
 
-    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction": "Action on component",
     "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
-    "targetThing": "Target thing",
+    "targetThing": "Target component",
 
     "com.banalytics.box.module.system.TaskActionAction": "Aktion über Aufgabe",
     "com.banalytics.box.module.system.TaskActionAction.title": "Aktion: {0}",
@@ -2138,9 +2138,9 @@
     "playAudioFile": "Archivo para reproducir",
     "waitBeforeNextExecution": "Limitación de frecuencia de reproducción",
 
-    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction": "Action on component",
     "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
-    "targetThing": "Target thing",
+    "targetThing": "Target component",
 
     "com.banalytics.box.module.system.TaskActionAction": "Acción sobre tarea",
     "com.banalytics.box.module.system.TaskActionAction.title": "Acción: {0}",
@@ -2567,9 +2567,9 @@
     "playAudioFile": "Fichier à lire",
     "waitBeforeNextExecution": "Limitation de la fréquence de lecture",
 
-    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction": "Action on component",
     "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
-    "targetThing": "Target thing",
+    "targetThing": "Target component",
 
     "com.banalytics.box.module.system.TaskActionAction": "Action sur tâche",
     "com.banalytics.box.module.system.TaskActionAction.title": "Action : {0}",
@@ -2996,9 +2996,9 @@
     "playAudioFile": "Plik do odtworzenia",
     "waitBeforeNextExecution": "Ograniczenie częstotliwości odtwarzania",
 
-    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction": "Action on component",
     "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
-    "targetThing": "Target thing",
+    "targetThing": "Target component",
 
     "com.banalytics.box.module.system.TaskActionAction": "Akcja ponad zadaniem",
     "com.banalytics.box.module.system.TaskActionAction.title": "Akcja: {0}",
@@ -3426,9 +3426,9 @@
     "playAudioFile": "Файл для воспроизведения",
     "waitBeforeNextExecution": "Ограничение частоты воспроизведения",
 
-    "com.banalytics.box.module.system.ThingActionAction": "Action on Thing",
+    "com.banalytics.box.module.system.ThingActionAction": "Action on component",
     "com.banalytics.box.module.system.ThingActionAction.title": "Action: {0}",
-    "targetThing": "Target thing",
+    "targetThing": "Target component",
 
     "com.banalytics.box.module.system.TaskActionAction": "Действие над задачей",
     "com.banalytics.box.module.system.TaskActionAction.title": "Действие: {0}",

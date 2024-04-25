@@ -35,13 +35,13 @@ public enum MessageType {
 
     ENV_PWD_RST_MSG(EnvironmentPasswordResetMessage.class),
     /**
-     * Share / Unshare access to environment things
+     * Share / Unshare access to server components
      */
     ENV_SHARE_WITH_REQ(EnvironmentShareWithReq.class), ENV_SHARE_WITH_RES(EnvironmentShareWithRes.class),
     ENV_UN_SHARE_WITH_REQ(EnvironmentUnShareWithReq.class), ENV_UN_SHARE_WITH_RES(EnvironmentUnShareWithRes.class),
 
     /**
-     * Share / Unshare public access to environment things
+     * Share / Unshare public access to server components
      */
     ENV_PUB_SHARE_REQ(EnvironmentPublicShareReq.class), ENV_PUB_SHARE_RES(EnvironmentPublicShareRes.class),
     ENV_PUB_UN_SHARE_REQ(EnvironmentPublicUnShareReq.class), ENV_PUB_UN_SHARE_RES(EnvironmentPublicUnShareRes.class),
