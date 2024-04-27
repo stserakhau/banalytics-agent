@@ -1,10 +1,16 @@
 package com.banalytics.box.module.toys.quadrocopter;
 
+import com.banalytics.box.api.integration.webrtc.channel.NodeDescriptor;
+import com.banalytics.box.api.integration.webrtc.channel.events.position.GeoPositionEvent;
 import com.banalytics.box.module.AbstractThing;
 import com.banalytics.box.module.BoxEngine;
 import com.banalytics.box.module.toys.quadrocopter.model.Quadrocopter;
 import com.fazecast.jSerialComm.SerialPort;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.TimerTask;
+
+import static com.banalytics.box.service.SystemThreadsService.SYSTEM_TIMER;
 
 @Slf4j
 public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
@@ -39,6 +45,8 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
     }
 
 
+    private TimerTask droneStateTracker;
+
     @Override
     protected void doStart() throws Exception {
         if (!port.isOpen()) {
@@ -53,22 +61,32 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
         log.info("Port opened: {}", port.getPortDescription());
         this.quadrocopter = new Quadrocopter(
                 this.port,
-                configuration.checkCommandResponseInterval,
-                configuration.stateRequestCycleTickInterval,
-                configuration.imuRequestTik,
-                configuration.analogRequestTik,
-                configuration.attitudeRequestTik,
-                configuration.altitudeRequestTik,
                 configuration.engineStart,
                 configuration.engineMin,
                 configuration.engineRange
         );
+
+        this.droneStateTracker = new TimerTask() {
+            @Override
+            public void run() {
+                GeoPositionEvent gpe = new GeoPositionEvent(NodeDescriptor.NodeType.THING, QuadrocopterThing.this.getUuid(),
+                        getSelfClassName(), getTitle());
+                gpe.setAltitude(quadrocopter.altitude.altitude);
+                engine.fireEvent(gpe);
+            }
+        };
+        SYSTEM_TIMER.schedule(this.droneStateTracker, 2000, 500);
+
         this.quadrocopter.start();
     }
 
     @Override
     protected void doStop() throws Exception {
         quadrocopter.stop();
+        if (droneStateTracker != null) {
+            droneStateTracker.cancel();
+            droneStateTracker = null;
+        }
 //        if (port.isOpen()) {
 //            if (!port.closePort()) {
 //                log.error("Issue with closing the serial port: " + port);

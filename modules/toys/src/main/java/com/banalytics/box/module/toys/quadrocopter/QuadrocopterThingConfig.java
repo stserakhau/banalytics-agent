@@ -17,42 +17,6 @@ public class QuadrocopterThingConfig extends AbstractConfiguration {
     }, restartOnChange = true)
     public String serialPort;
 
-    @UIComponent(index = 30, type = ComponentType.int_input, required = true, uiConfig = {
-            @UIComponent.UIConfig(name = "min", value = "10"),
-            @UIComponent.UIConfig(name = "max", value = "100")
-    }, restartOnChange = true)
-    public int checkCommandResponseInterval = 50;
-
-    @UIComponent(index = 40, type = ComponentType.int_input, required = true, uiConfig = {
-            @UIComponent.UIConfig(name = "min", value = "10"),
-            @UIComponent.UIConfig(name = "max", value = "100")
-    }, restartOnChange = true)
-    public int stateRequestCycleTickInterval = 10;
-
-    @UIComponent(index = 50, type = ComponentType.int_input, required = true, uiConfig = {
-            @UIComponent.UIConfig(name = "min", value = "1"),
-            @UIComponent.UIConfig(name = "max", value = "100")
-    }, restartOnChange = true)
-    public int imuRequestTik = 5;
-
-    @UIComponent(index = 60, type = ComponentType.int_input, required = true, uiConfig = {
-            @UIComponent.UIConfig(name = "min", value = "1"),
-            @UIComponent.UIConfig(name = "max", value = "100")
-    }, restartOnChange = true)
-    public int analogRequestTik = 100;
-
-    @UIComponent(index = 70, type = ComponentType.int_input, required = true, uiConfig = {
-            @UIComponent.UIConfig(name = "min", value = "1"),
-            @UIComponent.UIConfig(name = "max", value = "100")
-    }, restartOnChange = true)
-    public int attitudeRequestTik = 5;
-
-    @UIComponent(index = 80, type = ComponentType.int_input, required = true, uiConfig = {
-            @UIComponent.UIConfig(name = "min", value = "1"),
-            @UIComponent.UIConfig(name = "max", value = "100")
-    }, restartOnChange = true)
-    public int altitudeRequestTik = 5;
-
     @UIComponent(index = 110, type = ComponentType.int_input, required = true, uiConfig = {
             @UIComponent.UIConfig(name = "min", value = "0"),
             @UIComponent.UIConfig(name = "max", value = "2000")

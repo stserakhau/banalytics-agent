@@ -8,13 +8,8 @@ import java.util.function.Consumer;
 
 import static com.banalytics.box.module.toys.quadrocopter.model.utils.PortUtils.send_message;
 
-@ToString(exclude = "onChangeCallback")
+@ToString
 public class IMU implements Consumer<ByteBuffer>, Command<Void> {
-    final Runnable onChangeCallback;
-
-    public IMU(Runnable onChangeCallback) {
-        this.onChangeCallback = onChangeCallback;
-    }
 
     public double accX;
     public double accY;
@@ -33,11 +28,6 @@ public class IMU implements Consumer<ByteBuffer>, Command<Void> {
         send_message(port, MSP_RAW_IMU, new byte[0]);
     }
 
-    double prevAccX = Double.MIN_VALUE;
-    double prevGyroX = 0;
-    double prevAccY = 0;
-    double prevGyroY = 0;
-
     @Override
     public void accept(ByteBuffer data) {
         this.accX = data.getShort(5) / 10.0;
@@ -51,7 +41,5 @@ public class IMU implements Consumer<ByteBuffer>, Command<Void> {
         this.magX = data.getShort(17);
         this.magY = data.getShort(19);
         this.magZ = data.getShort(21);
-
-        onChangeCallback.run();
     }
 }

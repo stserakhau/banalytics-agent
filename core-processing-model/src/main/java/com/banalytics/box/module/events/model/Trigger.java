@@ -17,6 +17,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.logging.log4j.util.Strings.isNotEmpty;
+
 /**
  * Condition:
  * <p>
@@ -39,7 +42,7 @@ public class Trigger {
 
     static {
         String localTz = System.getProperty("user.timezone");
-        if (StringUtils.isEmpty(localTz)) {
+        if (isEmpty(localTz)) {
             LOCAL_TIME_ZONE = ZoneId.systemDefault();
         } else {
             LOCAL_TIME_ZONE = ZoneId.of(localTz);
@@ -146,10 +149,10 @@ public class Trigger {
         public EventTypeConfig() {
         }
 
-        public EventTypeConfig(String className, Map<String, Object> configuration) {
+        public EventTypeConfig(String className, Map<String, Object> configuration, String nativeRule) {
             this.className = className;
             this.configuration = configuration;
-            init();
+            init(nativeRule);
         }
 
         public String getClassName() {
@@ -164,27 +167,27 @@ public class Trigger {
             return configuration;
         }
 
-        public void setConfiguration(Map<String, Object> configuration) {
+        public void setConfiguration(Map<String, Object> configuration, String nativeRule) {
             this.configuration = configuration;
-            init();
+            init(nativeRule);
         }
 
-        private void init() {
-            if (configuration == null || configuration.isEmpty()) {
+        private void init(String nativeRule) {
+
+            if (isEmpty(nativeRule) && (configuration == null || configuration.isEmpty())) {
                 filterNode = null;
             } else {
                 StringBuilder expression = new StringBuilder(100);
-
                 for (Map.Entry<String, Object> entry : configuration.entrySet()) {
-                    String k = entry.getKey();
-                    Object v = entry.getValue();
-                    if (v == null || (v instanceof String s && s.isEmpty())) {
+                    String key = entry.getKey();
+                    Object val = entry.getValue();
+                    if (val == null || (val instanceof String s && s.isEmpty())) {
                         continue;
                     }
-                    boolean isCollection = Collection.class.isAssignableFrom(v.getClass())
-                            || (v instanceof String && ((String) v).startsWith("["));
+                    boolean isCollection = Collection.class.isAssignableFrom(val.getClass())
+                            || (val instanceof String && ((String) val).startsWith("["));
 
-                    if (isCollection && ("[]".equals(v) || (v instanceof Collection c && c.size() == 0))) {
+                    if (isCollection && ("[]".equals(val) || (val instanceof Collection c && c.size() == 0))) {
                         continue;
                     }
 
@@ -194,11 +197,22 @@ public class Trigger {
 
                     expression
                             .append('(')
-                            .append(k).append(' ')
+                            .append(key).append(' ')
                             .append(isCollection ? " in " : " eq ")
-                            .append(v)
+                            .append(val)
                             .append(')');
                 }
+
+                if (isNotEmpty(nativeRule)) {
+                    if (!expression.isEmpty()) {
+                        expression.append(" and (");
+                    }
+                    expression.append(nativeRule);
+                    if (!expression.isEmpty()) {
+                        expression.append(")");
+                    }
+                }
+
                 try {
                     filterNode = expression.isEmpty() ? null : FilterTreeBuilder.parse(expression.toString(), Class.forName(className));
                 } catch (ClassNotFoundException e) {

@@ -1,8 +1,6 @@
 package com.banalytics.box.module.toys.quadrocopter.model.command;
 
 import com.fazecast.jSerialComm.SerialPort;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.nio.ByteBuffer;
@@ -11,14 +9,7 @@ import java.util.function.Consumer;
 import static com.banalytics.box.module.toys.quadrocopter.model.utils.PortUtils.send_message;
 
 @ToString
-
 public class Attitude implements Consumer<ByteBuffer>, Command<Void> {
-    final Runnable onChangeCallback;
-
-    public Attitude(Runnable onChangeCallback) {
-        this.onChangeCallback = onChangeCallback;
-    }
-
     /**
      * (x) крен -180..0..180
      */
@@ -44,7 +35,5 @@ public class Attitude implements Consumer<ByteBuffer>, Command<Void> {
         this.heading = data.getShort(5) / 10.0;
         this.pitch = data.getShort(7) / 10.0;
         this.roll = data.getShort(9);
-
-        this.onChangeCallback.run();
     }
 }

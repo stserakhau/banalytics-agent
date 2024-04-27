@@ -1,66 +1,118 @@
 {
   "en": {
     "group.toys": "Toys",
+
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Vector action",
-    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Vector action ({0})"
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Vector action ({0})",
+    "deviceUuid": "Device",
+    "stopThreshold": "Stop threshold",
+    "axisXIndex": "X-Axis",
+    "axisYIndex": "Y-Axis",
+    "axisZIndex": "Z-Axis",
+    "axisPowerIndex": "Power-Axis",
+    "reverseX": "Reverse X",
+    "reverseY": "Reverse Y",
+    "reverseZ": "Reverse Z",
+    "reversePower": "Reverse power",
+    "negativePowerAllowed": "Allow negative power",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction": "Set vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction.title": "Set vector action ({0})",
+    "transitionTimeMillis": "Transition (ms)",
+    "useRoll": "Use roll",
+    "usePitch": "Use pitch",
+    "useYaw": "Use yaw",
+    "useThrottle": "Use throttle",
+    "rollValue": "Set roll",
+    "pitchValue": "Set pitch",
+    "yawValue": "Set yaw",
+    "throttleValue": "Set throttle"
   },
-  "by" : {
+  "by": {
     "group.toys": "Цацкі",
+
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Дрон",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Дрон ({0})",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Вектарнае дзеянне",
-    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Вектарнае дзеянне ({0})"
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Вектарнае дзеянне ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction": "Set vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction.title": "Set vector action ({0})"
   },
-  "ua" : {
+  "ua": {
     "group.toys": "Іграшки",
+
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Дрон",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Дрон ({0})",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Векторна дія",
-    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Векторна дія ({0})"
-  },
-  "de" : {
-    "group.toys": "Spielzeug",
-  "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
-  "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Векторна дія ({0})",
 
-  "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Vektoraktion",
-  "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Vektoraktion ({0})"
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction": "Set vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction.title": "Set vector action ({0})"
   },
-  "es" : {
+  "de": {
+    "group.toys": "Spielzeug",
+
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Vektoraktion",
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Vektoraktion ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction": "Set vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction.title": "Set vector action ({0})"
+  },
+  "es": {
     "group.toys": "Juguetes",
+
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Acción vectorial",
-    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Acción vectorial ({0})"
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Acción vectorial ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction": "Set vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction.title": "Set vector action ({0})"
   },
-  "fr" : {
+  "fr": {
     "group.toys": "Jouets",
+
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Action vectorielle",
-    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Action vectorielle ({0})"
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Action vectorielle ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction": "Set vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction.title": "Set vector action ({0})"
   },
-  "pl" : {
+  "pl": {
     "group.toys": "Zabawki",
+
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Akcja wektorowa",
-    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Akcja wektorowa ({0})"
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Akcja wektorowa ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction": "Set vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction.title": "Set vector action ({0})"
   },
-  "ru" : {
+  "ru": {
     "group.toys": "Игрушки",
+
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Дрон",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Дрон ({0})",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Векторное действие",
-    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Векторное действие ({0})"
+    "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Векторное действие ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction": "Set vector action",
+    "com.banalytics.box.module.toys.quadrocopter.action.SetVectorAction.title": "Set vector action ({0})"
   }
 }

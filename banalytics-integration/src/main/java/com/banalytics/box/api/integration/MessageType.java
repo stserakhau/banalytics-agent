@@ -127,6 +127,7 @@ public enum MessageType {
     EVT_CONNECTION_STATE(ConnectionStateEvent.class),
     EVT_MOTION(MotionEvent.class),
     EVT_SOUND(SoundEvent.class),
+    EVT_GEO_POS(SoundEvent.class),
     EVT_SYS_MON(SystemMonitorEvent.class),
     EVT_FILE_CRT(FileCreatedEvent.class),
 

@@ -71,7 +71,7 @@ public class VectorAction extends AbstractAction<VectorActionConfig> {
                 if (abs(xSpeed) < configuration.stopThreshold) {
                     xSpeed = 0;
                 }
-                q.targetHeading(xSpeed * (configuration.reverseX ? -1 : 1));
+                q.targetRoll(xSpeed * (configuration.reverseX ? -1 : 1));
             }
 
             if (configuration.axisYIndex > -1) {
@@ -87,27 +87,25 @@ public class VectorAction extends AbstractAction<VectorActionConfig> {
                 if (abs(zSpeed) < configuration.stopThreshold) {
                     zSpeed = 0;
                 }
-                q.targetRoll(zSpeed * (configuration.reverseZ ? -1 : 1));
+                q.targetYaw(zSpeed * (configuration.reverseZ ? -1 : 1));
             }
 
             if (configuration.axisPowerIndex > -1) {
                 double powerPosition = gpe.axes[configuration.axisPowerIndex];
                 if (configuration.reversePower) {
                     if (configuration.negativePowerAllowed) {
-                        q.powerPosition(powerPosition);
+                        q.targetThrottle(powerPosition);
                     } else {
-                        q.powerPosition(1 - (powerPosition + 1) / 2);
+                        q.targetThrottle(1 - (powerPosition + 1) / 2);
                     }
                 } else {
                     if (configuration.negativePowerAllowed) {
-                        q.powerPosition(-powerPosition);
+                        q.targetThrottle(-powerPosition);
                     } else {
-                        q.powerPosition((powerPosition + 1) / 2);
+                        q.targetThrottle((powerPosition + 1) / 2);
                     }
                 }
             }
-
-            q.flushState();
         }
     }
 

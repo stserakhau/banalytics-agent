@@ -1,6 +1,9 @@
 package com.banalytics.box.module.toys.quadrocopter.model;
 
-import com.banalytics.box.module.toys.quadrocopter.model.command.*;
+import com.banalytics.box.module.toys.quadrocopter.model.command.Altitude;
+import com.banalytics.box.module.toys.quadrocopter.model.command.Analog;
+import com.banalytics.box.module.toys.quadrocopter.model.command.Attitude;
+import com.banalytics.box.module.toys.quadrocopter.model.command.IMU;
 import com.banalytics.box.module.toys.quadrocopter.model.utils.PortUtils;
 import com.fazecast.jSerialComm.SerialPort;
 import lombok.extern.slf4j.Slf4j;
@@ -10,27 +13,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static com.banalytics.box.module.toys.quadrocopter.model.command.Command.*;
 import static com.banalytics.box.module.toys.quadrocopter.model.utils.PortUtils.EMPTY;
 
 @Slf4j
 public class Quadrocopter {
-
-    private final IMU imu = new IMU(() -> {
-    });
-    private final Analog analog = new Analog();
-    private final Attitude attitude = new Attitude(this::flushState);
-    private final Altitude altitude = new Altitude();
+    public final IMU imu = new IMU();
+    public final Analog analog = new Analog();
+    public final Attitude attitude = new Attitude();
+    public final Altitude altitude = new Altitude();
 
     private final SerialPort port;
-    private final int checkCommandResponseInterval;
-    private final int stateRequestCycleTickInterval;
-    private final int imuRequestTik;
-    private final int analogRequestTik;
-    private final int attitudeRequestTik;
-    private final int altitudeRequestTik;
-
     private final int engineStart;
     private final int engineMin;
     private final int engineRange;
@@ -38,23 +35,11 @@ public class Quadrocopter {
 
     public Quadrocopter(
             SerialPort port,
-            int checkCommandResponseInterval,
-            int stateRequestCycleTickInterval,
-            int imuRequestTik,
-            int analogRequestTik,
-            int attitudeRequestTik,
-            int altitudeRequestTik,
             int engineStart,
             int engineMin,
             int engineRange
     ) {
         this.port = port;
-        this.checkCommandResponseInterval = checkCommandResponseInterval;
-        this.stateRequestCycleTickInterval = stateRequestCycleTickInterval;
-        this.imuRequestTik = imuRequestTik;
-        this.analogRequestTik = analogRequestTik;
-        this.attitudeRequestTik = attitudeRequestTik;
-        this.altitudeRequestTik = altitudeRequestTik;
         this.engineStart = engineStart;
         this.engineMin = engineMin;
         this.engineRange = engineRange;
@@ -72,7 +57,7 @@ public class Quadrocopter {
                 try {
                     int available;
                     while ((available = data.available()) == 0) {
-                        Thread.sleep(checkCommandResponseInterval);
+                        Thread.sleep(50);
                     }
                     if (available == -1) {//todo on stop/crash vm
                         break;
@@ -145,24 +130,24 @@ public class Quadrocopter {
             int counter = 0;
             while (!stateRequestor.isInterrupted()) {
                 try {
-                    Thread.sleep(stateRequestCycleTickInterval);
-                    if (counter % imuRequestTik == 0) {
+                    if (counter % 2 == 0) {// 10 times per second
                         imu.execute(port, null);
                     }
-                    if (counter % analogRequestTik == 0) {
+                    if (counter % 20 == 0) {// 1 time per second
                         analog.execute(port, null);
                     }
-                    if (counter % attitudeRequestTik == 0) {
+                    if (counter % 2 == 0) {// 10 times per second
                         attitude.execute(port, null);
                     }
-                    if (counter % altitudeRequestTik == 0) {
+                    if (counter % 20 == 0) {// 10 time per second
                         altitude.execute(port, null);
                     }
+                    counter++;
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     log.info("State requestor thread stopped");
                     break;
                 }
-                counter++;
             }
         }
     });
@@ -176,30 +161,91 @@ public class Quadrocopter {
     }
 
     /**
-     * @param targetHeading - value in range -1..0..1
-     */
-    public void targetHeading(double targetHeading) {
-        this.roll = (short) (1500 + targetHeading * 500);
-    }
-
-    /**
      * @param targetRoll - value in range -1..0..1
      */
     public void targetRoll(double targetRoll) {
-        this.yaw = (short) (1500 + targetRoll * 500);
+        this.roll = (short) (1500 + targetRoll * 500);
+    }
+
+    /**
+     * @param targetYaw - value in range -1..0..1
+     */
+    public void targetYaw(double targetYaw) {
+        this.yaw = (short) (1500 + targetYaw * 500);
     }
 
     /**
      * @param targetThrottle - value in range 0..1
      */
-    public void powerPosition(double targetThrottle) {
+    public void targetThrottle(double targetThrottle) {
         this.throttle = (short) (engineMin + targetThrottle * engineRange);
+    }
+
+    private Thread transitionJob;
+    private final Object LOCK = new Object();
+
+    public void runTransition(int transitionTimeMillis, Double rollValue, Double pitchValue, Double yawValue, Double throttleValue) {
+        final int transitionTickMillis = 50;
+
+        if (transitionTimeMillis < transitionTickMillis) {
+            if (pitchValue != null) {
+                this.targetPitch(pitchValue);
+            }
+            if (rollValue != null) {
+                this.targetRoll(rollValue);
+            }
+            if (yawValue != null) {
+                this.targetYaw(yawValue);
+            }
+            if (throttleValue != null) {
+                this.targetThrottle(throttleValue);
+            }
+            return;
+        }
+        synchronized (LOCK) {
+            if (transitionJob != null) {
+                transitionJob.interrupt();
+            }
+
+            double dRoll = rollValue == null ? 0 : (1500 - this.roll + rollValue * 500) / transitionTimeMillis;
+            double dPitch = pitchValue == null ? 0 : (1500 - this.pitch + pitchValue * 500) / transitionTimeMillis;
+            double dYaw = yawValue == null ? 0 : (1500 - this.yaw + yawValue * 500) / transitionTimeMillis;
+            double dThrottle = throttleValue == null ? 0 : (this.engineStart - this.throttle + throttleValue * engineRange) / transitionTimeMillis;
+
+            transitionJob = new Thread(() -> {
+                double roll = this.roll;
+                double pitch = this.pitch;
+                double yaw = this.yaw;
+                double throttle = this.throttle;
+
+                for (int t = 0; t < transitionTimeMillis; t += transitionTickMillis) {
+                    roll += dRoll * transitionTickMillis;
+                    this.roll = (short) roll;
+
+                    pitch += dPitch * transitionTickMillis;
+                    this.pitch = (short) pitch;
+
+                    yaw += dYaw * transitionTickMillis;
+                    this.yaw = (short) yaw;
+
+                    throttle += dThrottle * transitionTickMillis;
+                    this.throttle = (short) throttle;
+
+                    try {
+                        Thread.sleep(transitionTickMillis);
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                }
+            });
+            transitionJob.start();
+        }
     }
 
     short roll = 1500;
     short pitch = 1500;
-    short throttle; // initializes with engineStart value
     short yaw = 1500;
+    short throttle; // initializes with engineStart value
 
     short[] aux = new short[14];
 
@@ -255,11 +301,6 @@ public class Quadrocopter {
         port.closePort();
         System.out.println("!!! STOPPED !!!");
     }
-
-    public void flushState() {
-
-    }
-
 
     private static void sendMSPSetRawRC(SerialPort port,
                                         short roll, short pitch, short throttle, short yaw,
