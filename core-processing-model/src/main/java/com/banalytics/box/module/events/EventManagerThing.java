@@ -2,7 +2,10 @@ package com.banalytics.box.module.events;
 
 import com.banalytics.box.TimeUtil;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
-import com.banalytics.box.api.integration.webrtc.channel.events.measurement.*;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.GPSEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.GravityEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.GyroscopeEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.measurement.KeyboardEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GPAxisChangeEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GPButtonChangeEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GamePadStateChangedEvent;
@@ -151,7 +154,6 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
     private static final String PARAM_RULE_ACTION_UUID = "actionUuid";
     private static final String PARAM_RULE_CLAZZ = "clazz";
     private static final String PARAM_RULE_CLAZZ_CONFIGURATION = "configuration";
-    private static final String PARAM_NATIVE_RULE_CONFIGURATION = "nativeRule";
     private static final String PARAM_EVENT_TYPE = "eventType";
     private static final String PARAM_RULE_CRON_EXPRS = "cronExpressions";
 
@@ -379,7 +381,6 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
                 String ruleId = (String) params.get(PARAM_RULE_UUID);
                 UUID uuid = UUID.fromString(ruleId);
                 String clazz = (String) params.get(PARAM_RULE_CLAZZ);
-                String nativeRule = (String) params.get(PARAM_NATIVE_RULE_CONFIGURATION);
                 Map<String, Object> configuration = (Map<String, Object>) params.get(PARAM_RULE_CLAZZ_CONFIGURATION);
                 for (Rule r : this.rules) {
                     if (r.getUuid().equals(uuid)) {
@@ -387,13 +388,13 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
                         boolean found = false;
                         for (Trigger.EventTypeConfig config : configs) {
                             if (config.getClassName().equals(clazz)) {
-                                config.setConfiguration(configuration, nativeRule);
+                                config.setConfiguration(configuration);
                                 found = true;
                                 break;
                             }
                         }
                         if (!found) {
-                            configs.add(new Trigger.EventTypeConfig(clazz, configuration, nativeRule));
+                            configs.add(new Trigger.EventTypeConfig(clazz, configuration));
                         }
                         rescheduleRule(r, false);
                         persistRules();

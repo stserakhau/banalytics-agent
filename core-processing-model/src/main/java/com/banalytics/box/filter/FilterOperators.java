@@ -14,17 +14,113 @@ public enum FilterOperators {
         try {
             String propertyName = (String) left.value;
             Object propertyValue = PropertyUtils.getProperty(obj, propertyName);
-            if(propertyValue instanceof String){
+            if (propertyValue instanceof String) {
                 propertyValue = ((String) propertyValue).replaceAll("[\\(\\)]", "");
             }
             if (propertyValue != null) {
                 Object val = right != null ? right.value : null;
                 val = getCustomTypedValue(obj.getClass(), (String) left.value, val);
-                if(propertyValue.getClass().isEnum()) {
-                    return val.equals(((Enum)propertyValue).name());
+                if (propertyValue.getClass().isEnum()) {
+                    return val.equals(((Enum) propertyValue).name());
                 } else {
                     return val.equals(propertyValue);
                 }
+            } else {
+                return false;
+            }
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }),
+    ge(1, (obj, left, right) -> {
+        try {
+            String propertyName = (String) left.value;
+            Object propertyValue = PropertyUtils.getProperty(obj, propertyName);
+            if (propertyValue instanceof String) {
+                propertyValue = ((String) propertyValue).replaceAll("[\\(\\)]", "");
+            }
+            if (propertyValue != null) {
+                Object val = right != null ? right.value : null;
+                val = getCustomTypedValue(obj.getClass(), (String) left.value, val);
+                if (val == null) {
+                    return false;
+                }
+                if (propertyValue instanceof Number pv && val instanceof Number v) {
+                    return pv.doubleValue() >= v.doubleValue();
+                }
+                return false;
+            } else {
+                return false;
+            }
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }),
+    gt(1, (obj, left, right) -> {
+        try {
+            String propertyName = (String) left.value;
+            Object propertyValue = PropertyUtils.getProperty(obj, propertyName);
+            if (propertyValue instanceof String) {
+                propertyValue = ((String) propertyValue).replaceAll("[\\(\\)]", "");
+            }
+            if (propertyValue != null) {
+                Object val = right != null ? right.value : null;
+                val = getCustomTypedValue(obj.getClass(), (String) left.value, val);
+                if (val == null) {
+                    return false;
+                }
+                if (propertyValue instanceof Number pv && val instanceof Number v) {
+                    return pv.doubleValue() > v.doubleValue();
+                }
+                return false;
+            } else {
+                return false;
+            }
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }),
+    le(1, (obj, left, right) -> {
+        try {
+            String propertyName = (String) left.value;
+            Object propertyValue = PropertyUtils.getProperty(obj, propertyName);
+            if (propertyValue instanceof String) {
+                propertyValue = ((String) propertyValue).replaceAll("[\\(\\)]", "");
+            }
+            if (propertyValue != null) {
+                Object val = right != null ? right.value : null;
+                val = getCustomTypedValue(obj.getClass(), (String) left.value, val);
+                if (val == null) {
+                    return false;
+                }
+                if (propertyValue instanceof Number pv && val instanceof Number v) {
+                    return pv.doubleValue() <= v.doubleValue();
+                }
+                return false;
+            } else {
+                return false;
+            }
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }),
+    lt(1, (obj, left, right) -> {
+        try {
+            String propertyName = (String) left.value;
+            Object propertyValue = PropertyUtils.getProperty(obj, propertyName);
+            if (propertyValue instanceof String) {
+                propertyValue = ((String) propertyValue).replaceAll("[\\(\\)]", "");
+            }
+            if (propertyValue != null) {
+                Object val = right != null ? right.value : null;
+                val = getCustomTypedValue(obj.getClass(), (String) left.value, val);
+                if (val == null) {
+                    return false;
+                }
+                if (propertyValue instanceof Number pv && val instanceof Number v) {
+                    return pv.doubleValue() < v.doubleValue();
+                }
+                return false;
             } else {
                 return false;
             }
@@ -39,17 +135,17 @@ public enum FilterOperators {
 
             if (propertyValue != null) {
                 Object val = right != null ? right.value : null;
-                if(propertyValue instanceof Collection) {
+                if (propertyValue instanceof Collection) {
                     for (Object o : ((Collection) propertyValue)) {
-                        if(o.toString().equals(val.toString())) {
+                        if (o.toString().equals(val.toString())) {
                             return true;
                         }
                     }
                     return false;
-                } else if(propertyValue instanceof Map) {
-                    Map map = (Map)propertyValue;
+                } else if (propertyValue instanceof Map) {
+                    Map map = (Map) propertyValue;
                     for (Object o : map.keySet()) {
-                        if(o.toString().equals(val)){
+                        if (o.toString().equals(val)) {
                             return true;
                         }
                     }
@@ -71,18 +167,18 @@ public enum FilterOperators {
             Collection values = getCustomTypedValueCollection(obj.getClass(), (String) left.value, right.value);
             String propertyName = (String) left.value;
             Object propertyValue = PropertyUtils.getProperty(obj, propertyName);
-            if(Object[].class.isAssignableFrom(propertyValue.getClass())) {
-                Object[] vals = (Object[])propertyValue;
-                for(Object val : vals){
-                    if(values.contains(val)){
+            if (Object[].class.isAssignableFrom(propertyValue.getClass())) {
+                Object[] vals = (Object[]) propertyValue;
+                for (Object val : vals) {
+                    if (values.contains(val)) {
                         return true;
                     }
                 }
                 return false;
-            } else if(Collection.class.isAssignableFrom(propertyValue.getClass())) {
-                Collection vals = (Collection)propertyValue;
-                for(Object val : vals){
-                    if(values.contains(val)){
+            } else if (Collection.class.isAssignableFrom(propertyValue.getClass())) {
+                Collection vals = (Collection) propertyValue;
+                for (Object val : vals) {
+                    if (values.contains(val)) {
                         return true;
                     }
                 }

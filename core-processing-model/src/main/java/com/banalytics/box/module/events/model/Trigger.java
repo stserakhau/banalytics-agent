@@ -11,7 +11,6 @@ import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.model.time.ExecutionTime;
 import com.cronutils.parser.CronParser;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -38,6 +37,8 @@ import static org.apache.logging.log4j.util.Strings.isNotEmpty;
  */
 @Slf4j
 public class Trigger {
+    private static final String PARAM_NATIVE_RULE_CONFIGURATION = "nativeRule";
+
     private static final ZoneId LOCAL_TIME_ZONE;
 
     static {
@@ -149,10 +150,10 @@ public class Trigger {
         public EventTypeConfig() {
         }
 
-        public EventTypeConfig(String className, Map<String, Object> configuration, String nativeRule) {
+        public EventTypeConfig(String className, Map<String, Object> configuration) {
             this.className = className;
             this.configuration = configuration;
-            init(nativeRule);
+            init();
         }
 
         public String getClassName() {
@@ -167,16 +168,17 @@ public class Trigger {
             return configuration;
         }
 
-        public void setConfiguration(Map<String, Object> configuration, String nativeRule) {
+        public void setConfiguration(Map<String, Object> configuration) {
             this.configuration = configuration;
-            init(nativeRule);
+            init();
         }
 
-        private void init(String nativeRule) {
-
-            if (isEmpty(nativeRule) && (configuration == null || configuration.isEmpty())) {
+        private void init() {
+            if (configuration == null || configuration.isEmpty()) {
                 filterNode = null;
             } else {
+                String nativeRule = (String) configuration.remove(PARAM_NATIVE_RULE_CONFIGURATION); // remove nativeRule and put below
+
                 StringBuilder expression = new StringBuilder(100);
                 for (Map.Entry<String, Object> entry : configuration.entrySet()) {
                     String key = entry.getKey();
@@ -203,12 +205,15 @@ public class Trigger {
                             .append(')');
                 }
 
+                configuration.put(PARAM_NATIVE_RULE_CONFIGURATION, nativeRule);                     // return nativeRule
+
                 if (isNotEmpty(nativeRule)) {
-                    if (!expression.isEmpty()) {
+                    boolean emptyExpr = expression.isEmpty();
+                    if (!emptyExpr) {
                         expression.append(" and (");
                     }
                     expression.append(nativeRule);
-                    if (!expression.isEmpty()) {
+                    if (!emptyExpr) {
                         expression.append(")");
                     }
                 }
