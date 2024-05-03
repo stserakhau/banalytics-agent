@@ -164,9 +164,9 @@ public class EventManagerThing extends AbstractThing<EventManagerThingConfig> im
 
     @Override
     public Object call(Map<String, Object> params) throws Exception {
-        if (state != State.RUN) {
-            throw new Exception("Thing uninitialized");
-        }
+//        if (state != State.RUN) {
+//            throw new Exception("Thing uninitialized");
+//        }
         String method = (String) params.get(PARAM_METHOD);
         switch (method) {
             case "readRules" -> {

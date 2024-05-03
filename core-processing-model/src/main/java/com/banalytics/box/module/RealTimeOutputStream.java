@@ -5,18 +5,15 @@ import com.banalytics.box.module.MediaConsumer.MediaData.MediaType;
 import com.banalytics.box.module.webrtc.PortalWebRTCIntegrationConfiguration;
 import com.banalytics.box.service.utility.TrafficControl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class RealTimeOutputStream extends OutputStream {
     private final PortalWebRTCIntegrationConfiguration configuration;
-
-    private final int streamId;
 
     private final MediaType mediaType;
 
@@ -25,9 +22,11 @@ public class RealTimeOutputStream extends OutputStream {
     private byte[] flushBuffer;
     private int bufferPosition = 0;
 
-    public RealTimeOutputStream(PortalWebRTCIntegrationConfiguration configuration, int streamId, MediaType mediaType) {
+    public RealTimeOutputStream(PortalWebRTCIntegrationConfiguration configuration, MediaType mediaType) {
         this.configuration = configuration;
-        this.streamId = streamId;
+        PortalWebRTCIntegrationConfiguration.ImageSize is = configuration.getPreviewMediaStreamSize();
+        this.currentWidth = is.width;
+        this.currentHeight = is.height;
         this.mediaType = mediaType;
         if (mediaType == MediaType.AUDIO) {
             initializeBuffer(1600);
@@ -59,17 +58,17 @@ public class RealTimeOutputStream extends OutputStream {
         bufferPosition = 0;
     }
 
-    private List<MediaConsumer> packetConsumers = new ArrayList<>();
+    private Map<Integer, MediaConsumer> packetConsumers = new HashMap<>();
 
-    public void addPacketConsumer(MediaConsumer consumer) {
-        List<MediaConsumer> packetConsumers = new ArrayList<>(this.packetConsumers);
-        packetConsumers.add(consumer);
+    public void addPacketConsumer(int streamId, MediaConsumer consumer) {
+        Map<Integer, MediaConsumer> packetConsumers = new HashMap<>(this.packetConsumers);
+        packetConsumers.put(streamId, consumer);
         this.packetConsumers = packetConsumers;
     }
 
-    public void removePacketConsumer(MediaConsumer consumer) {
-        List<MediaConsumer> packetConsumers = new ArrayList<>(this.packetConsumers);
-        packetConsumers.remove(consumer);
+    public void removePacketConsumer(int streamId) {
+        Map<Integer, MediaConsumer> packetConsumers = new HashMap<>(this.packetConsumers);
+        packetConsumers.remove(streamId);
         this.packetConsumers = packetConsumers;
     }
 
@@ -108,12 +107,20 @@ public class RealTimeOutputStream extends OutputStream {
             } catch (Throwable e) {
                 throw new IOException(e);
             }
-            for (MediaConsumer consumer : packetConsumers) {
+
+            packetConsumers.forEach((streamId, mediaConsumer) -> {
                 if (mediaType == MediaType.AUDIO) {
                     log.info("Send audio packet: " + sendData.length);
                 }
-                consumer.accept(MediaData.of(streamId, mediaType, sendData));
-            }
+                mediaConsumer.accept(MediaData.of(streamId, mediaType, sendData));
+            });
+
+//            for (MediaConsumer consumer : packetConsumers) {
+//                if (mediaType == MediaType.AUDIO) {
+//                    log.info("Send audio packet: " + sendData.length);
+//                }
+//                consumer.accept(MediaData.of(streamId, mediaType, sendData));
+//            }
             if (TrafficControl.INSTANCE.hasGeneralOnFlightOverhead()) {
                 decreaseQuality(true);
             }
@@ -172,13 +179,13 @@ public class RealTimeOutputStream extends OutputStream {
 
     public void setRequestedImageSize(int requestedImageWidth, int requestedImageHeight) {
         log.debug("Requested image size {}x{}", requestedImageWidth, requestedImageHeight);
-        if (this.requestedImageWidth != requestedImageWidth || this.requestedImageHeight != requestedImageHeight) {
-            if (doUpateImageSize(requestedImageWidth, this.requestedImageWidth)) {
-                this.requestedImageWidth = requestedImageWidth;
-                this.requestedImageHeight = requestedImageHeight;
-                reCalcCurrentSize();
-                updateMaxBitrate();
-            }
+        PortalWebRTCIntegrationConfiguration.ImageSize is = configuration.getPreviewMediaStreamSize();
+
+        if (doUpdateImageSize(requestedImageWidth, requestedImageHeight)) {
+            this.requestedImageWidth = is.width;
+            this.requestedImageHeight = is.height;
+            reCalcCurrentSize();
+            updateMaxBitrate();
         }
     }
 
@@ -194,7 +201,7 @@ public class RealTimeOutputStream extends OutputStream {
 
     public void setStreamSize(int imageWidth, int imageHeight) {
         if (this.imageWidth != imageWidth || this.imageHeight != imageHeight) {
-            if (doUpateImageSize(imageWidth, this.imageWidth)) {
+            if (doUpdateImageSize(imageWidth, this.imageWidth)) {
                 this.imageWidth = imageWidth;
                 this.imageHeight = imageHeight;
                 reCalcCurrentSize();
@@ -205,27 +212,30 @@ public class RealTimeOutputStream extends OutputStream {
 
     //if image width request lower than 20% don't do anything
     //the same logic in media stream view
-    private boolean doUpateImageSize(int currWidth, int prevWidth) {
-        double deltaWidth = Math.abs(currWidth - prevWidth);
-        return deltaWidth >= 100;
+    private boolean doUpdateImageSize(int width, int height) {
+        return requestedImageWidth != width || requestedImageHeight != height;
     }
 
     private void reCalcCurrentSize() {
-        if (requestedImageWidth < 160 || requestedImageHeight < 100) {
-            requestedImageWidth = 160;
-            requestedImageHeight = 100;
+        PortalWebRTCIntegrationConfiguration.ImageSize is = configuration.getPreviewMediaStreamSize();
+//        if (requestedImageWidth < is.width || requestedImageHeight < is.height) {
+//            requestedImageWidth = is.width;
+//            requestedImageHeight = is.height;
+//        }
+        if (imageWidth < is.width || imageHeight < is.height) {
+            currentWidth = imageWidth;
+            currentHeight = imageHeight;
+        } else {
+            currentWidth = is.width;
+            currentHeight = is.height;
         }
-        if (imageWidth < 160 || imageHeight < 100) {
-            imageWidth = 160;
-            imageHeight = 100;
-        }
-
-        double scaling = 1;
-        if (requestedImageWidth < imageWidth) {
-            scaling = (double) requestedImageWidth / imageWidth;
-        }
-        currentWidth = (int) (scaling * imageWidth);
-        currentHeight = (int) (scaling * imageHeight);
+//
+//        double scaling = 1;
+//        if (requestedImageWidth < imageWidth) {
+//            scaling = (double) requestedImageWidth / imageWidth;
+//        }
+//        currentWidth = (int) (scaling * imageWidth);
+//        currentHeight = (int) (scaling * imageHeight);
 
         propsChanged = true;
 
@@ -241,7 +251,7 @@ public class RealTimeOutputStream extends OutputStream {
 
     private void updateMaxBitrate() {
         if (configuration.rtMediaQualityStrategy == PortalWebRTCIntegrationConfiguration.QualityStrategy.DYNAMIC) {
-            int units = (int) Math.ceil(requestedImageWidth / 200.0);
+            int units = (int) Math.ceil(currentWidth / 200.0);
             units = (units == 0 ? 1 : units);
             this.maxBitrate = units * configuration.rtMediaQualityProfile.videoBitrate;
         } else {

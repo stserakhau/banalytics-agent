@@ -128,7 +128,7 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         this.qualityControl = new TimerTask() {
             @Override
             public void run() {
-                if(portalWebRTCIntegrationThing.getConfiguration().adaptiveBitrate) {
+                if (portalWebRTCIntegrationThing.getConfiguration().adaptiveBitrate) {
                     int ttlfCnt = totalVideoFrameCounter.get();
                     int skfCnt = skippedVideoFrameCounter.get();
                     totalVideoFrameCounter.set(0);
@@ -198,8 +198,9 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
     }
 
     private final AtomicBoolean sendingFrame = new AtomicBoolean(false);
+
     protected void mediaStreamToClient(Frame sourceFrame, double frameRate) throws Exception {
-        if (consumerVideoStreamMap.isEmpty() && consumerList.isEmpty()) {
+        if (rtVideoStream == null && consumerList.isEmpty()) {
             return;
         }
         boolean isVideo = sourceFrame.getTypes().contains(Frame.Type.VIDEO);
@@ -213,12 +214,12 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
             this.consumerList = new ArrayList<>();
             final Frame screenShot = sourceFrame.clone();
             SystemThreadsService.execute(this, () -> {
-                try(screenShot) {
+                try (screenShot) {
                     sendScreen(localConsumerList, screenShot);
                 }
             });
         }
-        if (!consumerVideoStreamMap.isEmpty()) {
+        if (rtVideoStream != null) {
             totalVideoFrameCounter.incrementAndGet();
             int frameNum = 0;
             if (isVideo) {
@@ -254,99 +255,102 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
         }
     }
 
-//    private final Object recordWriteLock = new Object();
+    //    private final Object recordWriteLock = new Object();
     private final Object LOCK = new Object();
+
     private void recordFrame(Frame frame, double frameRate) throws Exception {
         synchronized (LOCK) {
             if (increaseQuality < 0) {
-                for (RealTimeOutputStream rts : consumerVideoStreamMap.values()) {
-                    rts.decreaseQuality(increaseQuality < -1);
-                }
+//                for (RealTimeOutputStream rts : consumerVideoStreamMap.values()) {
+//                    rts.decreaseQuality(increaseQuality < -1);
+//                }
+//                rtVideoStream.decreaseQuality(increaseQuality < -1);
             }
             if (frame.getTypes().contains(Frame.Type.AUDIO)) {
-                for (RealTimeOutputStream stream : consumerAudioStreamMap.values()) {
-                    if (stream.hasConsumers()) {
-                        FFmpegFrameRecorder rtAudioRecorder = audioStreamRecorderMap.get(stream);
-                        if (rtAudioRecorder == null) {
-                            rtAudioRecorder = createRealTimeAudioRecorder(stream);
-                            rtAudioRecorder.start();
-                            audioStreamRecorderMap.put(stream, rtAudioRecorder);
-                        }
+                RealTimeOutputStream stream = rtAudioStream;
+                if (stream.hasConsumers()) {
+                    FFmpegFrameRecorder rtAudioRecorder = audioStreamRecorder;//audioStreamRecorderMap.get(stream);
+                    if (rtAudioRecorder == null) {
+                        rtAudioRecorder = createRealTimeAudioRecorder(stream);
+                        rtAudioRecorder.start();
+//                            audioStreamRecorderMap.put(stream, rtAudioRecorder);
+                        audioStreamRecorder = rtAudioRecorder;
+                    }
 
-                        long fts = frame.timestamp;
-                        long rts = rtAudioRecorder.getTimestamp();
-                        if (fts < rts) {
-                            frame.timestamp = rts + 10;
-                        }
+                    long fts = frame.timestamp;
+                    long rts = rtAudioRecorder.getTimestamp();
+                    if (fts < rts) {
+                        frame.timestamp = rts + 10;
+                    }
 
-                        try {
-                            log.info("Write Audio frame");
-                            rtAudioRecorder.recordSamples(frame.sampleRate, frame.audioChannels, frame.samples);
-                        } catch (FFmpegFrameRecorder.Exception e) {
-                            log.error(e.getMessage(), e);
-                            freeRTAudioRecorder(stream);
-                        }
-                    } else {
+                    try {
+                        log.info("Write Audio frame");
+                        rtAudioRecorder.recordSamples(frame.sampleRate, frame.audioChannels, frame.samples);
+                    } catch (FFmpegFrameRecorder.Exception e) {
+                        log.error(e.getMessage(), e);
                         freeRTAudioRecorder(stream);
                     }
+                } else {
+                    freeRTAudioRecorder(stream);
                 }
             }
             if (frame.getTypes().contains(Frame.Type.VIDEO)) {
-                for (RealTimeOutputStream stream : consumerVideoStreamMap.values()) {
-                    if (increaseQuality > 0) {
-                        stream.increaseQuality();
-                    }
-                    if (stream.hasConsumers()) {
-                        RecorderWrapper rtVideoRecorderWrapper = videoStreamRecorderMap.get(stream);
+                RealTimeOutputStream stream = rtVideoStream;
+                if (increaseQuality > 0) {
+                    stream.increaseQuality();
+                }
+                if (stream.hasConsumers()) {
+//                    RecorderWrapper rtVideoRecorderWrapper = recorderWrapper;//videoStreamRecorderMap.get(stream);
 
-                        stream.setStreamSize(frame.imageWidth, frame.imageHeight);
-                        stream.setFps(frameRate);
-                        {//video stream part
-                            double fpsDeviation = 1;
-                            if (rtVideoRecorderWrapper != null) {
-                                fpsDeviation = Math.min(rtVideoRecorderWrapper.fps, frameRate) / Math.max(rtVideoRecorderWrapper.fps, frameRate);
-                            }
+                    stream.setStreamSize(frame.imageWidth, frame.imageHeight);
+                    stream.setFps(frameRate);
+                    {//video stream part
+                        double fpsDeviation = 1;
+                        if (recorderWrapper != null) {
+                            fpsDeviation = Math.min(recorderWrapper.fps, frameRate) / Math.max(recorderWrapper.fps, frameRate);
+                        }
 
-                            if (stream.propsChanged || stream.bitrateChanged || fpsDeviation < 0.98) {
-                                stream.propsChanged = false;
-                                stream.bitrateChanged = false;
-                                //                    log.info("Stream properties changed");
-                                freeRTVideoRecorder(stream);
-                                rtVideoRecorderWrapper = null;
-                            }
-                            if (rtVideoRecorderWrapper == null) {
+                        if (stream.propsChanged || stream.bitrateChanged || fpsDeviation < 0.98) {
+                            stream.propsChanged = false;
+                            stream.bitrateChanged = false;
+                            //                    log.info("Stream properties changed");
+                            freeRTVideoRecorder();
+                            recorderWrapper = null;
+                        }
+                        if (recorderWrapper == null) {
 //                                    System.out.println("========>>>>>>>>>> stream bitrate " + stream.bitrate());
-                                FFmpegFrameRecorder rtVideoRecorder = createRealTimeVideoStreamRecorder(stream.bitrate(), frameRate, stream.currentWidth, stream.currentHeight, aspectRatio, stream);
-                                rtVideoRecorderWrapper = new RecorderWrapper(frameRate, rtVideoRecorder);
-                                //                    log.info("Recorder created ({}): {}x{} / {} / {}", realTimeRecorder, stream.currentWidth, stream.currentHeight, frameRate, stream.bitrate());
-                                rtVideoRecorder.start();
-                                //                    realTimeRecorder.startUnsafe();
-                                //                    log.info("Recorder started");
-                                videoStreamRecorderMap.put(stream, rtVideoRecorderWrapper);
-                            }
+                            FFmpegFrameRecorder rtVideoRecorder = createRealTimeVideoStreamRecorder(stream.bitrate(), frameRate, stream.currentWidth, stream.currentHeight, aspectRatio, stream);
+                            recorderWrapper = new RecorderWrapper(frameRate, rtVideoRecorder);
+                            //                    log.info("Recorder created ({}): {}x{} / {} / {}", realTimeRecorder, stream.currentWidth, stream.currentHeight, frameRate, stream.bitrate());
+                            rtVideoRecorder.start();
+                            //                    realTimeRecorder.startUnsafe();
+                            //                    log.info("Recorder started");
+//                                videoStreamRecorderMap.put(stream, rtVideoRecorderWrapper);
+//                            recorderWrapper = rtVideoRecorderWrapper;
                         }
-                        long fts = frame.timestamp;
-                        long rts = rtVideoRecorderWrapper.recorder.getTimestamp();
-                        if (fts < rts) {
-                            frame.timestamp = rts + 10;
-                        }
-
-                        try {
-                            rtVideoRecorderWrapper.recorder.record(frame);
-                        } catch (FFmpegFrameRecorder.Exception e) {
-                            log.error("Writing frame failed: {}", e.getMessage());
-                            freeRTVideoRecorder(stream);
-                        }
-                    } else {
-                        freeRTVideoRecorder(stream);
                     }
+                    long fts = frame.timestamp;
+                    long rts = recorderWrapper.recorder.getTimestamp();
+                    if (fts < rts) {
+                        frame.timestamp = rts + 10;
+                    }
+
+                    try {
+                        recorderWrapper.recorder.record(frame);
+                    } catch (FFmpegFrameRecorder.Exception e) {
+                        log.error("Writing frame failed: {}", e.getMessage());
+                        freeRTVideoRecorder();
+                    }
+                } else {
+                    freeRTVideoRecorder();
                 }
             }
         }
     }
 
-    private void freeRTVideoRecorder(RealTimeOutputStream stream) throws Exception {
-        RecorderWrapper realTimeRecorder = videoStreamRecorderMap.remove(stream);
+    private void freeRTVideoRecorder() throws Exception {
+        RecorderWrapper realTimeRecorder = recorderWrapper;//videoStreamRecorderMap.remove(stream);
+        recorderWrapper = null;
         if (realTimeRecorder != null) {
 //            log.info("Recorder stopped: {}", realTimeRecorder);
             realTimeRecorder.recorder.stop();
@@ -355,75 +359,90 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
             } catch (InterruptedException e) {
                 //todo skip interruption exception
             } finally {
-                stream.flush();
+                rtVideoStream.flush();
             }
         }
     }
 
     private void freeRTAudioRecorder(RealTimeOutputStream stream) throws Exception {
-        FFmpegFrameRecorder realTimeRecorder = audioStreamRecorderMap.remove(stream);
+        FFmpegFrameRecorder realTimeRecorder = audioStreamRecorder;//audioStreamRecorderMap.remove(stream);
+        audioStreamRecorder = null;
         if (realTimeRecorder != null) {
 //            log.info("Recorder stopped: {}", realTimeRecorder);
             realTimeRecorder.stop();
             Thread.sleep(50);
-            stream.flush();
+            rtAudioStream.flush();
         }
     }
 
-    private final Map<MediaConsumer, RealTimeOutputStream> consumerVideoStreamMap = new ConcurrentHashMap<>();
-    private final Map<RealTimeOutputStream, RecorderWrapper> videoStreamRecorderMap = new ConcurrentHashMap<>();
+    //    private final Map<MediaConsumer, RealTimeOutputStream> consumerVideoStreamMap = new ConcurrentHashMap<>();
+    //    private final Map<RealTimeOutputStream, RecorderWrapper> videoStreamRecorderMap = new ConcurrentHashMap<>();
+    private RealTimeOutputStream rtVideoStream;
+    private RecorderWrapper recorderWrapper;
 
-    private final Map<MediaConsumer, RealTimeOutputStream> consumerAudioStreamMap = new ConcurrentHashMap<>();
-    private final Map<RealTimeOutputStream, FFmpegFrameRecorder> audioStreamRecorderMap = new ConcurrentHashMap<>();
+    //    private final Map<MediaConsumer, RealTimeOutputStream> consumerAudioStreamMap = new ConcurrentHashMap<>();
+    //    private final Map<RealTimeOutputStream, FFmpegFrameRecorder> audioStreamRecorderMap = new ConcurrentHashMap<>();
+    private RealTimeOutputStream rtAudioStream;
+    private FFmpegFrameRecorder audioStreamRecorder;
 
     public RealTimeOutputStream createRealTimeVideoStream(int streamId, MediaConsumer consumer) {
         if (state != State.RUN) {
             return null;
         }
-        RealTimeOutputStream stream = consumerVideoStreamMap.computeIfAbsent(consumer, c -> {
+//        RealTimeOutputStream stream = rtVideoStream;
+        /*consumerVideoStreamMap.computeIfAbsent(consumer, c -> {
             log.info("RT Video Stream created");
             return new RealTimeOutputStream(this.portalWebRTCIntegrationThing.getConfiguration(), streamId, VIDEO);
-        });
+        });*/
+        if (rtVideoStream == null) {
+            rtVideoStream = new RealTimeOutputStream(this.portalWebRTCIntegrationThing.getConfiguration(), VIDEO);
+        }
         log.info("RT Video Stream consumer added");
-        stream.addPacketConsumer(consumer);
-        return stream;
+        rtVideoStream.addPacketConsumer(streamId, consumer);
+        return rtVideoStream;
     }
 
     public RealTimeOutputStream createRealTimeAudioStream(int streamId, MediaConsumer consumer) {
         if (state != State.RUN) {
             return null;
         }
-        RealTimeOutputStream stream = consumerAudioStreamMap.computeIfAbsent(consumer, c -> {
-            log.info("RT Audio Stream created");
-            return new RealTimeOutputStream(this.portalWebRTCIntegrationThing.getConfiguration(), streamId, AUDIO);
-        });
+//        RealTimeOutputStream stream = consumerAudioStreamMap.computeIfAbsent(consumer, c -> {
+//            log.info("RT Audio Stream created");
+//            return new RealTimeOutputStream(this.portalWebRTCIntegrationThing.getConfiguration(), streamId, AUDIO);
+//        });
+        if (rtAudioStream == null) {
+            rtAudioStream = new RealTimeOutputStream(this.portalWebRTCIntegrationThing.getConfiguration(), AUDIO);
+        }
         log.info("RT Audio Stream consumer added");
-        stream.addPacketConsumer(consumer);
-        return stream;
+        rtAudioStream.addPacketConsumer(streamId, consumer);
+        return rtAudioStream;
     }
 
     @Override
     public RealTimeOutputStream getRealTimeVideoStream(int streamId, MediaConsumer consumer) {
-        return consumerVideoStreamMap.get(consumer);
+        return rtVideoStream;
+//        return consumerVideoStreamMap.get(consumer);
     }
 
     @Override
     public RealTimeOutputStream getRealTimeAudioStream(int streamId, MediaConsumer consumer) {
-        return consumerAudioStreamMap.get(consumer);
+        return rtAudioStream;
+//        return consumerAudioStreamMap.get(consumer);
     }
 
     @Override
     public void releaseRealTimeVideoStream(int streamId, MediaConsumer consumer) throws FFmpegFrameRecorder.Exception {
         log.info("RT Video stream destroying");
-        RealTimeOutputStream rtStream = consumerVideoStreamMap.get(consumer);
+        RealTimeOutputStream rtStream = rtVideoStream;//consumerVideoStreamMap.get(consumer);
         if (rtStream == null) {
             return;
         }
-        rtStream.removePacketConsumer(consumer);
+        rtStream.removePacketConsumer(streamId);
         if (!rtStream.hasConsumers()) {
-            consumerVideoStreamMap.remove(consumer);
+            rtVideoStream = null; // consumerVideoStreamMap.remove(consumer);
             SystemThreadsService.execute(this, () -> {
-                RecorderWrapper recorder = videoStreamRecorderMap.remove(rtStream);
+                RecorderWrapper recorder = recorderWrapper;// videoStreamRecorderMap.remove(rtStream);
+                recorderWrapper = null;
                 if (recorder != null) {
                     try {
                         recorder.recorder.stop();
@@ -439,15 +458,16 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
     @Override
     public void releaseRealTimeAudioStream(int streamId, MediaConsumer consumer) throws FFmpegFrameRecorder.Exception {
         log.info("RT Audio stream destroying");
-        RealTimeOutputStream rtStream = consumerAudioStreamMap.get(consumer);
+        RealTimeOutputStream rtStream = rtAudioStream;
         if (rtStream == null) {
             return;
         }
-        rtStream.removePacketConsumer(consumer);
+        rtStream.removePacketConsumer(streamId);
         if (!rtStream.hasConsumers()) {
-            consumerAudioStreamMap.remove(consumer);
+            rtAudioStream = null;
             SystemThreadsService.execute(this, () -> {
-                FFmpegFrameRecorder recorder = audioStreamRecorderMap.remove(rtStream);
+                FFmpegFrameRecorder recorder = audioStreamRecorder;//audioStreamRecorderMap.remove(rtStream);
+                audioStreamRecorder = null;
                 if (recorder != null) {
                     try {
                         recorder.stop();

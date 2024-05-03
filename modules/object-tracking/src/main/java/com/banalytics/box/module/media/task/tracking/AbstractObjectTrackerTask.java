@@ -10,7 +10,7 @@ import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.opencv.opencv_core.*;
-import org.bytedeco.opencv.opencv_video.*;
+import org.bytedeco.opencv.opencv_video.Tracker;
 
 import static com.banalytics.box.module.ExecutionContext.GlobalVariables.CALCULATED_FRAME_RATE;
 import static com.banalytics.box.module.ExecutionContext.GlobalVariables.VIDEO_KEY_FRAME;
@@ -18,7 +18,7 @@ import static org.bytedeco.opencv.global.opencv_core.ACCESS_READ;
 import static org.bytedeco.opencv.global.opencv_imgproc.*;
 
 @Slf4j
-public abstract class AbstractObjectTrackerTask<CONFIG extends AbstractObjectTrackerTaskConfig> extends AbstractStreamingMediaTask<CONFIG> {
+public abstract class AbstractObjectTrackerTask<CONFIG extends AbstractObjectTrackerTaskConfig> extends AbstractStreamingMediaTask<CONFIG> implements ObjectTracker {
     public AbstractObjectTrackerTask(BoxEngine engine, AbstractListOfTask<?> parent) {
         super(engine, parent);
     }
@@ -84,6 +84,35 @@ public abstract class AbstractObjectTrackerTask<CONFIG extends AbstractObjectTra
 
     long nextTracking = 0;
 
+    boolean targetInitialized = true;
+
+    @Override
+    public void cancelTracking() {
+        synchronized (STOP_SYNC) {
+            if (this.target != null) {
+                this.target.close();
+                this.target = null;
+            }
+            targetInitialized = true;
+        }
+    }
+
+    @Override
+    public void trackCentroid() {
+        synchronized (STOP_SYNC) {
+            target = new Rect(this.centroid);
+            targetInitialized = false;
+        }
+    }
+
+    @Override
+    public void trackRect(int x, int y, int width, int height) {
+        synchronized (STOP_SYNC) {
+            target = new Rect(x, y, width, height);
+            targetInitialized = false;
+        }
+    }
+
     @Override
     protected boolean doProcess(ExecutionContext executionContext) throws Exception {
         if (tracker == null) {
@@ -112,40 +141,45 @@ public abstract class AbstractObjectTrackerTask<CONFIG extends AbstractObjectTra
             if (frame != null && frame.image != null) {
                 Mat streamColorFrame = converter.convert(frame);
                 try (UMat colorFrame = streamColorFrame.getUMat(ACCESS_READ)) {
-                    if (target == null) {
-                        target = new Rect(this.centroid);
-                        tracker.init(colorFrame, this.target);
-                    } else {
-                        long now = System.currentTimeMillis();
-                        if (!insideTracker && now > nextTracking) {
-                            insideTracker = true;
-                            final UMat clonedColorMat = colorFrame.clone();
-                            SystemThreadsService.execute(this, () -> {
-                                try {
-                                    long start = System.currentTimeMillis();
-                                    synchronized (STOP_SYNC) {
-                                        tracker.update(clonedColorMat, this.target);
-                                    }
-                                    long end = System.currentTimeMillis();
-                                    nextTracking = end + configuration.stunTimeoutMillis;
-                                    log.info("Tracking time: {} ms", (end - start));
-                                } finally {
-                                    clonedColorMat.close();
-                                    insideTracker = false;
+                    if (target != null) {
+                        if (target.x() < 0 || target.y() < 0 || target.x() + target.width() > colorFrame.cols() || target.y() + target.height() > colorFrame.rows()) {
+                            cancelTracking();
+                        } else {
+                            if (!targetInitialized) {
+                                tracker.init(colorFrame, this.target);
+                                targetInitialized = true;
+                            } else {
+                                long now = System.currentTimeMillis();
+                                if (!insideTracker && now > nextTracking) {
+                                    insideTracker = true;
+                                    final UMat clonedColorMat = colorFrame.clone();
+                                    SystemThreadsService.execute(this, () -> {
+                                        try {
+                                            long start = System.currentTimeMillis();
+                                            synchronized (STOP_SYNC) {
+                                                tracker.update(clonedColorMat, this.target);
+                                            }
+                                            long end = System.currentTimeMillis();
+                                            nextTracking = end + configuration.stunTimeoutMillis;
+                                            log.info("Tracking time: {} ms", (end - start));
+                                        } finally {
+                                            clonedColorMat.close();
+                                            insideTracker = false;
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                        rectangle(streamColorFrame, this.target, Scalar.RED, 1, LINE_8, 0);
+                                rectangle(streamColorFrame, this.target, Scalar.RED, 1, LINE_8, 0);
 
-                        try (Point targetPoint = new Point(
-                                this.target.x() + this.target.width() / 2,
-                                this.target.y() + this.target.height() / 2)
-                        ) {
-                            line(streamColorFrame, centroidP, targetPoint, Scalar.BLUE, 1, LINE_4, 0);
+                                try (Point targetPoint = new Point(
+                                        this.target.x() + this.target.width() / 2,
+                                        this.target.y() + this.target.height() / 2)
+                                ) {
+                                    line(streamColorFrame, centroidP, targetPoint, Scalar.BLUE, 1, LINE_4, 0);
+                                }
+                            }
                         }
                     }
                     rectangle(streamColorFrame, this.centroid, Scalar.GREEN, 1, LINE_4, 0);
-
                     //draw central rect
                     onFrameReceived(frame, videoKeyFrame, frameRate);
                 }

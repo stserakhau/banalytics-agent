@@ -31,7 +31,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
     public String stateDescription;
 
     protected BoxEngine engine;
-    protected int taskInitializationDelay = 500;
+    protected int taskInitializationDelay = 0;
 
     {
         try {
@@ -169,6 +169,7 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
             doStart(ignoreAutostartProperty, startChildren);
 
             state = State.RUN;
+
             if (taskInitializationDelay > 0) {
                 Thread.sleep(taskInitializationDelay);//delay for system initialization before stop stand available
             }
@@ -193,7 +194,9 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
 
         try {
             doStop();
-            Thread.sleep(50);//delay to free system resources process before immediate start
+            if (taskInitializationDelay > 0) {
+                Thread.sleep(taskInitializationDelay);//delay to free system resources process before immediate start
+            }
             state = State.STOPPED;
             sendTaskState();
         } catch (Throwable e) {
@@ -209,10 +212,12 @@ public abstract class AbstractTask<CONFIGURATION extends IConfiguration> impleme
             return;
         }
         stop();
-        try {// general wait to free resources
-            Thread.sleep(500);
-        } catch (Throwable e) {
-            onException(e);
+        if (taskInitializationDelay > 0) {
+            try {// general wait to free resources
+                Thread.sleep(taskInitializationDelay);
+            } catch (Throwable e) {
+                onException(e);
+            }
         }
         start(false, true);
     }

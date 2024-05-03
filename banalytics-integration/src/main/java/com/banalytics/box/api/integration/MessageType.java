@@ -17,6 +17,7 @@ import com.banalytics.box.api.integration.webrtc.channel.events.measurement.game
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GPButtonChangeEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.measurement.gamepad.GamePadStateChangedEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.peer.ConnectionStateEvent;
+import com.banalytics.box.api.integration.webrtc.channel.events.position.RegionSelectedEvent;
 import com.banalytics.box.api.integration.websocket.YourSessionId;
 
 public enum MessageType {
@@ -128,6 +129,7 @@ public enum MessageType {
     EVT_MOTION(MotionEvent.class),
     EVT_SOUND(SoundEvent.class),
     EVT_GEO_POS(SoundEvent.class),
+    EVT_REG_SEL(RegionSelectedEvent.class),
     EVT_SYS_MON(SystemMonitorEvent.class),
     EVT_FILE_CRT(FileCreatedEvent.class),
 

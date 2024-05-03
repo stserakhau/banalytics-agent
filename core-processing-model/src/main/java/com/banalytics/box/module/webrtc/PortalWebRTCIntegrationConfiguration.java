@@ -58,10 +58,16 @@ public class PortalWebRTCIntegrationConfiguration extends AbstractConfiguration 
             })
     public QualityProfile rtMediaQualityProfile = QualityProfile.HIGH;
 
-    @UIComponent(index = 90, type = checkbox, required = true)
-    public boolean adaptiveBitrate = true;
+    @UIComponent(index = 90, type = drop_down, required = true,
+            uiConfig = {
+                    @UIComponent.UIConfig(name = "show-empty", value = "false")
+            })
+    public ImageSize previewMediaStreamSize = ImageSize.s640x480;
 
     @UIComponent(index = 100, type = checkbox, required = true)
+    public boolean adaptiveBitrate = true;
+
+    @UIComponent(index = 110, type = checkbox, required = true)
     public boolean synchronousMediaStream = false;
 
     public enum QualityStrategy {
@@ -92,6 +98,21 @@ public class PortalWebRTCIntegrationConfiguration extends AbstractConfiguration 
             this.crf = crf;
             this.videoBitrate = videoBitrate;
             this.gopSeconds = gopSeconds;
+        }
+    }
+
+    public enum ImageSize {
+        s160x100(160,100),
+        s320x200(320,200),
+        s640x480(640,480),
+        s800x600(800,600);
+
+        public final int width;
+        public final int height;
+
+        ImageSize(int width, int height) {
+            this.width = width;
+            this.height = height;
         }
     }
 }

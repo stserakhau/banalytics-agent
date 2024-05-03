@@ -17,12 +17,21 @@ public class KCFObjectTrackerTask extends AbstractObjectTrackerTask<KCFObjectTra
     protected Tracker createTracker() {
         TrackerKCF tracker = TrackerKCF.create(
                 new TrackerKCF.Params()
-                        .detect_thresh(0.2f)
-                        .compress_feature(true)
-                        .compressed_size(2)
-                        .resize(true)
-        );//15ms CPU only
+                        .detect_thresh(configuration.detectThresh)
+                        .compress_feature(configuration.compressFeature)
+                        .compressed_size(configuration.compressSize)
+                        .resize(configuration.resize)
+                        .desc_npca(configuration.descNpca)
+                        .desc_pca(configuration.descPca)
+                        .interp_factor(configuration.interpFactor)
+                        .max_patch_size(configuration.maxPatchSize)
+                        .output_sigma_factor(configuration.outputSigmaFactor)
+                        .pca_learning_rate(configuration.pcaLearningRate)
+                        .sigma(configuration.sigma)
+                        .split_coeff(configuration.splitCoeff)
+                        .wrap_kernel(configuration.wrapKernel)
 
+        );//15ms CPU only
         return tracker;
     }
 }

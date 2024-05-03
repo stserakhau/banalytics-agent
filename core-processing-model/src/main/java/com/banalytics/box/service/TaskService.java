@@ -603,6 +603,14 @@ public class TaskService implements InitializingBean {
                 }
             }
         }
+        for (AbstractTask<?> task : applicationAllTasksMap.values()) {
+            for (Class<?> standardInterface : standards) {
+                if (standardInterface.isAssignableFrom(task.getClass())) {
+                    res.put(task.getUuid(), task.getTitle());
+                    break;
+                }
+            }
+        }
         return res;
     }
 
