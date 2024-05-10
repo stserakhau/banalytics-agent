@@ -260,6 +260,9 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
 
     private void recordFrame(Frame frame, double frameRate) throws Exception {
         synchronized (LOCK) {
+            if (rtVideoStream == null) {
+                return;
+            }
             if (increaseQuality < 0) {
 //                for (RealTimeOutputStream rts : consumerVideoStreamMap.values()) {
 //                    rts.decreaseQuality(increaseQuality < -1);

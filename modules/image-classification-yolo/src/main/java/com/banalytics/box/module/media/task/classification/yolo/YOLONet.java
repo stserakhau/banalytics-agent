@@ -235,11 +235,11 @@ public class YOLONet {
                 for (int i = 0; i < indices.limit(); ++i) {
                     final int idx = indices.get(i);
                     float confidence = confidences.get(idx);
-                    Rect rect = boxes.get(idx);
-                    final int clsId = classIds.get(idx);
-                    String className = names.get(clsId);
-                    detections.add(new ClassificationResult(clsId, className, confidence, rect.x(), rect.y(), rect.width(), rect.height()));
-                    rect.releaseReference();
+                    try (Rect rect = boxes.get(idx)) {
+                        final int clsId = classIds.get(idx);
+                        String className = names.get(clsId);
+                        detections.add(new ClassificationResult(clsId, className, confidence, rect.x(), rect.y(), rect.width(), rect.height()));
+                    }
                 }
 
                 return detections;

@@ -35,7 +35,7 @@ import static org.bytedeco.opencv.global.opencv_imgproc.*;
  * https://github.com/bytedeco/javacv/blob/master/samples/YOLONet.java
  */
 @Slf4j
-@SubItem(of = AbstractMediaGrabberTask.class, singleton = true, group = "image-classifiers")
+//@SubItem(of = AbstractMediaGrabberTask.class, singleton = true, group = "image-classifiers")
 public class YoloDetectionTask extends AbstractStreamingMediaTask<YoloDetectionConfig> implements PropertyValuesProvider {
 
     @Override
@@ -94,6 +94,8 @@ public class YoloDetectionTask extends AbstractStreamingMediaTask<YoloDetectionC
 
     @Override
     public void doStart(boolean ignoreAutostartProperty, boolean startChildren) throws Exception {
+        super.doStart(ignoreAutostartProperty, startChildren);
+
         targetDetectionResults.clear();
 
         this.converter = new OpenCVFrameConverter.ToMat();

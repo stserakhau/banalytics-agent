@@ -100,6 +100,9 @@ public abstract class AbstractObjectTrackerTask<CONFIG extends AbstractObjectTra
     @Override
     public void trackCentroid() {
         synchronized (STOP_SYNC) {
+            if (target != null) {
+                target.close();
+            }
             target = new Rect(this.centroid);
             targetInitialized = false;
         }
@@ -108,6 +111,9 @@ public abstract class AbstractObjectTrackerTask<CONFIG extends AbstractObjectTra
     @Override
     public void trackRect(int x, int y, int width, int height) {
         synchronized (STOP_SYNC) {
+            if (target != null) {
+                target.close();
+            }
             target = new Rect(x, y, width, height);
             targetInitialized = false;
         }
@@ -139,8 +145,7 @@ public abstract class AbstractObjectTrackerTask<CONFIG extends AbstractObjectTra
         }
         try {
             if (frame != null && frame.image != null) {
-                Mat streamColorFrame = converter.convert(frame);
-                try (UMat colorFrame = streamColorFrame.getUMat(ACCESS_READ)) {
+                try (Mat streamColorFrame = converter.convert(frame); UMat colorFrame = streamColorFrame.getUMat(ACCESS_READ)) {
                     if (target != null) {
                         if (target.x() < 0 || target.y() < 0 || target.x() + target.width() > colorFrame.cols() || target.y() + target.height() > colorFrame.rows()) {
                             cancelTracking();

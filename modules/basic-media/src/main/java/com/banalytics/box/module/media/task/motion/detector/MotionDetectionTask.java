@@ -99,6 +99,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
         this.motionStunTimeout = 0;
         this.frameCounter = 0;
         this.insensitiveMask = null;
+        this.insensitiveMaskRGB = null;
 
         this.currentGrayFrame = new UMat();
         this.blurredGrayFrame = new UMat();
@@ -135,7 +136,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
     }
 
 
-//    BackgroundSubtractor backgroundSubtractor;
+    //    BackgroundSubtractor backgroundSubtractor;
     UMat fgMask;
 
     UMat currentGrayFrame;
@@ -170,6 +171,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
     int frameCounter = 0;
 
     private UMat insensitiveMask;
+    private UMat insensitiveMaskRGB;
 
     public static final Set<String> DEFAULT_ALL_ZONES = Set.of("*");
     private Set<String> lastTriggeredZones = Set.of();
@@ -189,6 +191,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
         close(dilateKernel);
 //        close(backgroundSubtractor);
         close(insensitiveMask);
+        close(insensitiveMaskRGB);
 
         super.doStop();
     }
@@ -210,6 +213,13 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
     UMat targetGrayFrameUnManagedRef;
 
     private final UMat previousFrame = new UMat();
+
+
+    private record MotionRect(double size, Rect rect, String title) {
+    }
+
+    private final List<MotionRect> motionRects = new ArrayList<>();
+
     /**
      * TODO https://github.com/bytedeco/javacpp-presets/issues/644   UMAT CRASH ON JVM GC !!!
      */
@@ -246,6 +256,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                         if (this.insensitiveMask == null) {//build exclusion mask
                             if (!zonePainter.insensitiveAreas.isEmpty()) {
                                 this.insensitiveMask = zonePainter.insensitiveMask(targetGrayFrameUnManagedRef);
+                                this.insensitiveMaskRGB = zonePainter.insensitiveMask(colorFrame);
                             }
                         }
                         if (this.insensitiveMask != null) {
@@ -259,7 +270,8 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                         absdiff(previousFrame, targetGrayFrameUnManagedRef, fgMask);
 
                         targetGrayFrameUnManagedRef.copyTo(previousFrame);
-                        threshold(fgMask, fgMask, configuration.backgroundHistoryDistThreshold,255, THRESH_BINARY);
+//                      todo use instead default  adaptiveThreshold(fgMask, fgMask, configuration.backgroundHistoryDistThreshold, 255, THRESH_BINARY);
+                        threshold(fgMask, fgMask, configuration.backgroundHistoryDistThreshold, 255, THRESH_BINARY);
 
                         UMat matToContour;
                         if (dilateKernel != null) {
@@ -268,93 +280,107 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                         } else {
                             matToContour = fgMask;
                         }
+//                      todo instread of threshold  Canny(matToContour, matToContour, configuration.backgroundHistoryDistThreshold, 255);
+
                         findContours(matToContour, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-                    }
-                    if (contours.size() > 0) {
-                        for (int i = 0; i < contours.size(); i++) {// extract detected motion areas
-                            Mat contour = contours.get(i);
-                            double contourAreaSize = contourArea(contour);
-                            boolean triggeredAreaSize = isTriggeredAreaSize(contourAreaSize);
-                            try (Rect rect = boundingRect(contours.get(i))) {
-                                zonePainter.checkObjectInZones(rect.x(), rect.y(), rect.width(), rect.height(), triggeredRegions);
-                                if ((!zonePainter.hasDetectionAreas() || !triggeredRegions.isEmpty()) && triggeredAreaSize) {
-                                    targetMotionDetected = true;
+
+                        if (contours.size() > 0) {
+                            for (MotionRect motionRect : motionRects) {
+                                motionRect.rect.close();
+                            }
+                            motionRects.clear();
+                            for (int i = 0; i < contours.size(); i++) {// extract detected motion areas
+                                Mat contour = contours.get(i);
+                                double contourAreaSize = contourArea(contour);
+                                boolean triggeredAreaSize = isTriggeredAreaSize(contourAreaSize);
+                                if (triggeredAreaSize) {
+                                    Rect rect = boundingRect(contour);//closing rect resource - 4 lines above
+                                    zonePainter.checkObjectInZones(rect.x(), rect.y(), rect.width(), rect.height(), triggeredRegions);
+                                    if (!zonePainter.hasDetectionAreas() || !triggeredRegions.isEmpty()) {
+                                        MotionRect motionRect = new MotionRect(contourAreaSize, rect, Double.toString(contourAreaSize));
+                                        motionRects.add(motionRect);
+
 //                                if (extractDetectedObjects) {
 //                                    UMat detectedObject = colorFrame.apply(rect).clone();//todo memory leak
 //                                    detectedObjects.add(detectedObject);
 //                                }
-                                }
-                            }
-                        }
-                        if (now > classificationExpirationTimeout) {
-                            if (configuration.motionTriggerMode == MOTION_AND_CLASSIFIER && imageClassifier != null && targetMotionDetected && !insideClassificator) {
-                                insideClassificator = true;
-                                final UMat clonedColorMat = colorFrame.clone();
-                                try {
-                                    SystemThreadsService.execute(this, () -> {
-                                        List<ClassificationResult> results;
-                                        try {
-                                            results = imageClassifier.predict(this.getUuid(), Collections.singletonList(clonedColorMat), (float) configuration.confidenceThreshold, (float) configuration.nmsThreshold);
-                                            classificationExpirationTimeout = System.currentTimeMillis() + configuration.classificationDelay;
-                                        } catch (Throwable e) {
-                                            log.error(e.getMessage(), e);
-                                            sendTaskState(e.getMessage());
-                                            return;
-                                        } finally {
-                                            clonedColorMat.close();
-                                            insideClassificator = false;
-                                        }
-
-                                        synchronized (this.classificationResults) {
-                                            this.classificationResults.clear();
-                                            triggeredRegions.clear();
-                                            for (ClassificationResult dr : results) {
-                                                boolean targetClassDetected = targetClasses.isEmpty() || targetClasses.contains(dr.className());
-                                                boolean inTargetZone = zonePainter.checkObjectInZones(dr.x(), dr.y(), dr.width(), dr.height(), triggeredRegions);
-                                                if (targetClassDetected && inTargetZone) {
-                                                    this.classificationResults.add(dr);
-                                                }
-                                            }
-                                        }
-                                    });
-                                } catch (Throwable e) {
-                                    clonedColorMat.close();
-                                }
-                            } else {
-                                if (now > classificationExpirationTimeout + 1000) {
-                                    synchronized (this.classificationResults) {
-                                        this.classificationResults.clear();
-                                    }
-                                }
-                            }
-                        }
-                        if (configuration.drawDetections) {
-                            if (configuration.drawNoises) {
-                                drawContours(streamColorFrame, contours, -1, Scalar.YELLOW);
-                            }
-                            for (int i = 0; i < contours.size(); i++) {// render marks on the frame
-                                Mat contour = contours.get(i);
-                                double contourAreaSize = contourArea(contour);
-                                try (Rect rect = boundingRect(contour)) {
-                                    if (isTriggeredAreaSize(contourAreaSize)) {
-                                        rectangle(streamColorFrame, rect, Scalar.RED, 1, LINE_4, 0);
-                                        putText(streamColorFrame, "" + contourAreaSize, rect.tl(), FONT_HERSHEY_SIMPLEX, configuration.fontScale, Scalar.RED, 4, 0, false);
-                                    }
-                                }
-                            }
-                        }
-
-                        if (configuration.drawClasses) {
-                            synchronized (this.classificationResults) {
-                                for (ClassificationResult cr : this.classificationResults) {
-                                    try (Point pos = new Point(cr.x(), cr.y());) {
-                                        rectangle(streamColorFrame, pos, new Point(cr.x() + cr.width(), cr.y() + cr.height()), Scalar.BLUE, 2, LINE_8, 0);
-                                        putText(streamColorFrame, cr.className() + ": " + (int) (cr.confidence() * 100) + "%", pos, FONT_HERSHEY_SIMPLEX, configuration.fontScale, Scalar.MAGENTA, 2, 0, false);
                                     }
                                 }
                             }
                         }
                     }
+                    if (!motionRects.isEmpty()) {
+                        targetMotionDetected = true;
+
+                        if (configuration.drawDetections) {
+                            for (MotionRect motionRect : motionRects) {
+                                rectangle(streamColorFrame, motionRect.rect, Scalar.RED, 1, LINE_4, 0);
+                                putText(streamColorFrame, motionRect.title, motionRect.rect.tl(),
+                                        FONT_HERSHEY_SIMPLEX, configuration.fontScale,
+                                        Scalar.RED, 4, 0, false);
+                            }
+                        }
+
+                        if (configuration.drawNoises) {
+                            drawContours(streamColorFrame, contours, -1, Scalar.YELLOW);
+                        }
+                    }
+                    if (now > classificationExpirationTimeout) {
+                        if (configuration.motionTriggerMode == MOTION_AND_CLASSIFIER && imageClassifier != null && targetMotionDetected && !insideClassificator) {
+                            insideClassificator = true;
+                            final UMat clonedColorMat = colorFrame.clone();
+                            try {
+                                SystemThreadsService.execute(this, () -> {
+                                    List<ClassificationResult> results;
+                                    try {
+                                        if (this.insensitiveMaskRGB != null) {
+                                            bitwise_and(clonedColorMat, insensitiveMaskRGB, clonedColorMat);
+                                        }
+                                        results = imageClassifier.predict(this.getUuid(), Collections.singletonList(clonedColorMat), (float) configuration.confidenceThreshold, (float) configuration.nmsThreshold);
+                                        classificationExpirationTimeout = System.currentTimeMillis() + configuration.classificationDelay;
+                                    } catch (Throwable e) {
+                                        log.error(e.getMessage(), e);
+                                        sendTaskState(e.getMessage());
+                                        return;
+                                    } finally {
+                                        clonedColorMat.close();
+                                        insideClassificator = false;
+                                    }
+
+                                    synchronized (this.classificationResults) {
+                                        this.classificationResults.clear();
+                                        triggeredRegions.clear();
+                                        for (ClassificationResult dr : results) {
+                                            boolean targetClassDetected = targetClasses.isEmpty() || targetClasses.contains(dr.className());
+                                            boolean inTargetZone = zonePainter.checkObjectInZones(dr.x(), dr.y(), dr.width(), dr.height(), triggeredRegions);
+                                            if (targetClassDetected && inTargetZone) {
+                                                this.classificationResults.add(dr);
+                                            }
+                                        }
+                                    }
+                                });
+                            } catch (Throwable e) {
+                                clonedColorMat.close();
+                            }
+                        } else {
+                            if (now > classificationExpirationTimeout + 1000) {
+                                synchronized (this.classificationResults) {
+                                    this.classificationResults.clear();
+                                }
+                            }
+                        }
+                    }
+                    if (configuration.drawClasses) {
+                        synchronized (this.classificationResults) {
+                            for (ClassificationResult cr : this.classificationResults) {
+                                try (Point pos = new Point(cr.x(), cr.y());) {
+                                    rectangle(streamColorFrame, pos, new Point(cr.x() + cr.width(), cr.y() + cr.height()), Scalar.BLUE, 2, LINE_8, 0);
+                                    putText(streamColorFrame, cr.className() + ": " + (int) (cr.confidence() * 100) + "%", pos, FONT_HERSHEY_SIMPLEX, configuration.fontScale, Scalar.MAGENTA, 2, 0, false);
+                                }
+                            }
+                        }
+                    }
+
                 }
                 boolean videoKeyFrame = executionContext.getVar(VIDEO_KEY_FRAME, false);
                 double frameRate = executionContext.getVar(CALCULATED_FRAME_RATE);
