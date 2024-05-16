@@ -271,7 +271,7 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
             }
             if (frame.getTypes().contains(Frame.Type.AUDIO)) {
                 RealTimeOutputStream stream = rtAudioStream;
-                if (stream.hasConsumers()) {
+                if (stream != null && stream.hasConsumers()) {
                     FFmpegFrameRecorder rtAudioRecorder = audioStreamRecorder;//audioStreamRecorderMap.get(stream);
                     if (rtAudioRecorder == null) {
                         rtAudioRecorder = createRealTimeAudioRecorder(stream);
@@ -285,6 +285,7 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
                     if (fts < rts) {
                         frame.timestamp = rts + 10;
                     }
+
 
                     try {
                         log.info("Write Audio frame");
@@ -362,7 +363,9 @@ public abstract class AbstractStreamingMediaTask<CONFIGURATION extends AbstractC
             } catch (InterruptedException e) {
                 //todo skip interruption exception
             } finally {
-                rtVideoStream.flush();
+                if (rtVideoStream != null) {
+                    rtVideoStream.flush();
+                }
             }
         }
     }

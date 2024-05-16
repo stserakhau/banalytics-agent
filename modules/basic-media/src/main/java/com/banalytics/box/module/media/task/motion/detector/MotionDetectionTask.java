@@ -244,7 +244,6 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                     }
 
                     if (!backgroundReady || frameCounter % timeDivider == 0) {
-                        contours.clear();
                         cvtColor(colorFrame, currentGrayFrame, COLOR_BGR2GRAY);
 
                         if (configuration.blurSize != zero) {
@@ -281,14 +280,21 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                             matToContour = fgMask;
                         }
 //                      todo instread of threshold  Canny(matToContour, matToContour, configuration.backgroundHistoryDistThreshold, 255);
-
-                        findContours(matToContour, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-
-                        if (contours.size() > 0) {
+                        {
+                            for (int i = 0; i < contours.size(); i++) {// extract detected motion areas
+                                contours.get(i).close();
+                            }
+                        }
+                        contours.clear();
+                        {
                             for (MotionRect motionRect : motionRects) {
                                 motionRect.rect.close();
                             }
                             motionRects.clear();
+                        }
+                        findContours(matToContour, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+
+                        if (contours.size() > 0) {
                             for (int i = 0; i < contours.size(); i++) {// extract detected motion areas
                                 Mat contour = contours.get(i);
                                 double contourAreaSize = contourArea(contour);

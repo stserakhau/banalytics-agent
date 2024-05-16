@@ -169,6 +169,7 @@ public class RealTimeOutputStream extends OutputStream {
 
     public int imageWidth = -1;
     public int imageHeight = -1;
+    public double k = 6.0 / 9.0;
     public double fps = 30;
     public boolean fpsChanged = false;
 
@@ -227,7 +228,7 @@ public class RealTimeOutputStream extends OutputStream {
             currentHeight = imageHeight;
         } else {
             currentWidth = is.width;
-            currentHeight = is.height;
+            currentHeight = (int) (is.width * k);
         }
 //
 //        double scaling = 1;
