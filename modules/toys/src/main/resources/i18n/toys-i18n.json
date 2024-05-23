@@ -2,6 +2,9 @@
   "en": {
     "group.toys": "Toys",
 
+    "com.banalytics.box.module.toys.gps.GPSThing": "GPS",
+    "com.banalytics.box.module.toys.gps.GPSThing.title": "GPS ({0})",
+
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 

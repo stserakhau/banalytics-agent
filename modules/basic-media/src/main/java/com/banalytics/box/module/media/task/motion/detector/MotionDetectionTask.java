@@ -218,6 +218,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
     private record MotionRect(double size, Rect rect, String title) {
     }
 
+    private long autoBreakMotionTimeout = 0;
     private final List<MotionRect> motionRects = new ArrayList<>();
 
     /**
@@ -230,6 +231,14 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
         Frame frame = executionContext.getVar(Frame.class);
         try {
             long now = System.currentTimeMillis();
+
+            if (now > autoBreakMotionTimeout) {
+                for (MotionRect motionRect : motionRects) {
+                    motionRect.rect.close();
+                }
+                motionRects.clear();
+            }
+
             if (frame != null && frame.image != null) {
                 frameCounter++;
 //                detectedObjects.clear();
@@ -291,6 +300,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                                 motionRect.rect.close();
                             }
                             motionRects.clear();
+                            autoBreakMotionTimeout = now + 15000;
                         }
                         findContours(matToContour, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 

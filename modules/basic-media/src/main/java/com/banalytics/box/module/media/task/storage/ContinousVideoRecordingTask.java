@@ -7,10 +7,9 @@ import com.banalytics.box.module.*;
 import com.banalytics.box.module.constants.MediaFormat;
 import com.banalytics.box.module.constants.SplitTimeInterval;
 import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
-import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
 import com.banalytics.box.module.standard.FileStorage;
-import com.banalytics.box.module.storage.filestorage.FileStorageThing;
 import com.banalytics.box.service.SystemThreadsService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
@@ -21,6 +20,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.SynchronousQueue;
 
 import static com.banalytics.box.TimeUtil.fromMillisToServerTz;
 import static com.banalytics.box.module.ExecutionContext.GlobalVariables.*;
@@ -80,13 +80,84 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
     }
 
     private String fileName;
-    private FFmpegFrameRecorder recorder;
     private long flushTimeout = 0;
     private long recordingStarted;
 
     private boolean shutdown;
 
     int width, height;
+
+    @RequiredArgsConstructor
+    private class WriteQueueJob extends Thread {
+        private final FFmpegFrameRecorder recorder;
+
+        private final Queue<Frame> writeQueue = new LinkedList<>();
+
+        private volatile boolean done = false;
+
+        public long getTimestamp() {
+            return recorder.getTimestamp();
+        }
+
+        public void recordFrame(Frame frame) {
+            if (done) {
+                return;
+            }
+            synchronized (writeQueue) {
+                if (writeQueue.size() > 20 && !frame.keyFrame) {
+                    log.info("Low CPU capacity");
+                    return;
+                }
+                Frame f = frame.clone();
+                writeQueue.add(f);
+                writeQueue.notify();
+            }
+        }
+
+        @Override
+        public void run() {
+            try {
+                while (!done) {
+                    synchronized (writeQueue) {
+                        if (writeQueue.isEmpty()) {
+                            writeQueue.wait();
+                        }
+                        while (!writeQueue.isEmpty()) {
+                            try (Frame frame = writeQueue.poll()) {
+                                long fts = frame.timestamp;
+                                long rts = recorder.getTimestamp();
+                                if (fts < rts) {
+                                    frame.timestamp = rts + 10;
+                                }
+                                recorder.record(frame);
+                            } catch (FFmpegFrameRecorder.Exception e) {
+                                log.error("Frame skipped: " + e.getMessage());
+                                long now = System.currentTimeMillis();
+                                commit(now - recordingStarted);
+                            }
+                        }
+                    }
+                }
+                log.info("Recording stopped");
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            } finally {
+                try {
+                    this.recorder.stop();
+                } catch (FFmpegFrameRecorder.Exception e) {
+                    onProcessingException(e);
+                }
+                for (Frame frame : writeQueue) {
+                    frame.close();
+                }
+                writeQueue.clear();
+            }
+        }
+
+    }
+
+    private WriteQueueJob writeQueueJob;
+
 
     @Override
     protected synchronized boolean doProcess(ExecutionContext executionContext) throws Exception {
@@ -103,11 +174,11 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
         boolean videoKeyFrame = executionContext.getVar(VIDEO_KEY_FRAME) == null || (Boolean) executionContext.getVar(VIDEO_KEY_FRAME);
         boolean timeoutTriggered = now > flushTimeout;
 
-        if (recorder != null && timeoutTriggered && videoKeyFrame) {
+        if (writeQueueJob != null && timeoutTriggered && videoKeyFrame) {
             commit(now - recordingStarted);
         }
 
-        if (recorder == null) {
+        if (writeQueueJob == null) {
             long fileNameTimePart = SplitTimeInterval.ceilTimeout(now, configuration.splitTimeout);
             LocalDateTime fileTime = fromMillisToServerTz(fileNameTimePart);
             this.flushTimeout = SplitTimeInterval.floorTimeout(now, configuration.splitTimeout);
@@ -127,21 +198,19 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
             width = frame.imageWidth;
             height = frame.imageHeight;
             recordingStarted = now;
-            this.recorder = createRecorder(frameGrabber, mf, file, getUuid(), executionContext);
+            FFmpegFrameRecorder recorder = createRecorder(frameGrabber, mf, file, getUuid(), executionContext);
 //            this.recorder.start();
-            this.recorder.startUnsafe();
+            recorder.startUnsafe();
+            this.writeQueueJob = new WriteQueueJob(recorder);
+            this.writeQueueJob.start();
         }
-        try {
-            long fts = frame.timestamp;
-            long rts = recorder.getTimestamp();
-            if (fts < rts) {
-                frame.timestamp = rts + 10;
-            }
-            recorder.record(frame);
-        } catch (FFmpegFrameRecorder.Exception e) {
-            log.error("Frame skipped: " + e.getMessage());
-            commit(now - recordingStarted);
+
+        long fts = frame.timestamp;
+        long rts = writeQueueJob.getTimestamp();
+        if (fts < rts) {
+            frame.timestamp = rts + 10;
         }
+        this.writeQueueJob.recordFrame(frame);
 
         return true;
     }
@@ -155,14 +224,13 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
     }
 
     private synchronized void commit(long duration) throws Exception {
-        if (recorder == null) {
+        if (writeQueueJob == null) {
             return;
         }
         try {
-            this.recorder.stop();
+            this.writeQueueJob.interrupt();
         } finally {
-            this.recorder = null;
-            String fileName = this.fileName;
+            this.writeQueueJob = null;
             SystemThreadsService.execute(this, () -> {
                 try {
                     Thread.sleep(500);// wait to stop recorder

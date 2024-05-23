@@ -21,7 +21,11 @@ public class GeoPositionEvent extends AbstractEvent {
 
     public double longitude;
 
-    public int altitude;
+    public double altitude;
+
+    public double course;
+
+    public double speed;
 
     @UIComponent(
             index = 0, type = ComponentType.text_input
@@ -39,11 +43,13 @@ public class GeoPositionEvent extends AbstractEvent {
     @Override
     public String textView() {
         return super.textView() + StringSubstitutor.replace(
-                ": ${lng},${lat} / ${alt}",
+                ": ${lng},${lat} / ${alt} / ${speed} > ${course}",
                 Map.of(
                         "lng", this.longitude,
                         "lat", this.latitude,
-                        "alt", this.altitude
+                        "alt", this.altitude,
+                        "course", this.course,
+                        "speed", this.speed
                 )
         );
     }

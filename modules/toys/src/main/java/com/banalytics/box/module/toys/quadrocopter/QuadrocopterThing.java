@@ -72,6 +72,7 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
                 GeoPositionEvent gpe = new GeoPositionEvent(NodeDescriptor.NodeType.THING, QuadrocopterThing.this.getUuid(),
                         getSelfClassName(), getTitle());
                 gpe.setAltitude(quadrocopter.altitude.altitude);
+                gpe.setCourse(quadrocopter.attitude.roll);
                 engine.fireEvent(gpe);
             }
         };
