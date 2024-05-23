@@ -7,30 +7,30 @@ import com.banalytics.box.api.integration.webrtc.channel.events.FileCreatedEvent
 import com.banalytics.box.module.*;
 import com.banalytics.box.module.constants.MediaFormat;
 import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
+import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
 import com.banalytics.box.module.media.task.Utils;
 import com.banalytics.box.module.media.task.motion.detector.MotionDetectionTask;
 import com.banalytics.box.module.media.task.sound.SoundDetectionTask;
 import com.banalytics.box.module.standard.FileStorage;
 import com.banalytics.box.service.SystemThreadsService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.FrameRecorder;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.SynchronousQueue;
 
 import static com.banalytics.box.module.ExecutionContext.GlobalVariables.*;
 import static com.banalytics.box.module.constants.VideoPreBufferTime.OFF;
 import static com.banalytics.box.module.utils.Utils.nodeType;
 
 @Slf4j
-@SubItem(of = {AbstractMediaGrabberTask.class}, group = "media-motion-processing")
+@SubItem(of = {AbstractMediaGrabberTask.class}, group="media-motion-processing")
 public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoRecordingConfig> implements MediaCaptureCallbackSupport, FileStorageSupport {
     public MotionVideoRecordingTask(BoxEngine metricDeliveryService, AbstractListOfTask<?> parent) {
         super(metricDeliveryService, parent);
@@ -81,8 +81,8 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
     private String thumbnailFileName;
     private File recordingFile;
     private File thumbnailFile;
+    private FFmpegFrameRecorder recorder;
     private long recordingTimeout;
-    private long recordingStarted;
     private long flushTimeout;
 
     boolean shutdown;
@@ -94,89 +94,6 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
     int height;
 
     boolean thumbnailCreated = false;
-
-
-    @RequiredArgsConstructor
-    private class WriteQueueJob extends Thread {
-        private final FFmpegFrameRecorder recorder;
-
-        private final Queue<Frame> writeQueue = new LinkedList<>();
-
-        private volatile boolean done = false;
-
-        public long getTimestamp() {
-            return recorder.getTimestamp();
-        }
-
-        public void recordFrame(Frame frame, boolean clone) {
-            if (done) {
-                return;
-            }
-            synchronized (writeQueue) {
-                if (writeQueue.size() > 20 && !frame.keyFrame) {
-                    log.info("Low CPU capacity");
-                    return;
-                }
-                if (clone) {
-                    frame = frame.clone();
-                }
-                writeQueue.add(frame);
-                writeQueue.notify();
-            }
-        }
-
-        public void commit() {
-            done = true;
-        }
-
-        @Override
-        public void run() {
-            try {
-                while (!done) {
-                    synchronized (writeQueue) {
-                        if (writeQueue.isEmpty()) {
-                            writeQueue.wait();
-                        }
-                        try {
-                            while (!writeQueue.isEmpty()) {
-                                try (Frame frame = writeQueue.poll()) {
-                                    long fts = frame.timestamp;
-                                    long rts = recorder.getTimestamp();
-                                    if (fts < rts) {
-                                        frame.timestamp = rts + 10;
-                                    }
-                                    recorder.record(frame);
-                                }
-                            }
-                        } catch (FFmpegFrameRecorder.Exception e) {
-                            log.error("Frame skipped: {}", e.getMessage());
-                            onProcessingException(e);
-                            long motionTime = lastMotionTimestamp - motionDetectedTimestamp;
-                            long now = System.currentTimeMillis();
-                            long totalTime = now - motionDetectedTimestamp;
-                            MotionVideoRecordingTask.this.commit(motionTime, totalTime);
-                        }
-                    }
-                }
-                log.info("Recording stopped");
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            } finally {
-                try {
-                    this.recorder.stop();
-                } catch (FFmpegFrameRecorder.Exception e) {
-                    onProcessingException(e);
-                }
-                for (Frame frame : writeQueue) {
-                    frame.close();
-                }
-                writeQueue.clear();
-            }
-        }
-    }
-
-    private WriteQueueJob writeQueueJob;
-
 
     @Override
     protected synchronized boolean doProcess(ExecutionContext executionContext) throws Exception {
@@ -202,13 +119,13 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
         boolean videoKeyFrame = executionContext.getVar(VIDEO_KEY_FRAME) == null || (Boolean) executionContext.getVar(VIDEO_KEY_FRAME);
         boolean timeoutTriggered = now > this.flushTimeout || now >= this.recordingTimeout;
 
-        if (writeQueueJob != null && timeoutTriggered && videoKeyFrame) {
+        if (recorder != null && timeoutTriggered && videoKeyFrame) {
             long motionTime = this.lastMotionTimestamp - this.motionDetectedTimestamp;
             long totalTime = now - this.motionDetectedTimestamp;
             commit(motionTime, totalTime);
         }
 
-        if (writeQueueJob == null && motionDetected) {
+        if (recorder == null && motionDetected) {
             this.motionDetectedTimestamp = this.lastMotionTimestamp = System.currentTimeMillis();
             LocalDateTime currentTime = TimeUtil.currentTimeInServerTz();
 
@@ -219,16 +136,14 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
             width = frame.imageWidth;
             height = frame.imageHeight;
 
-            log.info("Recording started:\n\tfile: {}", this.fileName);
-            recordingStarted = now;
-            FFmpegFrameRecorder recorder = createRecorder(frameGrabber, recordingFile, executionContext);
-            recorder.startUnsafe();
+            log.debug("Recording started:\n\tfile: {}", this.fileName);
+
+            this.recorder = createRecorder(frameGrabber, recordingFile, executionContext);
+            this.recorder.startUnsafe();
             this.flushTimeout = now + this.configuration.splitTimeout.intervalMillis;
-            this.writeQueueJob = new WriteQueueJob(recorder);
-            this.writeQueueJob.start();
         }
 
-        if (writeQueueJob != null && !thumbnailCreated && frame.getTypes().contains(Frame.Type.VIDEO)) {
+        if (recorder != null && !thumbnailCreated && frame.getTypes().contains(Frame.Type.VIDEO)) {
             thumbnailCreated = true;
             int fNameIndex = this.fileName.lastIndexOf('/');
             String fPath = this.fileName.substring(0, fNameIndex);
@@ -239,7 +154,7 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
             log.debug("\tthumb: {}", this.thumbnailFileName);
         }
 
-        boolean isWriting = writeQueueJob != null;
+        boolean isWriting = recorder != null;
         if (isWriting) {
             if (motionDetected) {
                 lastMotionTimestamp = System.currentTimeMillis();
@@ -248,23 +163,33 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
                 try {//flush buffer
                     for (Frame preBufferedFrame : this.preBuffer) {
                         long fts = preBufferedFrame.timestamp;
-                        long rts = writeQueueJob.getTimestamp();
+                        long rts = recorder.getTimestamp();
                         if (fts < rts) {
                             preBufferedFrame.timestamp = rts + 10;
                         }
-                        writeQueueJob.recordFrame(preBufferedFrame, false);
+                        try {
+                            this.recorder.record(preBufferedFrame);
+                        } catch (FFmpegFrameRecorder.Exception e) {
+                            log.warn("Pre buffered frame skipped", e);
+                        }
                     }
                 } finally {// and clear
                     clearPreBuffer();
                 }
             }
-
-            long fts = frame.timestamp;
-            long rts = writeQueueJob.getTimestamp();
-            if (fts < rts) {
-                frame.timestamp = rts + 10;
+            try {
+                long fts = frame.timestamp;
+                long rts = recorder.getTimestamp();
+                if (fts < rts) {
+                    frame.timestamp = rts + 10;
+                }
+                this.recorder.record(frame);
+            } catch (Throwable e) {
+                onProcessingException(e);
+                long motionTime = this.lastMotionTimestamp - this.motionDetectedTimestamp;
+                long totalTime = now - this.motionDetectedTimestamp;
+                commit(motionTime, totalTime);
             }
-            writeQueueJob.recordFrame(frame, true);
         } else {//if not writing then pre-buffer
             if (this.configuration.preBufferSeconds != OFF) {
                 preBufferFrame(frame);
@@ -295,23 +220,23 @@ public final class MotionVideoRecordingTask extends AbstractTask<MotionVideoReco
     }
 
     private void commit(long motionTime, long totalTime) throws Exception {
-        if (this.writeQueueJob == null) {
+        if (this.recorder == null) {
             return;
         }
         try {
             log.debug("Flushing record");
-            this.writeQueueJob.commit();
+            this.recorder.stop();
         } finally {
-            this.writeQueueJob = null;
+            this.recorder = null;
             thumbnailCreated = false;
+            String fileName = this.fileName;
+            String thumbnailFileName = this.thumbnailFileName;
+            long recordingSize = this.recordingFile.length();
+            long minRecordingSize = configuration.minRecordingSizeKb * 1024;
             SystemThreadsService.execute(this, () -> {
                 try {
-                    Thread.sleep(1000);// wait to stop recorder
-                    String fileName = this.fileName;
-                    String thumbnailFileName = this.thumbnailFileName;
-                    long recordingSize = this.recordingFile.length();
-                    long minRecordingSize = configuration.minRecordingSizeKb * 1024;
                     log.debug("Motion time(millis)/size(bytes): {}/{}  (min Time filer = {}; min size = {})", motionTime, recordingSize, configuration.minMotionTimeFilterMillis, minRecordingSize);
+                    Thread.sleep(1000);// wait to stop recorder
                     if (motionTime < configuration.minMotionTimeFilterMillis || recordingSize < minRecordingSize) {
                         log.debug("Recording skipped");
                         this.fileStorage.rollbackOutputTransaction(fileName, (contextPath) -> {
