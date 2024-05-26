@@ -8,6 +8,11 @@
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark": "Telemetry",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark.title": "Telemetry ({0})",
+    "centroidShiftX": "Centroid shift X",
+    "centroidShiftY": "Centroid shift Y",
+
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Vector action",
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Vector action ({0})",
     "deviceUuid": "Device",
@@ -40,6 +45,11 @@
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Дрон",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Дрон ({0})",
 
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark": "Telemetry",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark.title": "Telemetry ({0})",
+    "centroidShiftX": "Centroid shift X",
+    "centroidShiftY": "Centroid shift Y",
+
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Вектарнае дзеянне",
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Вектарнае дзеянне ({0})",
 
@@ -51,6 +61,11 @@
 
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Дрон",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Дрон ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark": "Telemetry",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark.title": "Telemetry ({0})",
+    "centroidShiftX": "Centroid shift X",
+    "centroidShiftY": "Centroid shift Y",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Векторна дія",
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Векторна дія ({0})",
@@ -64,6 +79,11 @@
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark": "Telemetry",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark.title": "Telemetry ({0})",
+    "centroidShiftX": "Centroid shift X",
+    "centroidShiftY": "Centroid shift Y",
+
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Vektoraktion",
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Vektoraktion ({0})",
 
@@ -75,6 +95,11 @@
 
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark": "Telemetry",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark.title": "Telemetry ({0})",
+    "centroidShiftX": "Centroid shift X",
+    "centroidShiftY": "Centroid shift Y",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Acción vectorial",
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Acción vectorial ({0})",
@@ -88,6 +113,11 @@
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark": "Telemetry",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark.title": "Telemetry ({0})",
+    "centroidShiftX": "Centroid shift X",
+    "centroidShiftY": "Centroid shift Y",
+
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Action vectorielle",
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Action vectorielle ({0})",
 
@@ -100,6 +130,11 @@
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Dron",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Dron ({0})",
 
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark": "Telemetry",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark.title": "Telemetry ({0})",
+    "centroidShiftX": "Centroid shift X",
+    "centroidShiftY": "Centroid shift Y",
+
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Akcja wektorowa",
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Akcja wektorowa ({0})",
 
@@ -111,6 +146,11 @@
 
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing": "Дрон",
     "com.banalytics.box.module.toys.quadrocopter.QuadrocopterThing.title": "Дрон ({0})",
+
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark": "Telemetry",
+    "com.banalytics.box.module.toys.quadrocopter.QuadrocopterWatermark.title": "Telemetry ({0})",
+    "centroidShiftX": "Centroid shift X",
+    "centroidShiftY": "Centroid shift Y",
 
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction": "Векторное действие",
     "com.banalytics.box.module.toys.quadrocopter.action.VectorAction.title": "Векторное действие ({0})",

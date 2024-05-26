@@ -23,6 +23,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.banalytics.box.modules</groupId>
+            <artifactId>basic-media</artifactId>
+            <version>0.0.0-${javacpp.platform}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.fazecast</groupId>
             <artifactId>jSerialComm</artifactId>
             <version>2.10.4</version>
