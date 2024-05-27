@@ -139,6 +139,8 @@ public class ServerLocalFileSystemNavigator extends AbstractThing<ServerLocalFil
                             break;
                         }
                     } while (lockedByAnotherProcess);
+
+                    channel.force(true);
                 }
 
                 if (persistFile) {
@@ -381,6 +383,9 @@ public class ServerLocalFileSystemNavigator extends AbstractThing<ServerLocalFil
     public long getFreeSpace(String pathUri) throws URISyntaxException {
         pathUri = fixUri(pathUri);
         File root = new File(new URI(pathUri).getPath());
+        if(!root.exists()) {
+            throw new RuntimeException("Path not found: " + pathUri);
+        }
         return root.getFreeSpace();
     }
 

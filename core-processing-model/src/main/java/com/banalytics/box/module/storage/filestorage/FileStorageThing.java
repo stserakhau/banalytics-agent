@@ -118,6 +118,7 @@ public class FileStorageThing extends AbstractThing<FileStorageConfig> implement
             long freeSpace = fileSystem.getFreeSpace(configuration.getDestinationUri());
             if (freeSpace < 200 * 1024 * 1024L) {
                 configuration.restartOnFailure = RestartOnFailure.STOP_ON_FAILURE;
+                log.warn("Low storage space: {}", freeSpace);
                 throw new Exception("error.lowStorageSpace");
             }
         }

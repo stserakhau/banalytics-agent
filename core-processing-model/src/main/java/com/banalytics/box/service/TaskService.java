@@ -30,12 +30,11 @@ import org.xml.sax.InputSource;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -138,8 +137,8 @@ public class TaskService implements InitializingBean {
                 if (item.isInterface()
                         || Modifier.isAbstract(item.getModifiers())
                         || item.getName().indexOf('$') > -1) {
-                    for(Class<?> cls : foundTasksSet) {
-                        if(item.isAssignableFrom(cls)){
+                    for (Class<?> cls : foundTasksSet) {
+                        if (item.isAssignableFrom(cls)) {
                             componentsRelations.put(cls, subItems);
                         }
                     }
@@ -517,9 +516,10 @@ public class TaskService implements InitializingBean {
                     String instanceFileName = instance.getUuid() + "-" + System.currentTimeMillis() + ".xml";
                     File newInstanceFile = new File(instancesRoot, instanceFileName);
                     if (newInstanceFile.createNewFile()) {
-                        try (FileWriter writer = new FileWriter(newInstanceFile)) {
-                            writer.write(instanceXML);
-                            writer.flush();
+                        try (RandomAccessFile file = new RandomAccessFile(newInstanceFile, "rw");
+                             FileChannel channel = file.getChannel()) {
+                            channel.write(ByteBuffer.wrap(instanceXML.getBytes()));
+                            channel.force(true);
                         }
                         File oldInstanceFile = instance.instanceConfigFile();
                         instance.instanceConfigFile(newInstanceFile);
