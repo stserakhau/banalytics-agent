@@ -50,10 +50,10 @@ public class SetVectorAction extends AbstractAction<SetVectorActionConfig> {
     }
 
     @Override
-    public synchronized void doAction(ExecutionContext ctx) throws Exception {
+    public synchronized String doAction(ExecutionContext ctx) throws Exception {
         final Quadrocopter q = quadrocopterThing.getQuadrocopter();
         if (q == null) {
-            return;
+            return null;
         }
 
         q.runTransition(
@@ -63,6 +63,8 @@ public class SetVectorAction extends AbstractAction<SetVectorActionConfig> {
                 configuration.useYaw ? configuration.yawValue : null,
                 configuration.useThrottle ? configuration.throttleValue : null
         );
+
+        return null;
     }
 
     @Override

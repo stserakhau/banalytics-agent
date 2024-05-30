@@ -88,7 +88,7 @@ public class PTZRotateAction extends AbstractAction<PTZRotateActionConfiguration
     private TimerTask returnActionTask;
 
     @Override
-    public synchronized void doAction(ExecutionContext ctx) throws Exception {
+    public synchronized String doAction(ExecutionContext ctx) throws Exception {
         long now = System.currentTimeMillis();
         stopTime = now + configuration.stopTimeout;
 
@@ -117,6 +117,8 @@ public class PTZRotateAction extends AbstractAction<PTZRotateActionConfiguration
 
             SYSTEM_TIMER.schedule(stopTimerTask, 0, 100);
         }
+
+        return null;
     }
 
     private synchronized void cancelReturnAction() {

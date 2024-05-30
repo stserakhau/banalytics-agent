@@ -73,7 +73,7 @@ public class GoToPresetAction extends AbstractAction<GoToPresetActionConfigurati
     private long blindTimeout = 0;
 
     @Override
-    public synchronized void doAction(ExecutionContext ctx) throws Exception {
+    public synchronized String doAction(ExecutionContext ctx) throws Exception {
         long now = System.currentTimeMillis();
         if (now > blindTimeout) {
             blindTimeout = now + configuration.stunTimeoutSec * 1000L;
@@ -93,6 +93,8 @@ public class GoToPresetAction extends AbstractAction<GoToPresetActionConfigurati
                 }, configuration.returnDelaySec * 1000L);
             }
         }
+
+        return null;
     }
 
     @Override

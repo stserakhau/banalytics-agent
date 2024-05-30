@@ -16,7 +16,6 @@ public class CSRTObjectTrackerTask extends AbstractObjectTrackerTask<CSRTObjectT
     @Override
     protected Tracker createTracker() {
         TrackerCSRT tracker = TrackerCSRT.create();//40 ms CPU only
-
         return tracker;
     }
 }

@@ -40,8 +40,10 @@ public class TaskActionAction extends AbstractAction<TaskActionActionConfigurati
     }
 
     @Override
-    public void doAction(ExecutionContext ctx) throws Exception {
+    public String doAction(ExecutionContext ctx) throws Exception {
         this.process(ctx);
+
+        return null;
     }
 
     @Override

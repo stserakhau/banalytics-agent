@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
@@ -58,8 +57,10 @@ public class ExecuteActionGroupAction extends AbstractAction<ExecuteActionGroupA
     }
 
     @Override
-    public void doAction(ExecutionContext ctx) throws Exception {
+    public String doAction(ExecutionContext ctx) throws Exception {
         this.process(ctx);
+
+        return null;
     }
 
     @Override

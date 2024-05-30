@@ -18,16 +18,20 @@ public class ActionEvent extends AbstractEvent {
     )
     public ActionState state;
 
+    public String actionResult;
+
     @Override
     public String textView() {
         return StringSubstitutor.replace(
                 """
                         *Action:* ${act}
                         *State:* ${state}
+                        *Result:* ${result}
                         """,
                 Map.of(
                         "act", this.getNodeTitle(),
-                        "state", this.state
+                        "state", this.state,
+                        "result", this.actionResult
                 )
         );
     }
@@ -36,9 +40,10 @@ public class ActionEvent extends AbstractEvent {
         super(MessageType.EVT_ACTION);
     }
 
-    public ActionEvent(NodeDescriptor.NodeType nodeType, UUID nodeUuid, String nodeClassName, String nodeTitle, ActionState state) {
+    public ActionEvent(NodeDescriptor.NodeType nodeType, UUID nodeUuid, String nodeClassName, String nodeTitle, ActionState state, String actionResult) {
         super(MessageType.EVT_ACTION, nodeType, nodeUuid, nodeClassName, nodeTitle);
         this.state = state;
+        this.actionResult = actionResult;
     }
 
     public enum ActionState {

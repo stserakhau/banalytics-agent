@@ -2,7 +2,10 @@ package com.banalytics.box.module.system.script;
 
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent;
-import com.banalytics.box.module.*;
+import com.banalytics.box.module.AbstractAction;
+import com.banalytics.box.module.AbstractListOfTask;
+import com.banalytics.box.module.BoxEngine;
+import com.banalytics.box.module.ExecutionContext;
 import com.banalytics.box.service.ScriptExecutionService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,11 +33,6 @@ public class ScriptAction extends AbstractAction<ScriptActionConfiguration> {
 
     @Override
     protected boolean doProcess(ExecutionContext executionContext) throws Exception {
-        try {
-            scriptExecutionService.execute(executionContext.variables(), configuration.script);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
         return false;
     }
 
@@ -44,8 +42,16 @@ public class ScriptAction extends AbstractAction<ScriptActionConfiguration> {
     }
 
     @Override
-    public void doAction(ExecutionContext ctx) throws Exception {
-        this.process(ctx);
+    public String doAction(ExecutionContext executionContext) throws Exception {
+        try {
+            Object result = scriptExecutionService.execute(executionContext.variables(), configuration.script);
+
+            return String.valueOf(result);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+
+        return null;
     }
 
     @Override

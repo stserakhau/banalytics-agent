@@ -88,8 +88,9 @@ public class PlayAudioAction extends AbstractAction<PlayAudioActionConfiguration
     }
 
     @Override
-    public void doAction(ExecutionContext ctx) throws Exception {
+    public String doAction(ExecutionContext ctx) throws Exception {
         this.process(ctx);
+        return null;
     }
 
     @Override

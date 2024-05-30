@@ -54,16 +54,16 @@ public class VectorAction extends AbstractAction<VectorActionConfig> {
     }
 
     @Override
-    public synchronized void doAction(ExecutionContext ctx) throws Exception {
+    public synchronized String doAction(ExecutionContext ctx) throws Exception {
         AbstractEvent event = ctx.getVar(AbstractEvent.class);
 
         if (event instanceof GamePadStateChangedEvent gpe) {
             if (!gpe.gamepadId.equals(configuration.gamepadId)) {
-                return;
+                return null;
             }
             final Quadrocopter q = quadrocopterThing.getQuadrocopter();
             if (q == null) {
-                return;
+                return null;
             }
 
             if (configuration.axisXIndex > -1) {
@@ -107,6 +107,7 @@ public class VectorAction extends AbstractAction<VectorActionConfig> {
                 }
             }
         }
+        return null;
     }
 
     @Override

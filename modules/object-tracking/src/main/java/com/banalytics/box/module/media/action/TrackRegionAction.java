@@ -3,7 +3,10 @@ package com.banalytics.box.module.media.action;
 import com.banalytics.box.api.integration.webrtc.channel.events.AbstractEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.ActionEvent;
 import com.banalytics.box.api.integration.webrtc.channel.events.position.RegionSelectedEvent;
-import com.banalytics.box.module.*;
+import com.banalytics.box.module.AbstractAction;
+import com.banalytics.box.module.AbstractListOfTask;
+import com.banalytics.box.module.BoxEngine;
+import com.banalytics.box.module.ExecutionContext;
 import com.banalytics.box.module.media.task.tracking.AbstractObjectTrackerTask;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +38,7 @@ public class TrackRegionAction extends AbstractAction<TrackRegionActionConfigura
         return configuration.objectTrackingTask + ":" + configuration.trackCentroid;
     }
 
-    public synchronized void doAction(ExecutionContext ctx) throws Exception {
+    public synchronized String doAction(ExecutionContext ctx) throws Exception {
         AbstractEvent event = ctx.getVar(AbstractEvent.class);
         if (configuration.isTrackCentroid()) {
             objectTrackerTask.trackCentroid();
@@ -49,6 +52,8 @@ public class TrackRegionAction extends AbstractAction<TrackRegionActionConfigura
                 );
             }
         }
+
+        return null;
     }
 
     @Override

@@ -11,11 +11,38 @@
     "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
     "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
 
-    "com.banalytics.box.module.media.task.tracking.DaSiamRPNObjectTrackerTask": "DaSiamRPN Tracker",
-    "com.banalytics.box.module.media.task.tracking.DaSiamRPNObjectTrackerTask.title": "DaSiamRPN Tracker ({0})",
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask": "KCF Tracker",
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask.title": "KCF Tracker ({0})",
 
-    "com.banalytics.box.module.media.task.tracking.GOTURNObjectTrackerTask": "GOTURN Tracker",
-    "com.banalytics.box.module.media.task.tracking.GOTURNObjectTrackerTask.title": "GOTURN Tracker ({0})",
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask": "MIL Tracker",
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask.title": "MIL Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask": "Nano Tracker",
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask.title": "Nano Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
+
+    "com.banalytics.box.module.media.action.TrackRegionAction": "Track region",
+    "com.banalytics.box.module.media.action.TrackRegionAction.title": "Track region ({0})",
+    "objectTrackingTask": "Object tracker",
+    "trackCentroid": "Track centroid",
+
+    "stunTimeoutMillis": "Stun timeout (ms)",
+    "targetSamplesPath": "Samples folder",
+    "hypothesisCount": "Hypothesis count"
+  },
+  "by" : {
+    "group.media-object-tracker": "Object trackers",
+
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
+
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing": "Template Search",
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing.title": "Template Search ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
 
     "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask": "KCF Tracker",
     "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask.title": "KCF Tracker ({0})",
@@ -29,22 +56,211 @@
     "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
     "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
 
+    "com.banalytics.box.module.media.action.TrackRegionAction": "Track region",
+    "com.banalytics.box.module.media.action.TrackRegionAction.title": "Track region ({0})",
+    "objectTrackingTask": "Object tracker",
+    "trackCentroid": "Track centroid",
+
     "stunTimeoutMillis": "Stun timeout (ms)",
     "targetSamplesPath": "Samples folder",
     "hypothesisCount": "Hypothesis count"
   },
-  "by" : {
-  },
   "ua" : {
+    "group.media-object-tracker": "Object trackers",
+
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
+
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing": "Template Search",
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing.title": "Template Search ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask": "KCF Tracker",
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask.title": "KCF Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask": "MIL Tracker",
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask.title": "MIL Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask": "Nano Tracker",
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask.title": "Nano Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
+
+    "com.banalytics.box.module.media.action.TrackRegionAction": "Track region",
+    "com.banalytics.box.module.media.action.TrackRegionAction.title": "Track region ({0})",
+    "objectTrackingTask": "Object tracker",
+    "trackCentroid": "Track centroid",
+
+    "stunTimeoutMillis": "Stun timeout (ms)",
+    "targetSamplesPath": "Samples folder",
+    "hypothesisCount": "Hypothesis count"
   },
   "de" : {
+    "group.media-object-tracker": "Object trackers",
+
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
+
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing": "Template Search",
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing.title": "Template Search ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask": "KCF Tracker",
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask.title": "KCF Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask": "MIL Tracker",
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask.title": "MIL Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask": "Nano Tracker",
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask.title": "Nano Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
+
+    "com.banalytics.box.module.media.action.TrackRegionAction": "Track region",
+    "com.banalytics.box.module.media.action.TrackRegionAction.title": "Track region ({0})",
+    "objectTrackingTask": "Object tracker",
+    "trackCentroid": "Track centroid",
+
+    "stunTimeoutMillis": "Stun timeout (ms)",
+    "targetSamplesPath": "Samples folder",
+    "hypothesisCount": "Hypothesis count"
   },
   "es" : {
+    "group.media-object-tracker": "Object trackers",
+
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
+
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing": "Template Search",
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing.title": "Template Search ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask": "KCF Tracker",
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask.title": "KCF Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask": "MIL Tracker",
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask.title": "MIL Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask": "Nano Tracker",
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask.title": "Nano Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
+
+    "com.banalytics.box.module.media.action.TrackRegionAction": "Track region",
+    "com.banalytics.box.module.media.action.TrackRegionAction.title": "Track region ({0})",
+    "objectTrackingTask": "Object tracker",
+    "trackCentroid": "Track centroid",
+
+    "stunTimeoutMillis": "Stun timeout (ms)",
+    "targetSamplesPath": "Samples folder",
+    "hypothesisCount": "Hypothesis count"
   },
   "fr" : {
+    "group.media-object-tracker": "Object trackers",
+
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
+
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing": "Template Search",
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing.title": "Template Search ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask": "KCF Tracker",
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask.title": "KCF Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask": "MIL Tracker",
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask.title": "MIL Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask": "Nano Tracker",
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask.title": "Nano Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
+
+    "com.banalytics.box.module.media.action.TrackRegionAction": "Track region",
+    "com.banalytics.box.module.media.action.TrackRegionAction.title": "Track region ({0})",
+    "objectTrackingTask": "Object tracker",
+    "trackCentroid": "Track centroid",
+
+    "stunTimeoutMillis": "Stun timeout (ms)",
+    "targetSamplesPath": "Samples folder",
+    "hypothesisCount": "Hypothesis count"
   },
   "pl" : {
+    "group.media-object-tracker": "Object trackers",
+
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
+
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing": "Template Search",
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing.title": "Template Search ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask": "KCF Tracker",
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask.title": "KCF Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask": "MIL Tracker",
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask.title": "MIL Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask": "Nano Tracker",
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask.title": "Nano Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
+
+    "com.banalytics.box.module.media.action.TrackRegionAction": "Track region",
+    "com.banalytics.box.module.media.action.TrackRegionAction.title": "Track region ({0})",
+    "objectTrackingTask": "Object tracker",
+    "trackCentroid": "Track centroid",
+
+    "stunTimeoutMillis": "Stun timeout (ms)",
+    "targetSamplesPath": "Samples folder",
+    "hypothesisCount": "Hypothesis count"
   },
   "ru" : {
+    "group.media-object-tracker": "Object trackers",
+
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing": "ORB Search",
+    "com.banalytics.box.module.media.thing.ORBObjectSearchThing.title": "ORB Search ({0})",
+
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing": "Template Search",
+    "com.banalytics.box.module.media.thing.TemplateObjectSearchThing.title": "Template Search ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask": "CSRT Tracker",
+    "com.banalytics.box.module.media.task.tracking.CSRTObjectTrackerTask.title": "CSRT Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask": "KCF Tracker",
+    "com.banalytics.box.module.media.task.tracking.KCFObjectTrackerTask.title": "KCF Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask": "MIL Tracker",
+    "com.banalytics.box.module.media.task.tracking.MILObjectTrackerTask.title": "MIL Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask": "Nano Tracker",
+    "com.banalytics.box.module.media.task.tracking.NanoObjectTrackerTask.title": "Nano Tracker ({0})",
+
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask": "Vit Tracker",
+    "com.banalytics.box.module.media.task.tracking.VitObjectTrackerTask.title": "Vit Tracker ({0})",
+
+    "com.banalytics.box.module.media.action.TrackRegionAction": "Track region",
+    "com.banalytics.box.module.media.action.TrackRegionAction.title": "Track region ({0})",
+    "objectTrackingTask": "Object tracker",
+    "trackCentroid": "Track centroid",
+
+    "stunTimeoutMillis": "Stun timeout (ms)",
+    "targetSamplesPath": "Samples folder",
+    "hypothesisCount": "Hypothesis count"
   }
 }

@@ -43,10 +43,12 @@ public class SetTaskStateAction extends AbstractAction<SetTaskStateActionConfigu
     }
 
     @Override
-    public void doAction(ExecutionContext ctx) throws Exception {
+    public String doAction(ExecutionContext ctx) throws Exception {
         ITask<?> task = engine.findTask(configuration.targetTask);
         Map<String, Object> taskConfig = DEFAULT_OBJECT_MAPPER.readValue(configuration.taskFormData, TYPE_NODE_CONFIGURATION);
         engine.saveOrUpdateTask(task.parent().getUuid(), task.getUuid(), task.getSelfClassName(), taskConfig);
+
+        return null;
     }
 
     @Override

@@ -61,8 +61,10 @@ public class OnvifRebootAction extends AbstractAction<OnvifRebootActionConfigura
     }
 
     @Override
-    public synchronized void doAction(ExecutionContext ctx) throws Exception {
+    public synchronized String doAction(ExecutionContext ctx) throws Exception {
         this.process(ctx);
+
+        return null;
     }
 
     @Override

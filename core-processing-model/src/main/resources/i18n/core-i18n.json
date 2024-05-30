@@ -416,6 +416,10 @@
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
 
+    "com.banalytics.box.module.system.cmd.CmdAction": "Command line action",
+    "com.banalytics.box.module.system.script.CmdAction.title": "Command line '{0}'",
+    "commandLine": "Command line",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Play audio",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Play of {0}",
     "audioPlayerUuid": "Playing device",
@@ -851,6 +855,10 @@
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
+
+    "com.banalytics.box.module.system.cmd.CmdAction": "Command line action",
+    "com.banalytics.box.module.system.script.CmdAction.title": "Command line '{0}'",
+    "commandLine": "Command line",
 
     "com.banalytics.box.module.audio.PlayAudioAction": "Прайграць аўдыя",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Прайграванне {0}",
@@ -1289,6 +1297,10 @@
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
 
+    "com.banalytics.box.module.system.cmd.CmdAction": "Command line action",
+    "com.banalytics.box.module.system.script.CmdAction.title": "Command line '{0}'",
+    "commandLine": "Command line",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Відтворити аудіо",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Відтворення {0}",
     "audioPlayerUuid": "Пристрій відтворення",
@@ -1722,6 +1734,10 @@
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
+
+    "com.banalytics.box.module.system.cmd.CmdAction": "Command line action",
+    "com.banalytics.box.module.system.script.CmdAction.title": "Command line '{0}'",
+    "commandLine": "Command line",
 
     "com.banalytics.box.module.audio.PlayAudioAction": "Audio abspielen",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Spiel von {0}",
@@ -2157,6 +2173,10 @@
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
 
+    "com.banalytics.box.module.system.cmd.CmdAction": "Command line action",
+    "com.banalytics.box.module.system.script.CmdAction.title": "Command line '{0}'",
+    "commandLine": "Command line",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "reproducir audio",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Juego de {0}",
     "audioPlayerUuid": "Dispositivo de reproducción",
@@ -2590,6 +2610,10 @@
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
+
+    "com.banalytics.box.module.system.cmd.CmdAction": "Command line action",
+    "com.banalytics.box.module.system.script.CmdAction.title": "Command line '{0}'",
+    "commandLine": "Command line",
 
     "com.banalytics.box.module.audio.PlayAudioAction": "Lecture audio",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Jeu de {0}",
@@ -3025,6 +3049,10 @@
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
 
+    "com.banalytics.box.module.system.cmd.CmdAction": "Command line action",
+    "com.banalytics.box.module.system.script.CmdAction.title": "Command line '{0}'",
+    "commandLine": "Command line",
+
     "com.banalytics.box.module.audio.PlayAudioAction": "Odtwórz dźwięk",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Odtwórz {0}",
     "audioPlayerUuid": "Urządzenie odtwarzające",
@@ -3459,6 +3487,10 @@
     "com.banalytics.box.module.system.script.ScriptAction": "Action script",
     "com.banalytics.box.module.system.script.ScriptAction.title": "Script '{0}'",
     "script": "Script",
+
+    "com.banalytics.box.module.system.cmd.CmdAction": "Command line action",
+    "com.banalytics.box.module.system.script.CmdAction.title": "Command line '{0}'",
+    "commandLine": "Command line",
 
     "com.banalytics.box.module.audio.PlayAudioAction": "Воспроизвести аудио",
     "com.banalytics.box.module.audio.PlayAudioAction.title": "Воспроизведение {0}",

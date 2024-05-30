@@ -10,7 +10,7 @@ public abstract class AbstractAction<CONFIGURATION extends IConfiguration> exten
         super(engine, parent);
     }
 
-    public abstract void doAction(ExecutionContext ctx) throws Exception;
+    public abstract String doAction(ExecutionContext ctx) throws Exception;
 
     protected abstract boolean isFireActionEvent();
 
@@ -30,17 +30,19 @@ public abstract class AbstractAction<CONFIGURATION extends IConfiguration> exten
                     this.getUuid(),
                     getSelfClassName(),
                     getTitle(),
-                    ActionEvent.ActionState.STARTING
+                    ActionEvent.ActionState.STARTING,
+                    null
             ));
         }
-        doAction(ctx);
+        String operationResult = doAction(ctx);
         if (isFireActionEvent()) {
             engine.fireEvent(new ActionEvent(
                     nodeType(this.getClass()),
                     this.getUuid(),
                     getSelfClassName(),
                     getTitle(),
-                    ActionEvent.ActionState.COMPLETED
+                    ActionEvent.ActionState.COMPLETED,
+                    operationResult
             ));
         }
     }

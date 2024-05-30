@@ -197,3 +197,80 @@ public class ORBObjectSearchThing extends AbstractThing<ORBObjectSearchTaskConfi
         }
     }
 }
+/*
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfKeyPoint;
+import org.opencv.core.Scalar;
+import org.opencv.core.DMatch;
+import org.opencv.core.MatOfDMatch;
+import org.opencv.core.MatOfByte;
+import org.opencv.core.Size;
+import org.opencv.core.Rect;
+import org.opencv.core.Point;
+import org.opencv.core.CvType;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.features2d.Features2d;
+import org.opencv.features2d.ORB;
+import org.opencv.features2d.DescriptorMatcher;
+import org.opencv.features2d.KeyPoint;
+import org.opencv.calib3d.Calib3d;
+import org.opencv.imgproc.Imgproc;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class ObjectDetection {
+
+    static {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
+
+    public static void main(String[] args) {
+        // Загрузка изображения и шаблона
+        Mat image = Imgcodecs.imread("image.jpg", Imgcodecs.IMREAD_GRAYSCALE);
+        Mat template = Imgcodecs.imread("template.jpg", Imgcodecs.IMREAD_GRAYSCALE);
+
+        // Создание детектора особенностей ORB
+        ORB orb = ORB.create();
+
+        // Нахождение ключевых точек и их дескрипторов на изображении и шаблоне
+        MatOfKeyPoint keypointsImage = new MatOfKeyPoint();
+        MatOfKeyPoint keypointsTemplate = new MatOfKeyPoint();
+        Mat descriptorsImage = new Mat();
+        Mat descriptorsTemplate = new Mat();
+        orb.detectAndCompute(image, new Mat(), keypointsImage, descriptorsImage);
+        orb.detectAndCompute(template, new Mat(), keypointsTemplate, descriptorsTemplate);
+
+        // Создание объекта DescriptorMatcher для сопоставления дескрипторов
+        DescriptorMatcher matcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMING);
+
+        // Сопоставление дескрипторов между изображением и шаблоном
+        List<MatOfDMatch> knnMatches = new LinkedList<>();
+        matcher.knnMatch(descriptorsImage, descriptorsTemplate, knnMatches, 2);
+
+        // Выбор только хороших совпадений
+        LinkedList<DMatch> goodMatchesList = new LinkedList<>();
+        float ratioThreshold = 0.75f;
+        for (MatOfDMatch matOfDMatch : knnMatches) {
+            DMatch[] matches = matOfDMatch.toArray();
+            if (matches[0].distance < ratioThreshold * matches[1].distance) {
+                goodMatchesList.addLast(matches[0]);
+            }
+        }
+
+        // Рисование совпадений на изображении
+        MatOfDMatch goodMatches = new MatOfDMatch();
+        goodMatches.fromList(goodMatchesList);
+        Mat matchedImage = new Mat();
+        Features2d.drawMatches(image, keypointsImage, template, keypointsTemplate, goodMatches, matchedImage, Scalar.all(-1),
+                Scalar.all(-1), new MatOfByte(), Features2d.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS);
+
+        // Отображение результата
+        Imgcodecs.imwrite("matched_image.jpg", matchedImage);
+    }
+}
+
+*/

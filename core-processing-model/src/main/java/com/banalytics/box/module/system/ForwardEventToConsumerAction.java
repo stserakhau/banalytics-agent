@@ -50,7 +50,7 @@ public class ForwardEventToConsumerAction extends AbstractAction<ForwardEventToC
     }
 
     @Override
-    public void doAction(ExecutionContext ctx) throws Exception {
+    public String doAction(ExecutionContext ctx) throws Exception {
         if (ctx.getVar(IAction.MANUAL_RUN) != null) {
             ctx.setVar(AbstractEvent.class, new StatusEvent(
                     nodeType(this.getClass()),
@@ -71,6 +71,8 @@ public class ForwardEventToConsumerAction extends AbstractAction<ForwardEventToC
             ));
         }
         this.process(ctx);
+
+        return null;
     }
 
     @Override

@@ -17,13 +17,13 @@ public class MILObjectTrackerTask extends AbstractObjectTrackerTask<MILObjectTra
     protected Tracker createTracker() {
         TrackerMIL tracker = TrackerMIL.create(
                 new TrackerMIL.Params()
-                        .featureSetNumFeatures(250)
-                        .samplerInitInRadius(3.0f)
-                        .samplerInitMaxNegNum(65)
-                        .samplerSearchWinSize(25)
-                        .samplerTrackInRadius(4)
-                        .samplerTrackMaxNegNum(65)
-                        .samplerTrackMaxPosNum(100000)
+                        .featureSetNumFeatures(configuration.featureSetNumFeatures)
+                        .samplerInitInRadius(configuration.samplerInitInRadius)
+                        .samplerInitMaxNegNum(configuration.samplerInitMaxNegNum)
+                        .samplerSearchWinSize(configuration.samplerSearchWinSize)
+                        .samplerTrackInRadius(configuration.samplerTrackInRadius)
+                        .samplerTrackMaxNegNum(configuration.samplerTrackMaxNegNum)
+                        .samplerTrackMaxPosNum(configuration.samplerTrackMaxPosNum)
         );// 60 ms
 
         return tracker;

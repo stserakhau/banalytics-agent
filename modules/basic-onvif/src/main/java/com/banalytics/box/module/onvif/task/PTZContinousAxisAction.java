@@ -83,12 +83,12 @@ public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActio
     private TimerTask stopTimerTask;
 
     @Override
-    public synchronized void doAction(ExecutionContext ctx) throws Exception {
+    public synchronized String doAction(ExecutionContext ctx) throws Exception {
         AbstractEvent event = ctx.getVar(AbstractEvent.class);
 
         if (event instanceof GamePadStateChangedEvent gpe) {
             if (!gpe.gamepadId.equals(configuration.gamepadId)) {
-                return;
+                return null;
             }
 
             long now = System.currentTimeMillis();
@@ -132,7 +132,7 @@ public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActio
                     onvif.rotateContinuouslyStop();
                 }
                 rotating = false;
-                return;
+                return null;
             }
 
             onvif.rotateContinuouslyStart(
@@ -142,6 +142,7 @@ public class PTZContinousAxisAction extends AbstractAction<PTZContinousAxisActio
             );
             rotating = true;
         }
+        return null;
     }
 
     @Override
