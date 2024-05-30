@@ -69,11 +69,13 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
         this.droneStateTracker = new TimerTask() {
             @Override
             public void run() {
-                GeoPositionEvent gpe = new GeoPositionEvent(NodeDescriptor.NodeType.THING, QuadrocopterThing.this.getUuid(),
-                        getSelfClassName(), getTitle());
-                gpe.setAltitude(quadrocopter.altitude.altitude);
-                gpe.setCourse(quadrocopter.attitude.roll);
-                engine.fireEvent(gpe);
+                if(configuration.useEmbeddedGPS) {
+                    GeoPositionEvent gpe = new GeoPositionEvent(NodeDescriptor.NodeType.THING, QuadrocopterThing.this.getUuid(),
+                            getSelfClassName(), getTitle());
+                    gpe.setAltitude(quadrocopter.altitude.altitude / 100.0);
+                    gpe.setCourse(quadrocopter.attitude.roll);
+                    engine.fireEvent(gpe);
+                }
             }
         };
         SYSTEM_TIMER.schedule(this.droneStateTracker, 2000, 500);

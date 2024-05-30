@@ -17,7 +17,7 @@ public class QuadrocopterThingConfig extends AbstractConfiguration {
     }, restartOnChange = true)
     public String serialPort;
 
-    @UIComponent(index = 110, type = ComponentType.int_input, required = true, uiConfig = {
+    @UIComponent(index = 100, type = ComponentType.int_input, required = true, uiConfig = {
             @UIComponent.UIConfig(name = "min", value = "0"),
             @UIComponent.UIConfig(name = "max", value = "2000")
     }, restartOnChange = true)
@@ -35,4 +35,12 @@ public class QuadrocopterThingConfig extends AbstractConfiguration {
     }, restartOnChange = true)
     public int engineRange = 1100;
 
+    @UIComponent(index = 200, type = ComponentType.checkbox, required = true, restartOnChange = false)
+    public boolean useEmbeddedGPS = false;
+
+
+    @Override
+    public boolean isAutostart() {
+        return false; //safety reason. after boot of the system dron must be off
+    }
 }

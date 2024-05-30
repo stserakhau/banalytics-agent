@@ -16,6 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@Deprecated
 public class GPSEvent extends AbstractEvent implements ChannelMessage {
     public Double latitude;
     public Double longitude;
