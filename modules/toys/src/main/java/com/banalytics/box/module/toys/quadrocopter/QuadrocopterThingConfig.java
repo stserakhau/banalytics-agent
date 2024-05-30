@@ -37,10 +37,4 @@ public class QuadrocopterThingConfig extends AbstractConfiguration {
 
     @UIComponent(index = 200, type = ComponentType.checkbox, required = true, restartOnChange = false)
     public boolean useEmbeddedGPS = false;
-
-
-    @Override
-    public boolean isAutostart() {
-        return false; //safety reason. after boot of the system dron must be off
-    }
 }

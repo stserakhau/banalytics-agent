@@ -81,9 +81,13 @@ public class QuadrocopterWatermark extends AbstractTask<QuadrocopterWatermarkCon
 
     @Override
     public void doStop() throws Exception {
+        clear();
+    }
+
+    @Override
+    public void destroy() {
         this.quadrocopterThing.unSubscribe(this);
         this.quadrocopter = null;
-        clear();
     }
 
     private void clear() {
@@ -192,15 +196,31 @@ public class QuadrocopterWatermark extends AbstractTask<QuadrocopterWatermarkCon
 
                 int rollValue = (int) quadrocopter.attitude.roll;
 
-                p1.x(centerX - 10).y(fh - 30);
+                p1.x(centerX - 10).y(fh - 35);
                 putText(colorFrame, "" + rollValue, p1, fontFace, 0.45, penColor, 1, LINE_4, false);
 
-                int rangeStart = (rollValue - 50) / 10 * 10;
+                int rollVal = (rollValue - 50);
+                int rangeStart = rollVal / 10 * 10;
+                int shiftX = rollVal - rangeStart;
+                for (int x = -50; x <= 50; x += 10) { // scale 1:4
+                    int tx = x + shiftX;
+                    int xCoord = tx * 4;
+                    if (xCoord > 50 * 4) {
+                        break;
+                    }
+                    p1.x(centerX + xCoord).y(fh - 5);
+                    int lineValue = rangeStart - x + 50;
+                    boolean isQuater = lineValue % 90 == 0;
+                    if (isQuater) {
+                        p2.x(centerX + xCoord).y(fh - 20);
+                        line(colorFrame, p1, p2, RED, 2, opencv_imgproc.LINE_4, 0);
+                    } else {
+                        p2.x(centerX + xCoord).y(fh - 15);
+                        line(colorFrame, p1, p2, WHITE, 1, opencv_imgproc.LINE_4, 0);
+                    }
 
-                for (int x = -200; x <= 200; x += 40) {
-                    p1.x(centerX + x).y(fh - 5);
-                    p2.x(centerX + x).y(fh - 15);
-                    line(colorFrame, p1, p2, WHITE, 1, opencv_imgproc.LINE_4, 0);
+                    p1.x(centerX + xCoord - 10).y(fh - 25);
+                    putText(colorFrame, "" + (lineValue >= 0 ? lineValue % 360 : (360 + lineValue) % 360), p1, fontFace, 0.35, penColor, 1, LINE_4, false);
                 }
             }
         }

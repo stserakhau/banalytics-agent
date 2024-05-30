@@ -306,7 +306,7 @@ public class Quadrocopter {
                                         short roll, short pitch, short throttle, short yaw,
                                         short[] aux
     ) {
-        System.out.println("==== Current r/p/t/y = %s / %s / %s / %s : ".formatted(roll, pitch, throttle, yaw));
+//        System.out.println("==== Current r/p/t/y = %s / %s / %s / %s : ".formatted(roll, pitch, throttle, yaw));
         final byte MSP_SET_RAW_RC = (byte) 200;
 
         byte[] data = new byte[8 + aux.length * 2];

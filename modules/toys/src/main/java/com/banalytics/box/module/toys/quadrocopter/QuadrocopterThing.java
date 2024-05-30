@@ -28,6 +28,7 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
 
     @Override
     protected void doInit() throws Exception {
+        this.configuration.autostart = false;
         port = SerialPort.getCommPort(configuration.getSerialPort());
         port.setBaudRate(115200);
         port.setNumDataBits(8);
@@ -43,7 +44,6 @@ public class QuadrocopterThing extends AbstractThing<QuadrocopterThingConfig> {
     public Quadrocopter getQuadrocopter() {
         return quadrocopter;
     }
-
 
     private TimerTask droneStateTracker;
 
