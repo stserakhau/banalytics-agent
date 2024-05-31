@@ -4,11 +4,13 @@ import com.banalytics.box.api.integration.webrtc.channel.events.position.GeoPosi
 import com.banalytics.box.module.AbstractThing;
 import com.banalytics.box.module.BoxEngine;
 import com.fazecast.jSerialComm.SerialPort;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 
 import static com.banalytics.box.module.utils.Utils.nodeType;
 
+@Slf4j
 public class GPSThing extends AbstractThing<GPSThingConfig> {
     @Override
     public String getTitle() {
@@ -65,7 +67,7 @@ public class GPSThing extends AbstractThing<GPSThingConfig> {
                     }
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage(), e);
                     break;
                 }
             }
@@ -78,9 +80,9 @@ public class GPSThing extends AbstractThing<GPSThingConfig> {
                     geoPositionEvent.setLatitude(Double.parseDouble(parts[2]) / 100);
                     geoPositionEvent.setLongitude(Double.parseDouble(parts[4]) / 100);
                     geoPositionEvent.setAltitude(Double.parseDouble(parts[9]));
-                    System.out.println(message);
+//                    System.out.println(message);
                 } catch (NumberFormatException e) {
-                    System.err.println(message);
+                    log.error(e.getMessage(), e);
                 }
 
                 engine.fireEvent(geoPositionEvent);
@@ -90,9 +92,9 @@ public class GPSThing extends AbstractThing<GPSThingConfig> {
                 try {
                     geoPositionEvent.setCourse(Double.parseDouble(parts[1]));
                     geoPositionEvent.setSpeed(Double.parseDouble(parts[7]));
-                    System.out.println(message);
+//                    System.out.println(message);
                 } catch (NumberFormatException e) {
-                    System.err.println(message);
+                    log.error(e.getMessage(), e);
                 }
             }
         }
