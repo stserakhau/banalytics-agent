@@ -8,8 +8,6 @@ import com.banalytics.box.module.media.ImageClassifier;
 import com.banalytics.box.module.media.ImageClassifier.ClassificationResult;
 import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
 import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
-import com.banalytics.box.module.media.task.ffmpeg.LocalMediaGrabberTask;
-import com.banalytics.box.module.media.task.ffmpeg.SimpleRTSPGrabberTask;
 import com.banalytics.box.module.media.task.motion.storage.MotionVideoRecordingTask;
 import com.banalytics.box.module.media.utils.ZonePainter;
 import com.banalytics.box.service.SystemThreadsService;
@@ -19,9 +17,7 @@ import org.bytedeco.javacpp.Pointer;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.OpenCVFrameConverter;
-import org.bytedeco.opencv.global.opencv_video;
 import org.bytedeco.opencv.opencv_core.*;
-import org.bytedeco.opencv.opencv_video.BackgroundSubtractor;
 
 import java.util.Arrays;
 import java.util.*;
@@ -216,6 +212,9 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
 
 
     private record MotionRect(double size, Rect rect, String title) {
+        public void close() {
+            rect.close();
+        }
     }
 
     private long autoBreakMotionTimeout = 0;
@@ -234,7 +233,7 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
 
             if (now > autoBreakMotionTimeout) {
                 for (MotionRect motionRect : motionRects) {
-                    motionRect.rect.close();
+                    motionRect.close();
                 }
                 motionRects.clear();
             }
@@ -409,8 +408,13 @@ public class MotionDetectionTask extends AbstractStreamingMediaTask<MotionDetect
                         }
                     }
                     case BG_SUBSTRACTOR -> {
-                        try (UMat debugImg = fgMask.clone(); Mat debugMat = debugImg.getMat(ACCESS_READ); Frame debugFrame = converter.convert(debugMat)) {
-                            onFrameReceived(debugFrame, videoKeyFrame, frameRate);
+                        try (UMat debugImg = fgMask.clone();
+                             Mat debugMat = debugImg.getMat(ACCESS_READ)) {
+                            if(!debugMat.empty()) {
+                                try (Frame debugFrame = converter.convert(debugMat)) {
+                                    onFrameReceived(debugFrame, videoKeyFrame, frameRate);
+                                }
+                            }
                         }
                     }
                 }

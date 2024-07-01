@@ -7,9 +7,7 @@ import com.banalytics.box.module.*;
 import com.banalytics.box.module.constants.MediaFormat;
 import com.banalytics.box.module.constants.SplitTimeInterval;
 import com.banalytics.box.module.media.task.AbstractMediaGrabberTask;
-import com.banalytics.box.module.media.task.AbstractStreamingMediaTask;
 import com.banalytics.box.module.standard.FileStorage;
-import com.banalytics.box.module.storage.filestorage.FileStorageThing;
 import com.banalytics.box.service.SystemThreadsService;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.ffmpeg.global.avcodec;
@@ -227,11 +225,17 @@ public final class ContinousVideoRecordingTask extends AbstractTask<ContinousVid
 
         recorder.setFormat(mediaFormat.name());
         if (isVideoExists) {
-//            recorder.setInterleaved(true);
+            recorder.setInterleaved(true);
             recorder.setVideoOption("tune", "zerolatency");
             recorder.setVideoOption("preset", "ultrafast");
             recorder.setVideoOption("crf", "28");
-            recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);
+//            recorder.setVideoOption("hwaccel", "dxva2");
+//            recorder.setVideoOption("hwaccel_device", "any");
+//            if(StringUtils.isNotEmpty(configuration.decoder)) {
+//                recorder.setVideoCodecName(configuration.decoder);
+//            } else {
+                recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);
+//            }
             recorder.setVideoBitrate(configuration.videoBitRate.bitrate);
             recorder.setAspectRatio(grabber.getAspectRatio());
 

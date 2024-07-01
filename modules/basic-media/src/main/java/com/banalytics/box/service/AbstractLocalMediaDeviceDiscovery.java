@@ -120,10 +120,18 @@ public abstract class AbstractLocalMediaDeviceDiscovery {
     }
 
     public Map<String, String> accelerationDecoders() {
-        if (videoEncoders.isEmpty()) {
+        if (videoDecoders.isEmpty()) {
             loadCodecs();
         }
 
         return videoDecoders;
+    }
+
+    public Map<String, String> accelerationEncoders() {
+        if (videoEncoders.isEmpty()) {
+            loadCodecs();
+        }
+
+        return videoEncoders;
     }
 }

@@ -45,9 +45,9 @@ public class ContinousVideoRecordingConfig extends AbstractConfiguration {
 //    @UIComponent(
 //            index = 30,
 //            type = ComponentType.drop_down,
-//            required = true,
+//            required = false,
 //            backendConfig = {
-//                    @UIComponent.BackendConfig(bean = "localMediaDeviceDiscoveryService", method = "accelerationDecoders")
+//                    @UIComponent.BackendConfig(bean = "localMediaDeviceDiscoveryService", method = "accelerationEncoders")
 //            },
 //            restartOnChange = true
 //    )

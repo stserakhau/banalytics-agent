@@ -89,12 +89,15 @@ public class WatermarkTask extends AbstractTask<WatermarkConfig> implements PreP
         drawWatermark(frame);
     }
 
+    private double sourceFps = 0;
     private double avgFps = 0;
     private Onvif.PTZ ptz;
 
     @Override
     protected boolean doProcess(ExecutionContext executionContext) throws Exception {
         avgFps = executionContext.getVar(CALCULATED_FRAME_RATE);
+        FrameGrabber grabber = executionContext.getVar(FrameGrabber.class);
+        sourceFps = grabber.getFrameRate();
         ptz = executionContext.getVar(Onvif.PTZ.class);
         return true;
     }
@@ -113,7 +116,7 @@ public class WatermarkTask extends AbstractTask<WatermarkConfig> implements PreP
             watermark.add(source.getTitle());
         }
         if (configuration.drawVideoDetails) {
-            String details = frame.imageWidth + "x" + frame.imageHeight + " " + fpsFormat.format(avgFps) + " fps";
+            String details = frame.imageWidth + "x" + frame.imageHeight + " " + fpsFormat.format(avgFps) + "/" + fpsFormat.format(sourceFps) + " fps";
             watermark.add(details);
             /*if (ptz != null) {
                 watermark.add("pan: " + ptz.pan() + " tilt:" + ptz.tilt() + " zoom:" + ptz.zoom());

@@ -150,13 +150,6 @@ public class GrabberStreamWorker implements Runnable {
             Frame frame = null;
             try {
                 while (task.state == RUN) {
-                    if (fpsMeasurementCounter > 3) {
-                        long measurementEndTime = System.currentTimeMillis();
-                        double realFrameRate = fpsMeasurementCounter / ((measurementEndTime - measurementStartTime) / 1000.0);
-                        pushRTFpsVal(realFrameRate);
-                        fpsMeasurementCounter = 0;
-                        measurementStartTime = measurementEndTime;
-                    }
                     context.clear();
                     for (ContextPreProcessor preProcessor : contextPreProcessor) {
                         preProcessor.preProcess(task, context);
@@ -206,6 +199,14 @@ public class GrabberStreamWorker implements Runnable {
 
                     final Frame grabbedFrame;
                     if (videoFrame) {
+                        if (fpsMeasurementCounter > 3) {
+                            long measurementEndTime = System.currentTimeMillis();
+                            double realFrameRate = fpsMeasurementCounter / ((measurementEndTime - measurementStartTime) / 1000.0);
+                            pushRTFpsVal(realFrameRate);
+                            fpsMeasurementCounter = 0;
+                            measurementStartTime = measurementEndTime;
+                        }
+
                         videoFrameCounter++;
                         fpsMeasurementCounter++;
 

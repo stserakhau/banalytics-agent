@@ -105,7 +105,10 @@ public class PortalWebRTCIntegrationConfiguration extends AbstractConfiguration 
         s160x100(160,100),
         s320x200(320,200),
         s640x480(640,480),
-        s800x600(800,600);
+        s800x600(800,600),
+        s1024x768(1024,768),
+        s1280x720(1280,720),
+        s1920x1080(1920,1080);
 
         public final int width;
         public final int height;
